@@ -1,7 +1,7 @@
 //import Vue from 'vue';
 //import axios from 'axios';
 import VueAxios from 'vue-axios';
-import vuex from 'vue';
+//import vuex from 'vue'; //vuex
 import App from './App';
 import router from './router';
 import store from './vuex/store';
@@ -11,7 +11,7 @@ import '@/reservice'; //注册service worker服务
 
 try {
     //技巧 同时 use 多个插件 被依赖的插件应放在偏后方
-    Vue.use(VueAxios, axios, vuex);
+    Vue.use(VueAxios, axios, Vue);
 } catch (error) {
     console.log(error);
 }
