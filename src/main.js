@@ -9,17 +9,47 @@ import FastClick from 'fastclick'; //使用 fastclick 解决移动端 300ms 点�
 import filters from './filters'; //将全部过滤器放在 filters/index.js 中便于管理
 import '@/reservice'; //注册service worker服务
 
-//技巧 同时 use 多个插件 被依赖的插件应放在偏后方
-Vue.use(VueAxios, axios, Vuex);
-//设置VueExcelEditor编辑器
-Vue.use(VueExcelComponent.default);
+try {
+    //技巧 同时 use 多个插件 被依赖的插件应放在偏后方
+    Vue.use(VueAxios, axios, Vuex);
+} catch (error) {
+    console.log(error);
+}
 
-// 注册全局过滤器
-filters(Vue);
+try {
+    //设置VueExcelEditor编辑器
+    Vue.use(VueExcelComponent.default);
+} catch (error) {
+    console.log(error);
+}
 
-Vue.config.productionTip = false //将此值设置为 false ,会关闭 Vue 启动时的提示信息，推荐
+try {
+    Vue.use(vant.Empty);
+    Vue.use(vant.Lazyload);
+    Vue.use(vant.Icon);
+    Vue.use(vant.Dialog);
+} catch (error) {
+    console.log(error);
+}
 
-FastClick.attach(document.body)
+try {
+    // 注册全局过滤器
+    filters(Vue);
+} catch (error) {
+    console.log(error);
+}
+
+try {
+    Vue.config.productionTip = false //将此值设置为 false ,会关闭 Vue 启动时的提示信息，推荐
+} catch (error) {
+    console.log(error);
+}
+
+try {
+    FastClick.attach(document.body)
+} catch (error) {
+    console.log(error);
+}
 
 new Vue({
     el: '#app',
@@ -27,11 +57,6 @@ new Vue({
     store,
     render: h => h(App)
 })
-
-Vue.use(vant.Empty);
-Vue.use(vant.Lazyload);
-Vue.use(vant.Icon);
-Vue.use(vant.Dialog);
 
 // 运行 vue init webpack命令新建项目时 可以选择关闭 ESLint
 // 若新建项目时开启了 ESLint .eslintignore 文件，告诉 ESLint 去忽略特定的文件和目录。
