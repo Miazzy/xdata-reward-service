@@ -1,7 +1,7 @@
 //import Vue from 'vue';
 //import axios from 'axios';
 import VueAxios from 'vue-axios';
-import vuex from 'vue';
+//import vuex from 'vue';
 import App from './App';
 import router from './router';
 import store from './vuex/store';
@@ -10,7 +10,9 @@ import filters from './filters'; //将全部过滤器放在 filters/index.js 中
 import '@/reservice'; //注册service worker服务
 
 //技巧 同时 use 多个插件 被依赖的插件应放在偏后方
-Vue.use(VueAxios, axios, vuex);
+Vue.use(VueAxios, axios, Vuex);
+//设置VueExcelEditor编辑器
+Vue.use(VueExcelComponent.default);
 
 // 注册全局过滤器
 filters(Vue);
