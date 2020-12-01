@@ -5,9 +5,86 @@ Vue.use(Router);
 
 // app整体由店面页和店内页组成 暂时并没有用到嵌套路由
 const routes = [{
+    path: '/reward',
+    name: "奖罚管理",
+    component: resolve => require(["../components/reward/home.vue"], resolve)
+}, {
     path: '/',
-    name: "智慧行政",
-    component: resolve => require(["../components/app/app.vue"], resolve)
+    name: "奖罚工作台",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/workspace.vue"], resolve)
+    }
+}, {
+    path: '/reward/workspace',
+    name: "奖罚工作台",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/workspace.vue"], resolve)
+    }
+}, {
+    path: '/reward/rewardapply',
+    name: "奖罚申请",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/rewardapply.vue"], resolve)
+    }
+}, {
+    path: '/reward/rewardview',
+    name: "奖罚申请查看",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/rewardview.vue"], resolve)
+    }
+}, {
+    path: '/reward/netdisk',
+    name: "奖罚云文件",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/netdisk.vue"], resolve)
+    }
+}, {
+    path: '/reward/collect',
+    name: "奖罚收藏",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/collect.vue"], resolve)
+    }
+}, {
+    path: '/reward/setup',
+    name: "奖罚设置",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/setup.vue"], resolve)
+    }
+}, {
+    path: '/reward/contact',
+    name: "奖罚联系人",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/contact.vue"], resolve)
+    }
+}, {
+    path: '/reward/message',
+    name: "奖罚消息",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/message.vue"], resolve)
+    }
+}, {
+    path: '/reward/rewardmonth',
+    name: "奖罚月度报表",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/rewardmonth.vue"], resolve)
+    }
+}, {
+    path: '/reward/rewardquarter',
+    name: "奖罚季度报表",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/rewardquarter.vue"], resolve)
+    }
 }, {
     path: '/wechat',
     name: "消息",
@@ -105,80 +182,6 @@ const routes = [{
     path: '/app',
     name: "智慧行政",
     component: resolve => require(["../components/app/app.vue"], resolve)
-}, {
-    path: '/reward',
-    name: "奖罚管理",
-    component: resolve => require(["../components/reward/home.vue"], resolve)
-}, {
-    path: '/reward/workspace',
-    name: "奖罚工作台",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/workspace.vue"], resolve)
-    }
-}, {
-    path: '/reward/rewardapply',
-    name: "奖罚申请",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/rewardapply.vue"], resolve)
-    }
-}, {
-    path: '/reward/rewardview',
-    name: "奖罚申请查看",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/rewardview.vue"], resolve)
-    }
-}, {
-    path: '/reward/netdisk',
-    name: "奖罚云文件",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/netdisk.vue"], resolve)
-    }
-}, {
-    path: '/reward/collect',
-    name: "奖罚收藏",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/collect.vue"], resolve)
-    }
-}, {
-    path: '/reward/setup',
-    name: "奖罚设置",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/setup.vue"], resolve)
-    }
-}, {
-    path: '/reward/contact',
-    name: "奖罚联系人",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/contact.vue"], resolve)
-    }
-}, {
-    path: '/reward/message',
-    name: "奖罚消息",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/message.vue"], resolve)
-    }
-}, {
-    path: '/reward/rewardmonth',
-    name: "奖罚月度报表",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/rewardmonth.vue"], resolve)
-    }
-}, {
-    path: '/reward/rewardquarter',
-    name: "奖罚季度报表",
-    components: {
-        "default": resolve => require(["../components/reward/home.vue"], resolve),
-        "subPage": resolve => require(["../components/reward/rewardquarter.vue"], resolve)
-    }
 }, {
     path: '/app/moments',
     name: "圈子",
