@@ -492,9 +492,24 @@ export async function handleApproveWF(curRow = '', fixedWFlow = '', data = [], t
             } catch (error) {
                 console.log(error);
             }
-            //TODO reward 将此审批流程中所涉及的所有奖惩明细数据的状态设置为已完成
 
-            //TODO reward 再次检查此奖惩申请的流程状态，是否为已完成，如果不是已完成，则设置为已完成
+            //再次检查此奖惩申请的流程状态，是否为已完成，如果不是已完成，则设置为已完成
+            try {
+                //修改审批状态为审批中
+                result = await manage.patchTableData(tableName, bussinessCodeID, { id: bussinessCodeID, status: '已完成', bpm_status: bpmStatus });
+            } catch (error) {
+                console.log(error);
+            }
+
+            //将此审批流程中所涉及的所有奖惩明细数据的状态设置为已完成
+            try {
+                //查询奖惩明细数据
+
+                //遍历奖惩明细数据，并设置状态为已完成
+
+            } catch (error) {
+                console.log(error);
+            }
 
         } else {
             //如果firstAuditor是逗号开头，则去掉开头的逗号

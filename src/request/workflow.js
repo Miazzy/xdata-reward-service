@@ -245,7 +245,17 @@ export async function postWorkflowApprove(tableName, curRow, operationData, pnod
                     curRow["business_data_id"],
                     bpmStatus
                 );
-            }, 100);
+            }, 300);
+
+            //二次提交审批状态
+            setTimeout(async() => {
+                //修改审批状态为审批中
+                result = await manage.patchTableData(
+                    tableName,
+                    curRow["business_data_id"],
+                    bpmStatus
+                );
+            }, 1000);
 
         }
     } catch (error) {
