@@ -16,7 +16,7 @@ export default {
     mixins: [window.mixin],
     data() {
         return {
-            pageName: "智慧行政",
+            pageName: "奖惩申请",
             momentNewMsg: true,
             userinfo:{},
             imageTableName: 'bs_home_pictures',
