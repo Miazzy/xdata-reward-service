@@ -496,7 +496,7 @@ export async function handleApproveWF(curRow = '', fixedWFlow = '', data = [], t
             //再次检查此奖惩申请的流程状态，是否为已完成，如果不是已完成，则设置为已完成
             try {
                 //修改审批状态为审批中
-                result = await manage.patchTableData(tableName, bussinessCodeID, { id: bussinessCodeID, status: '已完成', bpm_status: bpmStatus });
+                result = await manage.patchTableData(tableName, bussinessCodeID, { id: bussinessCodeID, status: '已完成', bpm_status: bpmStatus.bpm_status });
             } catch (error) {
                 console.log(error);
             }
@@ -504,8 +504,12 @@ export async function handleApproveWF(curRow = '', fixedWFlow = '', data = [], t
             //将此审批流程中所涉及的所有奖惩明细数据的状态设置为已完成
             try {
                 //查询奖惩明细数据
+                const list = await query.queryTableDataByPid('bs_reward_items', bussinessCodeID); //查询奖罚明细数据
 
                 //遍历奖惩明细数据，并设置状态为已完成
+                for (const elem of list) {
+                    manage.patchTableData(tableName.replace('apply', 'items'), elem.id, { pid: bussinessCodeID, status: '已完成', bpm_status: bpmStatus.bpm_status });
+                }
 
             } catch (error) {
                 console.log(error);
