@@ -36,7 +36,7 @@
                        <a-input :readonly="false" v-model="zone" placeholder="请输入所属区域！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                        <div style="position:absolute; right: -120px; top: -2px;">
                         <van-button name="file" @click="queryRewardMonthInfo();"  >查询</van-button>
-                        <van-button name="file" @click="queryRewardMonthInfo();"  >导出</van-button>
+                        <van-button name="file" @click="queryCollected();" >汇总</van-button>
                        </div>
                     </a-col>
                   </a-row>
@@ -75,24 +75,31 @@
                     <a-col class="reward-apply-content-title-text" :span="4" style="">
                       明细数据
                     </a-col>
+                    <a-col :span="16">
+                       <div style="position:absolute; right: -120px; top: -2px;">
+                        <van-button name="file" @click="exportIdata();"  >导出</van-button>
+                       </div>
+                    </a-col>
                    </a-row>
                 </div>
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                   <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                    <vue-excel-editor v-model="idata" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                    <vue-excel-editor v-model="idata" ref="grid_00" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                        <vue-excel-column field="period"      label="发放期间"   width="80px" />
-                        <vue-excel-column field="username"    label="员工姓名"   width="80px" />
-                        <vue-excel-column field="account"     label="员工OA"    width="80px" />
+                        <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                        <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                        <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                        <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                        <vue-excel-column field="account"     label="员工OA"    width="100px" />
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />
                         <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                        <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                        <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                        <vue-excel-column field="message"     label="抄送"      width="80px" />
-                        <vue-excel-column field="v_status"    label="状态"      width="60px" />
+                        <vue-excel-column field="status"    label="状态"      width="80px" />
                     </vue-excel-editor>
                    </a-row>
                 </div>
@@ -102,12 +109,17 @@
                     <a-col class="reward-apply-content-title-text" :span="4" style="">
                       汇总数据
                     </a-col>
+                    <a-col :span="16">
+                       <div style="position:absolute; right: -120px; top: -2px;">
+                        <van-button name="file" @click="exportData();"  >导出</van-button>
+                       </div>
+                    </a-col>
                    </a-row>
                 </div>
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                   <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                    <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                    <vue-excel-editor v-model="data" ref="grid_01" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
                         <vue-excel-column field="period"      label="发放期间"   width="80px" />
                         <vue-excel-column field="username"    label="员工姓名"   width="80px" />
@@ -118,7 +130,7 @@
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                        <vue-excel-column field="message"     label="抄送"      width="80px" />
+                        <vue-excel-column field="message"     label="抄送"      width="100px" />
                         <vue-excel-column field="v_status"    label="状态"      width="60px" />
                     </vue-excel-editor>
                    </a-row>
@@ -189,8 +201,12 @@ export default {
               month:dayjs().format('YYYY年MM月'),
             },
       period:dayjs().format('YYYY年MM月'),
+      reward_name:'',
       reward_period:'',
       reward_type:'',
+      pname:'',
+      zone:'',
+      cost_bearer:'',
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
       idata:[], //明细数据
@@ -292,12 +308,23 @@ export default {
       // 获取奖罚月度报表数据
       async queryRewardMonthInfo(){
         if(!this.period){
-          return this.$toast.fail('请输入报表月份！');
+          return this.$toast.fail('请输入发放周期！');
         }
-        const list = await query.queryRewardDataByID(this.period);
-        debugger;
-        this.data = list;
+        const list = await query.queryRewardItemByID(this.period , this.zone , this.reward_type , this.reward_name , this.pname , this.cost_bearer);
+        this.idata = list;
         this.$toast.success(`查询${this.period}月度报表成功！`);
+      },
+      // 获取奖惩汇总数据
+      async queryCollected(){
+
+      },
+      // 导出明细数据
+      async exportIdata(){
+         this.$refs.grid_00.exportTable('xlsx', false, '奖惩明细数据');
+      },
+      // 导出汇总数据
+      async exportData(){
+         this.$refs.grid_01.exportTable('xlsx', false, '奖惩汇总数据');
       },
 
   },
