@@ -346,6 +346,7 @@
                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
                         <vue-excel-column field="period"      label="发放期间"   width="80px" />
+                        <vue-excel-column field="reward_tname" label="奖罚类别"   width="80px" />
                         <vue-excel-column field="username"    label="员工姓名"   width="80px" />
                         <vue-excel-column field="account"     label="员工OA"    width="80px" />
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />
@@ -353,10 +354,10 @@
                         <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                         <vue-excel-column field="department"  label="所属部门"   width="80px" />
                         <vue-excel-column field="position"    label="员工职务"   width="80px" />
-                        <vue-excel-column field="amount"      label="分配金额"   width="80px" summary="sum" />
-                        <vue-excel-column field="ratio"       label="分配比率"   width="80px" summary="sum" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="70px" summary="sum" />
+                        <vue-excel-column field="ratio"       label="分配比率"   width="70px" summary="sum" />
                         <vue-excel-column field="message"     label="抄送"      width="80px" />
-                        <vue-excel-column field="v_status"    label="状态"      width="60px" type="map" :options="statusType" />
+                        <vue-excel-column field="v_status"    label="状态"      width="40px" type="map" :options="statusType" />
                     </vue-excel-editor>
                    </a-row>
                 </div>
@@ -643,6 +644,10 @@ export default {
                 elem.position = user.position;
                 elem.mobile = user.mobile;
                 elem.zone = temp.zone;
+                elem.reward_period = this.item.reward_period, //所属周期
+                elem.reward_tname = this.item.reward_type;
+                elem.period = this.item.reward_release_period;
+                elem.type = this.item.reward_release_feature;
                 elem.project = elem.project ? elem.project : temp.project;
                 console.log(`project: ${elem.project} or temp.project:${temp.project}`);
               }
@@ -1293,6 +1298,11 @@ export default {
                     item.create_by = userinfo.username;
                     item.create_time = dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss');
                     item.pid = id;
+                    item.reward_tname = elem.reward_type;
+                    item.period = elem.reward_release_period;
+                    item.type = elem.reward_release_feature;
+                    item.hr_admin_ids = elem.hr_admin_ids;
+                    item.hr_id = elem.hr_id;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
@@ -1633,6 +1643,11 @@ export default {
                     item.create_by = userinfo.username;
                     item.create_time = dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss');
                     item.pid = id;
+                    item.reward_tname = elem.reward_type;
+                    item.period = elem.reward_release_period;
+                    item.type = elem.reward_release_feature;
+                    item.hr_admin_ids = elem.hr_admin_ids;
+                    item.hr_id = elem.hr_id;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
@@ -1753,6 +1768,8 @@ export default {
                 key: tools.queryUniqueID(),
                 type: this.item.reward_release_feature,
                 period: this.item.reward_release_period,
+                reward_period: this.item.reward_period, //所属周期
+                reward_tname: this.item.reward_type,
                 username: username,
                 account: userid,
                 company: company,
@@ -1777,6 +1794,8 @@ export default {
               key: tools.queryUniqueID(),
               type: this.item.reward_release_feature,
               period: this.item.reward_release_period,
+              reward_period: this.item.reward_period, //所属周期
+              reward_tname: this.item.reward_type,
               username: username,
               account: userid,
               company: company,
