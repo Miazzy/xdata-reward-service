@@ -1303,6 +1303,11 @@ export default {
                     item.type = elem.reward_release_feature;
                     item.hr_admin_ids = elem.hr_admin_ids;
                     item.hr_id = elem.hr_id;
+                    item.hr_username = elem.hr_name;
+                    item.reward_amount = elem.amount; // 奖金总额
+                    item.reward_name = elem.reward_name; // 奖罚名称
+                    item.apply_username = elem.apply_username;
+                    item.apply_realname = elem.apply_realname;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
@@ -1648,6 +1653,11 @@ export default {
                     item.type = elem.reward_release_feature;
                     item.hr_admin_ids = elem.hr_admin_ids;
                     item.hr_id = elem.hr_id;
+                    item.hr_username = elem.hr_name;
+                    item.reward_amount = elem.amount; // 奖金总额
+                    item.reward_name = elem.reward_name; // 奖罚名称
+                    item.apply_username = elem.apply_username;
+                    item.apply_realname = elem.apply_realname;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
