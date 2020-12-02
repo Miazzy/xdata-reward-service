@@ -955,6 +955,7 @@ export default {
             this.release_mobile = user.mobile;
             this.release_zone = user.zone;
             this.release_project = user.project;
+            debugger;
             const temp = await query.queryUserInfoByMobile(user.mobile); //查询员工职务
             console.log(`temp: ${JSON.stringify(temp)}`);
             this.release_position = temp ? temp.position : ''; //设置员工职务
@@ -966,6 +967,7 @@ export default {
             this.release_mobile = record.mobile;
             this.release_zone = record.zone;
             this.release_project = record.project;
+            debugger;
             const temp = await query.queryUserInfoByMobile(record.mobile); //查询员工职务
             console.log(`temp: ${JSON.stringify(temp)}`);
             this.release_position = temp ? temp.position : ''; //设置员工职务
@@ -1791,7 +1793,7 @@ export default {
                 company: company,
                 department: department,
                 position: position,
-                mobile: '',
+                mobile: this.release_mobile,
                 amount: `${parseFloat(amount).toFixed(2)}`,
                 ratio,
                 zone,
@@ -1817,7 +1819,7 @@ export default {
               company: company,
               department: department,
               position: position,
-              mobile: '',
+              mobile: this.release_mobile,
               amount: `${parseFloat(amount).toFixed(2)}`,
               ratio,
               zone,
