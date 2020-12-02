@@ -1304,6 +1304,7 @@ export default {
                     item.hr_admin_ids = elem.hr_admin_ids;
                     item.hr_id = elem.hr_id;
                     item.hr_username = elem.hr_name;
+                    item.reward_type = elem.reward_type;
                     item.reward_amount = elem.amount; // 奖金总额
                     item.reward_name = elem.reward_name; // 奖罚名称
                     item.reward_subname = elem.reward_name; // 奖罚名称
@@ -1656,6 +1657,7 @@ export default {
                     item.hr_admin_ids = elem.hr_admin_ids;
                     item.hr_id = elem.hr_id;
                     item.hr_username = elem.hr_name;
+                    item.reward_type = elem.reward_type;
                     item.reward_amount = elem.amount; // 奖金总额
                     item.reward_name = elem.reward_name; // 奖罚名称
                     item.reward_subname = elem.reward_name; // 奖罚名称
