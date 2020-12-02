@@ -24,13 +24,48 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px;">
                   <a-row>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>报表月份</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
                     </a-col>
-                    <a-col :span="8">
-                       <a-input :readonly="false" v-model="period" placeholder="请输入报表月份！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
-                       <div style="position:absolute; right: 5px; top: -2px;">
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="period" placeholder="请输入发放周期！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>所属区域</span>
+                    </a-col>
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="zone" placeholder="请输入所属区域！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                       <div style="position:absolute; right: -120px; top: -2px;">
                         <van-button name="file" @click="queryRewardMonthInfo();"  >查询</van-button>
+                        <van-button name="file" @click="queryRewardMonthInfo();"  >导出</van-button>
                        </div>
+                    </a-col>
+                  </a-row>
+                  <a-row style="margin-top:10px;">
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖惩类型</span>
+                    </a-col>
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="reward_type" placeholder="请输入奖惩类型！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>奖惩名称</span>
+                    </a-col>
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="reward_name" placeholder="请输入奖惩或激励名称！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                  </a-row>
+                  <a-row style="margin-top:10px;">
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>项目名称</span>
+                    </a-col>
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="pname" placeholder="请输入项目名称！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>成本承担方</span>
+                    </a-col>
+                    <a-col :span="6">
+                       <a-input :readonly="false" v-model="cost_bearer" placeholder="请输入成本承担方！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -154,6 +189,8 @@ export default {
               month:dayjs().format('YYYY年MM月'),
             },
       period:dayjs().format('YYYY年MM月'),
+      reward_period:'',
+      reward_type:'',
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
       idata:[], //明细数据
