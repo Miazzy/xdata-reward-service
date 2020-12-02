@@ -114,7 +114,10 @@
                     </a-col>
                     <a-col :span="16">
                        <div style="position:absolute; right: -120px; top: -2px;">
-                        <van-button name="file" @click="exportData();"  >导出</van-button>
+                        <van-button name="file" @click="exportData();" style="display:none;" >导出</van-button>
+                        <excel-export :sheet="sheetData" :manual="false" @before-start="exportData();">
+                          <div>导出</div>
+                        </excel-export>
                        </div>
                     </a-col>
                    </a-row>

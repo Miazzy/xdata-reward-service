@@ -83,11 +83,12 @@
 
 .excel-export div {
     background-image: linear-gradient(to right, #f96033, red);
-    margin: 5px 10px;
+    margin: 1px 10px;
     padding: 1px 20px;
     border-radius: 8px;
     color: #f0f0f0;
-    font-size: 12px;
+    font-size: 0.75rem;
+    transform: scale(0.90);
     height: 27px;
     line-height: 27px;
 }
