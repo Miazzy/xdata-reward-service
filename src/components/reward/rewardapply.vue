@@ -1306,8 +1306,10 @@ export default {
                     item.hr_username = elem.hr_name;
                     item.reward_amount = elem.amount; // 奖金总额
                     item.reward_name = elem.reward_name; // 奖罚名称
+                    item.reward_subname = elem.reward_name; // 奖罚名称
                     item.apply_username = elem.apply_username;
                     item.apply_realname = elem.apply_realname;
+                    item.content = elem.content;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
@@ -1656,8 +1658,10 @@ export default {
                     item.hr_username = elem.hr_name;
                     item.reward_amount = elem.amount; // 奖金总额
                     item.reward_name = elem.reward_name; // 奖罚名称
+                    item.reward_subname = elem.reward_name; // 奖罚名称
                     item.apply_username = elem.apply_username;
                     item.apply_realname = elem.apply_realname;
+                    item.content = elem.content;
                     delete item.$id;
                     delete item.key;
                     delete item.v_status;
