@@ -533,7 +533,7 @@ export default {
       sealTypeColumns: workconfig.compcolumns.sealTypeColumns,
       selectedSheet: null,
       sheetName: null,
-      sheets: [{ name: "Sheet1", data: [{}] }],
+      sheets: [{ name: "XXX项目1", data: [{}] },{ name: "XXX项目2", data: [{}] }],
       fields: {
               '分配性质':'type',
               '发放期间': 'period',
@@ -628,32 +628,35 @@ export default {
           return this.$toast.fail('请输入奖罚申请的发放周期！');
         }
         try {
-          let trows = data[0].data;
-          for(let item of trows){
-            const list = await manageAPI.queryUserByID(item['员工OA'],'融量',101); //查询OA账户，获取员工单位，部门，区域
-            ratio = tools.divisionPercentage(item['分配金额'] , this.item.amount);
-            try {
-              let elem = { key: tools.queryUniqueID(), type: item['分配性质'], period: item['发放期间'].replace(regexp,""), username: item['员工姓名'], account: item['员工OA'], company: item['所属单位'], department: item['所属部门'], position: item['员工职务'], mobile: '', amount: item['分配金额'], ratio, zone:'', project: item['所属项目'], message:'',  v_status: 'valid', }
-              if(list && list.length > 0){
-                const user = list[0];
-                let temp = tools.queryZoneProjectAll(user.company.split('||')[0], ['领地集团有限公司','领悦服务','宝瑞商管','医疗健康板块', '金融板块' ,'邛崃创达公司'], user.company.split('||')[1]);
-                elem.username =  user.name;
-                elem.account = user.loginid;
-                elem.company = temp.company;
-                elem.department = user.departname;
-                elem.position = user.position;
-                elem.mobile = user.mobile;
-                elem.zone = temp.zone;
-                elem.reward_period = this.item.reward_period, //所属周期
-                elem.reward_tname = this.item.reward_type;
-                elem.period = this.item.reward_release_period;
-                elem.type = this.item.reward_release_feature;
-                elem.project = elem.project ? elem.project : temp.project;
-                console.log(`project: ${elem.project} or temp.project:${temp.project}`);
+          for(const idata of data){
+            let trows = idata.data;
+            for(let item of trows){
+              const list = await manageAPI.queryUserByID(item['员工OA'],'融量',101); //查询OA账户，获取员工单位，部门，区域
+              ratio = tools.divisionPercentage(item['分配金额'] , this.item.amount);
+              try {
+                let elem = { key: tools.queryUniqueID(), type: item['分配性质'], period: item['发放期间'].replace(regexp,""), username: item['员工姓名'], account: item['员工OA'], company: item['所属单位'], department: item['所属部门'], position: item['员工职务'], mobile: '', amount: item['分配金额'], ratio, zone:'', project: item['所属项目'], message:'',  v_status: 'valid', }
+                if(list && list.length > 0){
+                  const user = list[0];
+                  let temp = tools.queryZoneProjectAll(user.company.split('||')[0], ['领地集团有限公司','领悦服务','宝瑞商管','医疗健康板块', '金融板块' ,'邛崃创达公司'], user.company.split('||')[1]);
+                  elem.username =  user.name;
+                  elem.account = user.loginid;
+                  elem.company = temp.company;
+                  elem.department = user.departname;
+                  elem.position = user.position;
+                  elem.mobile = user.mobile;
+                  elem.zone = temp.zone;
+                  elem.reward_period = this.item.reward_period, //所属周期
+                  elem.reward_tname = this.item.reward_type;
+                  elem.period = this.item.reward_release_period;
+                  elem.type = this.item.reward_release_feature;
+                  elem.project = elem.project ? elem.project : temp.project;
+                  elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
+                  console.log(`project: ${elem.project} or temp.project:${temp.project}`);
+                }
+                this.data.push(elem);
+              } catch (error) {
+                console.log(error);
               }
-              this.data.push(elem);
-            } catch (error) {
-              console.log(error);
             }
           }
         } catch (error) {
