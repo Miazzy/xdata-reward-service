@@ -38,7 +38,34 @@
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                    <a-row style="border-top: 1px dash #f0f0f0;" >
                     <a-col class="reward-apply-content-title-text" :span="4" style="">
-                      奖罚数据
+                      明细数据
+                    </a-col>
+                   </a-row>
+                </div>
+
+                <div class="reward-apply-content-item reward-apply-content-title" style="">
+                  <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
+                    <vue-excel-editor v-model="idata" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                        <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                        <vue-excel-column field="period"      label="发放期间"   width="80px" />
+                        <vue-excel-column field="username"    label="员工姓名"   width="80px" />
+                        <vue-excel-column field="account"     label="员工OA"    width="80px" />
+                        <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                        <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                        <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                        <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                        <vue-excel-column field="message"     label="抄送"      width="80px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="60px" />
+                    </vue-excel-editor>
+                   </a-row>
+                </div>
+
+                <div class="reward-apply-content-item reward-apply-content-title" style="">
+                   <a-row style="border-top: 1px dash #f0f0f0;" >
+                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                      汇总数据
                     </a-col>
                    </a-row>
                 </div>
@@ -53,11 +80,11 @@
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />
                         <vue-excel-column field="zone"        label="所属区域"   width="100px" />
                         <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                        <vue-excel-column field="department"  label="所属部门"   width="80px" />
-                        <vue-excel-column field="position"    label="员工职务"   width="80px" />
-                        <vue-excel-column field="amount"      label="分配金额"   width="80px" />
+                        <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="100px" />
                         <vue-excel-column field="message"     label="抄送"      width="80px" />
-                        <vue-excel-column field="v_status"    label="状态"      width="60px" type="map" :options="statusType" />
+                        <vue-excel-column field="v_status"    label="状态"      width="60px" />
                     </vue-excel-editor>
                    </a-row>
                 </div>
@@ -129,9 +156,9 @@ export default {
       period:dayjs().format('YYYY年MM月'),
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
-      data: [],
+      idata:[], //明细数据
+      data: [], //汇总数据
       userList:[],
-
       approve_userid:'',
       approve_username:'',
       approve_mobile:'',
@@ -139,7 +166,6 @@ export default {
       approve_company:'',
       approve_position:'',
       approve_userlist:[],
-
       approve_notify_userid:'',
       approve_notify_username:'',
       approve_notify_mobile:'',
@@ -147,10 +173,8 @@ export default {
       approve_notify_company:'',
       approve_notify_position:'',
       approve_notify_userlist:[],
-
       approve_executelist:[],
       approve_notifylist:[],
-
       role:'',
       tablename:'bs_reward_apply',
       readonly: false,
