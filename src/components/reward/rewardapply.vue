@@ -1299,6 +1299,9 @@ export default {
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
 
+                  //设置关联子数据
+                  elem.child_data = JSON.stringify(this.data);
+
                   //发送自动设置排序号请求
                   const patchResp = await superagent.get(workconfig.queryAPI.tableSerialAPI.replace('{table_name}', this.tablename)).set('accept', 'json');
 

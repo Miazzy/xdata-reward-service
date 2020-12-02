@@ -632,6 +632,7 @@ export default {
               files_05:'',
               status: '',
             },
+      vdata:null,
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
       data: [],
@@ -796,6 +797,14 @@ export default {
             try {
               item.empinfo =  (await manageAPI.queryUserByNameHRM(item.employee))[0];
               item.employee = item.empinfo && item.empinfo.lastname ? `${item.empinfo.lastname}(${item.employee})` : item.employee;
+            } catch (error) {
+              console.log(error);
+            }
+            try {
+              if(item.action == '保存' && !this.vdata){
+                this.item = JSON.parse(item.business_data); //设置奖惩申请内容
+                this.data = JSON.parse(this.item.child_data); //设置关联子数据
+              }
             } catch (error) {
               console.log(error);
             }
@@ -1104,6 +1113,8 @@ export default {
           const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
           const item = await query.queryTableData(this.tablename , this.item.id); //查询数据
 
+
+
           try {
             this.data = await query.queryTableDataByPid('bs_reward_items' , this.item.id); //查询奖罚明细数据
           } catch (error) {
@@ -1152,6 +1163,7 @@ export default {
                 files_05: item.files_05,
                 status: item.status,
               }
+              this.vdata = item;
             }
 
             await this.queryProcessLog(); //查询流程日志
