@@ -77,7 +77,10 @@
                     </a-col>
                     <a-col :span="16">
                        <div style="position:absolute; right: -120px; top: -2px;">
-                        <van-button name="file" @click="exportIdata();"  >导出</van-button>
+                        <van-button name="file" @click="exportIdata();" style="display:none;" >导出</van-button>
+                        <excel-export :sheet="sheetIdata" :manual="false" @before-start="exportIdata();">
+                          <div>导出</div>
+                        </excel-export>
                        </div>
                     </a-col>
                    </a-row>
@@ -164,6 +167,12 @@ import * as wflowprocess from '@/request/wflow.process';
 import * as workconfig from '@/request/workconfig';
 import * as contact from '@/vuex/contacts';
 
+try {
+  Vue.component("excelExport", PikazJsExcel.ExcelExport);
+} catch (error) {
+  console.log(error);
+}
+
 export default {
   mixins: [window.mixin],
   data() {
@@ -248,6 +257,21 @@ export default {
       workflowLogList:[],
       bpm_status:'',
       proponents:'',
+      sheetIdata:[{
+                title:"奖惩明细数据",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩明细数据"
+              } ],
+      sheetData:[ {
+                title:"奖惩汇总数据",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩汇总数据"
+              }
+            ],
       statusType:{'valid':'有效','invalid':'删除'},
       zoneType:{'领地集团总部':'领地集团总部','重庆区域':'重庆区域','两湖区域':'两湖区域','川北区域':'川北区域','成都区域':'成都区域','乐眉区域':'乐眉区域','中原区域':'中原区域','攀西区域':'攀西区域','新疆区域':'新疆区域','大湾区域':'大湾区域','北京区域':'北京区域'},
     };
@@ -312,6 +336,7 @@ export default {
         }
         const list = await query.queryRewardItemByID(this.period , this.zone , this.reward_type , this.reward_name , this.pname , this.cost_bearer);
         this.idata = list;
+        this.sheetIdata[0].table = list;
         this.$toast.success(`查询${this.period}月度报表成功！`);
       },
       // 获取奖惩汇总数据
@@ -321,10 +346,12 @@ export default {
       // 导出明细数据
       async exportIdata(){
          this.$refs.grid_00.exportTable('xlsx', false, '奖惩明细数据');
+         this.sheetIdata[0].table = this.idata;
       },
       // 导出汇总数据
       async exportData(){
          this.$refs.grid_01.exportTable('xlsx', false, '奖惩汇总数据');
+         this.sheetData[0].table = this.data;
       },
 
   },
