@@ -84,6 +84,7 @@ self.addEventListener('install', function(event) {
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-file-04.svg",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-rank-01.svg",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.3/cdn/common/vue-router.min.js",
             ]);
         })
     );
