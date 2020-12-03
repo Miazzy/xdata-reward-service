@@ -623,3 +623,117 @@ export async function queryRewardItemByID(period = '', zone = '', type = '', nam
     }
 
 }
+
+/**
+ * 获取奖罚月度/季度报表(业绩考核)
+ */
+export async function queryRewardItemByID_Y(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
+
+    sql += zone ? `~and(zone,like,~${zone}~)` : '';
+    sql += `~and(reward_type,in,业绩考核奖)`;
+    sql += name ? `~and(reward_name,like,~${name}~)` : '';
+    sql += pname ? `~and(pname,like,~${pname}~)` : '';
+    sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
+
+    //提交URL
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+
+    //获取缓存中的数据
+    var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
+
+    //返回缓存值
+    if (typeof cache != 'undefined' && cache != null && cache != '') {
+        return cache;
+    }
+
+    try {
+        var res = await superagent.get(queryURL).set('accept', 'json');
+
+        console.log(res);
+
+        if (res.body != null && res.body.length > 0) {
+            storage.setStore(`sys_bs_reward_items&url${queryURL}`, res.body, 60);
+        }
+
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+/**
+ * 获取奖罚月度/季度报表（总裁/总经理/特殊贡献）
+ */
+export async function queryRewardItemByID_G(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
+
+    sql += zone ? `~and(zone,like,~${zone}~)` : '';
+    sql += `~and(reward_type,in,总裁专项奖,总经理专项奖,特殊贡献奖)`;
+    sql += name ? `~and(reward_name,like,~${name}~)` : '';
+    sql += pname ? `~and(pname,like,~${pname}~)` : '';
+    sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
+
+    //提交URL
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+
+    //获取缓存中的数据
+    var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
+
+    //返回缓存值
+    if (typeof cache != 'undefined' && cache != null && cache != '') {
+        return cache;
+    }
+
+    try {
+        var res = await superagent.get(queryURL).set('accept', 'json');
+
+        console.log(res);
+
+        if (res.body != null && res.body.length > 0) {
+            storage.setStore(`sys_bs_reward_items&url${queryURL}`, res.body, 60);
+        }
+
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+/**
+ * 获取奖罚月度/季度报表（其他业务类）
+ */
+export async function queryRewardItemByID_O(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
+
+    sql += zone ? `~and(zone,like,~${zone}~)` : '';
+    sql += `~and(reward_type,in,其他奖罚)`;
+    sql += name ? `~and(reward_name,like,~${name}~)` : '';
+    sql += pname ? `~and(pname,like,~${pname}~)` : '';
+    sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
+
+    //提交URL
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+
+    //获取缓存中的数据
+    var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
+
+    //返回缓存值
+    if (typeof cache != 'undefined' && cache != null && cache != '') {
+        return cache;
+    }
+
+    try {
+        var res = await superagent.get(queryURL).set('accept', 'json');
+
+        console.log(res);
+
+        if (res.body != null && res.body.length > 0) {
+            storage.setStore(`sys_bs_reward_items&url${queryURL}`, res.body, 60);
+        }
+
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+
+}
