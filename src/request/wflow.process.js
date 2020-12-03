@@ -511,6 +511,13 @@ export async function handleApproveWF(curRow = '', fixedWFlow = '', data = [], t
                     manage.patchTableData(tableName.replace('apply', 'items'), elem.id, { pid: bussinessCodeID, status: '已完成', bpm_status: bpmStatus.bpm_status });
                 }
 
+                await tools.sleep(1000);
+
+                //遍历奖惩明细数据，并设置状态为已完成
+                for (const elem of list) {
+                    manage.patchTableData(tableName.replace('apply', 'items'), elem.id, { pid: bussinessCodeID, status: '已完成', bpm_status: bpmStatus.bpm_status });
+                }
+
             } catch (error) {
                 console.log(error);
             }
