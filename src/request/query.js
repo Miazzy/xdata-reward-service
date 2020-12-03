@@ -554,13 +554,65 @@ export async function deleteTableData(tableName, id) {
 
 }
 
+export async function queryPeriodSQL(period = '') {
+
+    let periodSQL = `(period,like,${period})`;
+
+    let period_1qt = dayjs().format('YYYY年') + '1季度'; //dayjs().subtract(0, 'years')
+    let period_2qt = dayjs().format('YYYY年') + '2季度';
+    let period_3qt = dayjs().format('YYYY年') + '3季度';
+    let period_4qt = dayjs().format('YYYY年') + '4季度';
+
+    let period_1qt_s1 = dayjs().subtract(1, 'years').format('YYYY年') + '1季度'; //dayjs().subtract(1, 'years')
+    let period_2qt_s1 = dayjs().subtract(1, 'years').format('YYYY年') + '2季度';
+    let period_3qt_s1 = dayjs().subtract(1, 'years').format('YYYY年') + '3季度';
+    let period_4qt_s1 = dayjs().subtract(1, 'years').format('YYYY年') + '4季度';
+
+    let period_1qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '1季度'; //dayjs().subtract(2, 'years')
+    let period_2qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '2季度';
+    let period_3qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '3季度';
+    let period_4qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '4季度';
+
+    if (period.includes('季度') && period == period_1qt) {
+        periodSQL = `(period,in,${dayjs().format('YYYY年')}01月,${dayjs().format('YYYY年')}02月,${dayjs().format('YYYY年')}03月)`;
+    } else if (period.includes('季度') && period == period_2qt) {
+        periodSQL = `(period,in,${dayjs().format('YYYY年')}04月,${dayjs().format('YYYY年')}05月,${dayjs().format('YYYY年')}06月)`;
+    } else if (period.includes('季度') && period == period_3qt) {
+        periodSQL = `(period,in,${dayjs().format('YYYY年')}07月,${dayjs().format('YYYY年')}08月,${dayjs().format('YYYY年')}09月)`;
+    } else if (period.includes('季度') && period == period_4qt) {
+        periodSQL = `(period,in,${dayjs().format('YYYY年')}10月,${dayjs().format('YYYY年')}11月,${dayjs().format('YYYY年')}12月)`;
+    } else if (period.includes('季度') && period == period_1qt_s1) {
+        periodSQL = `(period,in,${dayjs().subtract(1, 'years').format('YYYY年')}01月,${dayjs().subtract(1, 'years').format('YYYY年')}02月,${dayjs().subtract(1, 'years').format('YYYY年')}03月)`;
+    } else if (period.includes('季度') && period == period_2qt_s1) {
+        periodSQL = `(period,in,${dayjs().subtract(1, 'years').format('YYYY年')}04月,${dayjs().subtract(1, 'years').format('YYYY年')}05月,${dayjs().subtract(1, 'years').format('YYYY年')}06月)`;
+    } else if (period.includes('季度') && period == period_3qt_s1) {
+        periodSQL = `(period,in,${dayjs().subtract(1, 'years').format('YYYY年')}07月,${dayjs().subtract(1, 'years').format('YYYY年')}08月,${dayjs().subtract(1, 'years').format('YYYY年')}09月)`;
+    } else if (period.includes('季度') && period == period_4qt_s1) {
+        periodSQL = `(period,in,${dayjs().subtract(1, 'years').format('YYYY年')}10月,${dayjs().subtract(1, 'years').format('YYYY年')}11月,${dayjs().subtract(1, 'years').format('YYYY年')}12月)`;
+    } else if (period.includes('季度') && period == period_1qt_s2) {
+        periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}01月,${dayjs().subtract(2, 'years').format('YYYY年')}02月,${dayjs().subtract(2, 'years').format('YYYY年')}03月)`;
+    } else if (period.includes('季度') && period == period_2qt_s2) {
+        periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}04月,${dayjs().subtract(2, 'years').format('YYYY年')}05月,${dayjs().subtract(2, 'years').format('YYYY年')}06月)`;
+    } else if (period.includes('季度') && period == period_3qt_s2) {
+        periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}07月,${dayjs().subtract(2, 'years').format('YYYY年')}08月,${dayjs().subtract(2, 'years').format('YYYY年')}09月)`;
+    } else if (period.includes('季度') && period == period_4qt_s2) {
+        periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}10月,${dayjs().subtract(2, 'years').format('YYYY年')}11月,${dayjs().subtract(2, 'years').format('YYYY年')}12月)`;
+    }
+
+    return periodSQL;
+
+}
+
 /**
  * 获取奖罚月度/季度报表
  */
-export async function queryRewardDataByID(period) {
+export async function queryRewardDataByID(period = '') {
+
+    //获取日期查询条件
+    let periodSQL = await queryPeriodSQL(period);
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/v_reward_data?_where=(period,like,${period})&_sort=amount&_p=0&_size=1000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/v_reward_data?_where=${periodSQL}&_sort=amount&_p=0&_size=1000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_v_reward_data&id${period}`);
@@ -591,6 +643,9 @@ export async function queryRewardDataByID(period) {
  */
 export async function queryRewardItemByID(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    //获取日期查询条件
+    let periodSQL = await queryPeriodSQL(period);
+
     sql += zone ? `~and(zone,like,~${zone}~)` : '';
     sql += type ? `~and(reward_type,like,~${type}~)` : '';
     sql += name ? `~and(reward_name,like,~${name}~)` : '';
@@ -598,7 +653,7 @@ export async function queryRewardItemByID(period = '', zone = '', type = '', nam
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -629,6 +684,9 @@ export async function queryRewardItemByID(period = '', zone = '', type = '', nam
  */
 export async function queryRewardItemByID_Y(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    //获取日期查询条件
+    let periodSQL = await queryPeriodSQL(period);
+
     sql += zone ? `~and(zone,like,~${zone}~)` : '';
     sql += `~and(reward_type,in,业绩考核奖)`;
     sql += name ? `~and(reward_name,like,~${name}~)` : '';
@@ -636,7 +694,7 @@ export async function queryRewardItemByID_Y(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -667,6 +725,9 @@ export async function queryRewardItemByID_Y(period = '', zone = '', type = '', n
  */
 export async function queryRewardItemByID_G(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    //获取日期查询条件
+    let periodSQL = await queryPeriodSQL(period);
+
     sql += zone ? `~and(zone,like,~${zone}~)` : '';
     sql += `~and(reward_type,in,总裁专项奖,总经理专项奖,特殊贡献奖)`;
     sql += name ? `~and(reward_name,like,~${name}~)` : '';
@@ -674,7 +735,7 @@ export async function queryRewardItemByID_G(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -705,6 +766,9 @@ export async function queryRewardItemByID_G(period = '', zone = '', type = '', n
  */
 export async function queryRewardItemByID_O(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    //获取日期查询条件
+    let periodSQL = await queryPeriodSQL(period);
+
     sql += zone ? `~and(zone,like,~${zone}~)` : '';
     sql += `~and(reward_type,in,其他奖罚)`;
     sql += name ? `~and(reward_name,like,~${name}~)` : '';
@@ -712,7 +776,7 @@ export async function queryRewardItemByID_O(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=(period,like,~${period}~)~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);

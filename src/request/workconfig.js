@@ -221,11 +221,19 @@ export const reward = (that) => {
             },
         }, {
             name: "季度报表",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/ribao.png`,
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhoubao.png`,
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
             click: () => {
                 that.$router.push(`/reward/rewardquarter?type=quarter`);
+            },
+        }, {
+            name: "年度报表",
+            avatar: `https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/ribao.png`,
+            href: "/account/myanalyse",
+            description: '其他奖罚申请流程',
+            click: () => {
+                that.$router.push(`/reward/rewardyear?type=year`);
             },
         }, {
             name: "奖罚审批",
@@ -240,18 +248,26 @@ export const reward = (that) => {
         id: 'common-pane',
         title: '常用应用',
         taskflows: [{
-            name: "月度报表",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/leave.png`,
+            name: "月度图表",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png`,
             href: "/account/todolist",
             description: '查看/导出月度奖罚明细及汇总',
             click: () => {
 
             }
         }, {
-            name: "季度报表",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png`,
+            name: "季度图表",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_8.png`,
             href: "/account/donelist",
-            description: '查看/导出月度奖罚明细及汇总',
+            description: '查看/导出季度奖罚明细及汇总',
+            click: () => {
+
+            }
+        }, {
+            name: "年度图表",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_5.png`,
+            href: "/account/donelist",
+            description: '查看/导出年度奖罚明细及汇总',
             click: () => {
 
             }

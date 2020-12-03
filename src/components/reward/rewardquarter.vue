@@ -10,7 +10,7 @@
               <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0px; margin-left: 5rem; margin-right: 5rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
 
                 <div class="reward-apply-header" style="height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem; ">
-                  奖罚月度报表
+                  奖罚季度报表
                 </div>
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
@@ -35,7 +35,7 @@
                     <a-col :span="6">
                        <a-input :readonly="false" v-model="zone" placeholder="请输入所属区域！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                        <div style="position:absolute; right: -120px; top: -2px;">
-                        <van-button name="file" @click="queryRewardMonthInfo();queryRewardMonthInfo_Y();queryRewardMonthInfo_O();queryRewardMonthInfo_G();"  >查询</van-button>
+                        <van-button name="file" @click="queryRewardQuarterInfo();queryRewardQuarterInfo_Y();queryRewardQuarterInfo_O();queryRewardQuarterInfo_G();"  >查询</van-button>
                         <van-button name="file" @click="queryCollected();" >汇总</van-button>
                        </div>
                     </a-col>
@@ -711,7 +711,7 @@ export default {
   mixins: [window.mixin],
   data() {
     return {
-      pageName: "奖罚月度报表",
+      pageName: "奖罚季度报表",
       momentNewMsg: true,
       activeTabKey: 3,
       acceptType:'*/*',
@@ -743,7 +743,7 @@ export default {
               status: '',
               month:dayjs().format('YYYY年MM月'),
             },
-      period:dayjs().format('YYYY年MM月'),
+      period:dayjs().format('YYYY年') + parseInt((dayjs().format('MM') - 1)/3 + 1) + '季度',
       reward_name:'',
       reward_period:'',
       reward_type:'',
@@ -1066,7 +1066,7 @@ export default {
       },
 
       // 获取奖罚月度报表数据（全部数据）
-      async queryRewardMonthInfo(){
+      async queryRewardQuarterInfo(){
         if(!this.period){
           return this.$toast.fail('请输入发放周期！');
         }
@@ -1080,9 +1080,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1105,6 +1105,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1120,6 +1121,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1137,6 +1139,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '全部类型';
@@ -1165,7 +1168,7 @@ export default {
       },
 
       // 获取奖罚月度报表数据（业绩考核类）
-      async queryRewardMonthInfo_Y(){
+      async queryRewardQuarterInfo_Y(){
         if(!this.period){
           return this.$toast.fail('请输入发放周期！');
         }
@@ -1179,9 +1182,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1204,6 +1207,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1219,6 +1223,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1236,6 +1241,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '业绩考核类';
@@ -1264,7 +1270,7 @@ export default {
       },
 
       // 获取奖罚月度报表数据（总裁/总经理/特殊贡献）
-      async queryRewardMonthInfo_G(){
+      async queryRewardQuarterInfo_G(){
         if(!this.period){
           return this.$toast.fail('请输入发放周期！');
         }
@@ -1278,9 +1284,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1303,6 +1309,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1318,6 +1325,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1335,6 +1343,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '总裁/总经理/特殊贡献';
@@ -1363,7 +1372,7 @@ export default {
       },
 
       // 获取奖罚月度报表数据（其他业务类）
-      async queryRewardMonthInfo_O(){
+      async queryRewardQuarterInfo_O(){
         if(!this.period){
           return this.$toast.fail('请输入发放周期！');
         }
@@ -1377,9 +1386,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1402,6 +1411,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1417,6 +1427,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1434,6 +1445,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '其他业务类';
