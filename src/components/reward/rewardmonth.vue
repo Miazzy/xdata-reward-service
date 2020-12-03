@@ -42,7 +42,7 @@
                   </a-row>
                   <a-row style="margin-top:10px;">
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖惩类型</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>奖惩类型</span>
                     </a-col>
                     <a-col :span="6">
                        <a-input :readonly="false" v-model="reward_type" placeholder="请输入奖惩类型！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -181,6 +181,43 @@
                    </a-row>
                 </div>
 
+                <div class="reward-apply-content-item reward-apply-content-title" style="">
+                   <a-row style="border-top: 1px dash #f0f0f0;" >
+                    <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:80px;">
+                      汇总数据（按发放周期、员工账户）
+                    </a-col>
+                    <a-col :span="10">
+                       <div style="position:absolute; right: -20px; top: -2px;">
+                        <van-button name="file" @click="exportEData();" style="display:none;" >导出</van-button>
+                        <excel-export :sheet="sheetEData" :manual="false" @before-start="exportEData();">
+                          <div>导出</div>
+                        </excel-export>
+                       </div>
+                    </a-col>
+                   </a-row>
+                </div>
+
+                <div class="reward-apply-content-item reward-apply-content-title" style="">
+                  <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
+                    <vue-excel-editor v-model="edata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                        <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                        <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                        <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                        <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                        <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                        <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                        <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                        <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                        <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                        <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                        <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                        <vue-excel-column field="status"    label="状态"      width="80px" />
+                    </vue-excel-editor>
+                   </a-row>
+                </div>
+
                 <div style="height:100px;">
 
                 </div>
@@ -261,8 +298,9 @@ export default {
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
       idata:[], //明细数据
-      tdata: [], //汇总数据
-      mdata:[],
+      tdata:[], //汇总数据
+      mdata:[], //汇总数据
+      edata:[], //汇总数据
       userList:[],
       approve_userid:'',
       approve_username:'',
@@ -306,21 +344,47 @@ export default {
                 table:[],
                 keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
                 sheetName:"奖惩明细数据"
-              } ],
-      sheetTData:[ {
-                title:"奖惩汇总数据",
+              },{
+                title:"奖惩汇总数据（按发放周期、奖惩类型、员工账户、项目名称）",
                 tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
                 table:[],
                 keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
-                sheetName:"奖惩汇总数据"
+                sheetName:"奖惩汇总数据（按发放周期、奖惩类型、员工账户、项目名称）"
+              },{
+                title:"奖惩汇总数据（按发放周期、奖惩类型、员工账户）",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩汇总数据（按发放周期、奖惩类型、员工账户）"
+              },{
+                title:"奖惩汇总数据（按发放周期、员工账户）",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩汇总数据（按发放周期、员工账户）"
+              } ],
+      sheetTData:[ {
+                title:"奖惩汇总数据（按发放周期、奖惩类型、员工账户、项目名称）",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩汇总数据（按发放周期、奖惩类型、员工账户、项目名称）"
               }
             ],
       sheetMData:[ {
-                title:"奖惩汇总数据",
+                title:"奖惩汇总数据（按发放周期、奖惩类型、员工账户）",
                 tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
                 table:[],
                 keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
-                sheetName:"奖惩汇总数据"
+                sheetName:"奖惩汇总数据（按发放周期、奖惩类型、员工账户）"
+              }
+            ],
+      sheetEData:[ {
+                title:"奖惩汇总数据（按发放周期、员工账户）",
+                tHeader:["分配性质","发放期间","奖惩类型","奖惩名称","员工姓名","员工OA","所属单位","所属区域","所属部门","项目/中心","项目名称","员工职务","分配金额","状态"],
+                table:[],
+                keys:["type","period","reward_type","reward_name","username","account","company","zone","department","project","pname","position","amount","status"],
+                sheetName:"奖惩汇总数据（按发放周期、员工账户）"
               }
             ],
       statusType:{'valid':'有效','invalid':'删除'},
@@ -390,16 +454,20 @@ export default {
         const amap = new Map();
         let tlist = null;
         let mlist = null;
+        let elist = null;
 
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
             item.group_key = `Group_Key_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
             item.m_key = `M_Key_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
+            let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
             amap.set(item.group_key , total);
             amap.set(item.m_key , mtotal);
+            amap.set(item.e_key , etotal);
           });
         } catch (error) {
           console.log(error);
@@ -435,13 +503,36 @@ export default {
           console.log(error);
         }
 
+        try {
+          // 克隆一下数据
+          const etemplist = JSON.parse(JSON.stringify(list));
+          // 获取缓存数据
+          elist = etemplist.filter( (item,index) => {
+            const findex = etemplist.findIndex((elem,index) => {
+              return elem.e_key == item.e_key
+            });
+            item.amount = amap.get(item.m_key) ;
+            return index == findex;
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
         this.idata = list;
         this.tdata = tlist;
         this.mdata = mlist;
+        this.edata = elist;
+
         this.sheetIdata[0].table = list;
+        this.sheetIdata[1].table = tlist;
+        this.sheetIdata[2].table = mlist;
+        this.sheetIdata[3].table = elist;
+
         this.sheetTData[0].table = tlist;
         this.sheetMData[0].table = mlist;
-        this.$toast.success(`查询${this.period}月度报表成功！`);
+        this.sheetEData[0].table = elist;
+
+        this.$toast.success(`查询${this.period}报表成功！`);
       },
       // 获取奖惩汇总数据
       async queryCollected(){
@@ -454,13 +545,18 @@ export default {
       },
       // 导出汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
       async exportTData(){
-         this.$refs.grid_01.exportTable('xlsx', false, '奖惩汇总数据');
+         this.$refs.grid_01.exportTable('xlsx', false, '奖惩汇总数据（按发放周期、奖惩类型、员工账户、项目名称）');
          this.sheetTData[0].table = this.tdata;
       },
       // 导出汇总数据（按发放周期、奖惩类型、员工账户）
       async exportMData(){
-        this.$refs.grid_02.exportTable('xlsx', false, '奖惩汇总数据');
+        this.$refs.grid_02.exportTable('xlsx', false, '奖惩汇总数据（按发放周期、奖惩类型、员工账户）');
         this.sheetMData[0].table = this.mdata;
+      },
+      // 导出汇总数据（按发放周期、员工账户）
+      async exportEData(){
+        this.$refs.grid_03.exportTable('xlsx', false, '奖惩汇总数据（按发放周期、员工账户）');
+        this.sheetEData[0].table = this.edata;
       },
 
   },
