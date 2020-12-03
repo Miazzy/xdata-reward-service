@@ -86,6 +86,13 @@ const routes = [{
         "subPage": resolve => require(["../components/reward/rewardquarter.vue"], resolve)
     }
 }, {
+    path: '/reward/rewardyear',
+    name: "奖罚年度报表",
+    components: {
+        "default": resolve => require(["../components/reward/home.vue"], resolve),
+        "subPage": resolve => require(["../components/reward/rewardyear.vue"], resolve)
+    }
+}, {
     path: '/wechat',
     name: "消息",
     component: resolve => require(["../components/wechat/wechat.vue"], resolve)
