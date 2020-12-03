@@ -159,14 +159,6 @@ export const reward = (that) => {
             click: () => {
                 that.$router.push(`/reward/message?panename=myrewarditemslist&type=7&back=/reward/workspace`, '_blank');
             },
-        }, {
-            name: "统计分析",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhushou.png`,
-            href: "/account/myanalyse",
-            description: '查看自己的奖罚月/季度报表',
-            click: () => {
-                that.$router.push(`/reward/message?panename=myanalyselist&type=7&back=/reward/workspace`, '_blank');
-            },
         }],
     }, {
         id: 'task-pane',
@@ -212,6 +204,18 @@ export const reward = (that) => {
                 that.$router.push(`/reward/rewardapply?type=4&reward_name=其他奖罚`, '_blank');
             },
         }, {
+            name: "奖罚审批",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/shenpi.png`,
+            href: "/account/myanalyse",
+            description: '其他奖罚申请流程',
+            click: () => {
+                that.$router.push(`/reward/message?panename=myrewardlist&type=7&back=/reward/workspace`, '_blank');
+            },
+        }],
+    }, {
+        id: 'common-pane',
+        title: '统计报表',
+        taskflows: [{
             name: "月度报表",
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/yuebao.png`,
             href: "/account/myanalyse",
@@ -236,18 +240,6 @@ export const reward = (that) => {
                 that.$router.push(`/reward/rewardyear?type=year`);
             },
         }, {
-            name: "奖罚审批",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/shenpi.png`,
-            href: "/account/myanalyse",
-            description: '其他奖罚申请流程',
-            click: () => {
-                that.$router.push(`/reward/message?panename=myrewardlist&type=7&back=/reward/workspace`, '_blank');
-            },
-        }],
-    }, {
-        id: 'common-pane',
-        title: '常用应用',
-        taskflows: [{
             name: "月度图表",
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png`,
             href: "/account/todolist",
@@ -271,6 +263,14 @@ export const reward = (that) => {
             click: () => {
 
             }
+        }, {
+            name: "统计分析",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhushou.png`,
+            href: "/account/myanalyse",
+            description: '查看自己的奖罚月/季度报表',
+            click: () => {
+                that.$router.push(`/reward/message?panename=myanalyselist&type=7&back=/reward/workspace`, '_blank');
+            },
         }],
     }]
 };
@@ -968,49 +968,6 @@ export function getPaneflows(this_) {
             dataSource: [],
             click: () => {
                 this_.panename = 'myrewardslist';
-            },
-        },
-        {
-            id: 3,
-            name: "统计分析",
-            ename: "myanalyselist",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhushou.png`,
-            href: "/account/myanalyselist",
-            description: "查看自己的奖罚月/季度报表",
-            show: true,
-            css: "",
-            all: '全部',
-            periodTabsFlag: false,
-            tabs: ['全部'],
-            click: () => {
-                this_.panename = 'myanalyselist';
-            },
-        },
-        {
-            id: 4,
-            name: "月度报表",
-            ename: "mymonthlist",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/leave.png`,
-            href: "/account/mymonthlist",
-            description: "查看/导出月度奖罚明细及汇总",
-            show: true,
-            css: "",
-            tabs: ['全部', '待处理', '抄送我'],
-            click: () => {
-                this_.panename = 'mymonthlist';
-            },
-        },
-        {
-            id: 5,
-            name: "季度报表",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png`,
-            href: "/account/myquanterlist",
-            description: "查看/导出月度奖罚明细及汇总",
-            show: true,
-            css: "",
-            tabs: ['全部', '待处理', '抄送我'],
-            click: () => {
-                this_.panename = 'myquanterlist';
             },
         },
     ];
