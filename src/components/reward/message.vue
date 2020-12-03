@@ -393,8 +393,10 @@ export default {
     },
     async queryRewardTodoList(tabname = '', typename = ''){
 
+      const userinfo = await storage.getStore('system_userinfo');  //获取当前用户信息
+
       try {
-        let logList = await query.queryProcessLogByUserName(this.tablename , this.userinfo.username);
+        let logList = await query.queryProcessLogByUserName(this.tablename , userinfo.username);
 
         logList.map((item , index) => {
           item.pid = item.id;
@@ -435,8 +437,10 @@ export default {
     },
     async queryRewardDoneList(tabname = '', typename = ''){
 
+      const userinfo = await storage.getStore('system_userinfo');  //获取当前用户信息
+
       try {
-        let logList = await query.queryProcessLogHistoryByUserName(this.tablename , this.userinfo.username);
+        let logList = await query.queryProcessLogHistoryByUserName(this.tablename , userinfo.username);
 
         logList.map((item , index) => {
           item.pid = item.id;
