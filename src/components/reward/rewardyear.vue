@@ -1080,9 +1080,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_ALL_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_ALL_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1105,6 +1105,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1120,6 +1121,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1137,6 +1139,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '全部类型';
@@ -1179,9 +1182,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_Y_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1204,6 +1207,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1219,6 +1223,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1236,6 +1241,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '业绩考核类';
@@ -1278,9 +1284,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_G_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_G_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1303,6 +1309,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1318,6 +1325,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1335,6 +1343,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '总裁/总经理/特殊贡献';
@@ -1377,9 +1386,9 @@ export default {
         try {
           // 遍历一遍list，根据list的发放周期、奖惩类型、员工账户、项目名称为唯一key
           list.map(item=>{
-            item.group_key = `Group_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
-            item.m_key = `M_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
-            item.e_key = `E_Key_O_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.group_key = `Group_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
+            item.m_key = `M_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
+            item.e_key = `E_Key_O_${tools.deNull(this.period)}_${tools.deNull(item.account)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
@@ -1402,6 +1411,7 @@ export default {
             const findex = templist.findIndex((elem,index) => {
               return elem.group_key == item.group_key
             });
+            item.period = this.period;
             item.amount = amap.get(item.group_key) ;
             return index == findex;
           });
@@ -1417,6 +1427,7 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
@@ -1434,6 +1445,7 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.period = this.period;
             item.pname = '--';
             item.reward_name = '--';
             item.reward_type = '其他业务类';

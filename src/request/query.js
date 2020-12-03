@@ -573,6 +573,10 @@ export async function queryPeriodSQL(period = '') {
     let period_3qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '3季度';
     let period_4qt_s2 = dayjs().subtract(2, 'years').format('YYYY年') + '4季度';
 
+    let period_0yr = dayjs().format('YYYY年');
+    let period_1yr = dayjs().subtract(1, 'years').format('YYYY年');
+    let period_2yr = dayjs().subtract(2, 'years').format('YYYY年');
+
     if (period.includes('季度') && period == period_1qt) {
         periodSQL = `(period,in,${dayjs().format('YYYY年')}01月,${dayjs().format('YYYY年')}02月,${dayjs().format('YYYY年')}03月)`;
     } else if (period.includes('季度') && period == period_2qt) {
@@ -597,8 +601,13 @@ export async function queryPeriodSQL(period = '') {
         periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}07月,${dayjs().subtract(2, 'years').format('YYYY年')}08月,${dayjs().subtract(2, 'years').format('YYYY年')}09月)`;
     } else if (period.includes('季度') && period == period_4qt_s2) {
         periodSQL = `(period,in,${dayjs().subtract(2, 'years').format('YYYY年')}10月,${dayjs().subtract(2, 'years').format('YYYY年')}11月,${dayjs().subtract(2, 'years').format('YYYY年')}12月)`;
+    } else if (period.endsWith('年') && period == period_0yr) {
+        periodSQL = `(period,like,${period_0yr}~)`;
+    } else if (period.endsWith('年') && period == period_1yr) {
+        periodSQL = `(period,like,${period_1yr}~)`;
+    } else if (period.endsWith('年') && period == period_2yr) {
+        periodSQL = `(period,like,${period_2yr}~)`;
     }
-
     return periodSQL;
 
 }
