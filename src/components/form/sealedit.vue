@@ -1133,11 +1133,11 @@ export default {
           const title = '用印登记申请(已修改)';
           const description = `@印章管理员 @${seal_man} ，${create_by}已修改用印登记信息，请及时处理修改后的用印申请！流程编号：${workno}`;
 
-          const url = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/sealview?id=${id}&statustype=none`);
+          const url = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/sealview?id=${id}&statustype=none`);
           const signmail = this.mailconfig[seal_man];
 
           //领取地址
-          const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/sealreceive?id=${id}&type=receive`);
+          const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/sealreceive?id=${id}&type=receive`);
 
           try {
             //通知签收人领取资料(企业微信发送)

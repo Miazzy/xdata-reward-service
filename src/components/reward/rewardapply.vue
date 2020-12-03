@@ -1257,7 +1257,7 @@ export default {
                     user_group_names = this.item.hr_name;
                   }
                   // 返回预览URL
-                  const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/reward/rewardview?id=${id}&pid=&tname=bs_reward_apply&panename=myrewardlist&typename=hr_admin_ids&bpm_status=4&proponents=${user_group_ids}&role=hr`);
+                  const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/reward/rewardview?id=${id}&pid=&tname=bs_reward_apply&panename=myrewardlist&typename=hr_admin_ids&bpm_status=4&proponents=${user_group_ids}&role=hr`);
 
                   //第一步 保存用户数据到数据库中
                   const elem = {
@@ -1468,7 +1468,7 @@ export default {
 
            // 此处推送消息至第一个审批处
            try {
-              const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/reward/rewardview?id=${curItemID}&pid=${node.id}&tname=bs_reward_apply&panename=mytodolist&typename=wflow_todo&bpm_status=2&proponents=${firstWflowUser}`);
+              const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/reward/rewardview?id=${curItemID}&pid=${node.id}&tname=bs_reward_apply&panename=mytodolist&typename=wflow_todo&bpm_status=2&proponents=${firstWflowUser}`);
               await superagent.get(`${window.requestAPIConfig.restapi}/api/v1/weappms/${firstWflowUser}/亲爱的同事，${userinfo['name']||userinfo['realname']}(${userinfo["username"]})提交了奖罚申请流程：${data["title"]}，内容：${data['content']}，请您及时进行审批处理！?type=reward&rurl=${receiveURL}`)
                           .set('accept', 'json');
            } catch (error) {
@@ -1611,7 +1611,7 @@ export default {
                     user_group_names = this.item.hr_name;
                   }
                   // 返回预览URL
-                  const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/reward?id=${id}&statustype=office&type=${type}&role=hr`);
+                  const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/reward?id=${id}&statustype=office&type=${type}&role=hr`);
                   //第一步 保存用户数据到数据库中
                   const elem = {
                     id,

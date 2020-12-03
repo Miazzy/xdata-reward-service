@@ -1034,7 +1034,7 @@ export default {
         let front , admin , meal , queryURL , resp;
 
         // 返回预览URL
-        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/entryview?id=${id}&statustype=none&role=`);
+        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/entryview?id=${id}&statustype=none&role=`);
 
         // 操作时间
         const time = dayjs().format('YYYY-MM-DD HH:mm:ss');
@@ -1209,7 +1209,7 @@ export default {
         if(!tools.isNull(value.front_time) && !tools.isNull(value.admin_time) && !tools.isNull(value.meal_time)){
 
            // 返回预览URL
-          const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/entryview?id=${id}&statustype=none&role=done`);
+          const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/entryview?id=${id}&statustype=none&role=done`);
 
            //设置确认完成时间
           await manageAPI.patchTableData(`bs_entry_job` , id , { id , status : '已完成' , done_time: dayjs().format('YYYY-MM-DD HH:mm:ss') });

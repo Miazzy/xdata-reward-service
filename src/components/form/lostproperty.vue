@@ -502,7 +502,7 @@ export default {
         const pid = tools.getUrlParam('pid');
 
         // 返回预览URL
-        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=receive`);
+        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=receive`);
 
         //第一步 保存用户数据到数据库中
         const elem = {
@@ -607,7 +607,7 @@ export default {
         const id = this.item.id;
 
         // 返回预览URL
-        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=front&step=front`);
+        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=front&step=front`);
 
         //第一步 保存用户数据到数据库中
         const elem = {
@@ -693,7 +693,7 @@ export default {
         const pid = tools.getUrlParam('pid');
 
         // 返回预览URL
-        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=common&step=common`);
+        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/lostpropertyview?id=${id}&statustype=office&role=common&step=common`);
 
         //显示加载状态
         this.loading = true;

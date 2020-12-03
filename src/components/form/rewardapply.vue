@@ -736,7 +736,7 @@ export default {
         }
 
         // 返回预览URL
-        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.vuechatdomain}/#/app/reward?id=${id}&statustype=office&type=${type}&role=hr`);
+        const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/app/reward?id=${id}&statustype=office&type=${type}&role=hr`);
 
         //第一步 保存用户数据到数据库中
         const elem = {
