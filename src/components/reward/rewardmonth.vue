@@ -70,605 +70,607 @@
                   </a-row>
                 </div>
 
-                <div style="margin-top:20px; margin-left:4.75rem;">
-                  <a-tabs @change="callback">
-                    <a-tab-pane key="1" tab="全部数据">
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
-                            明细数据
-                          </a-col>
-                          <a-col :span="16">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportIdata();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetIData" :manual="false" @before-start="exportIdata();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                <div class="reward-apply-content-item reward-apply-content-title" style="margin-top:3rem;">
+                   <a-row style="border-top: 1px dash #f0f0f0;" >
+                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                      报表信息
+                    </a-col>
+                   </a-row>
+                </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="idata" ref="grid_00" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                <div style="margin-top:1.25rem; margin-left:4.75rem;margin-right:3.0rem;">
+                    <a-tabs @change="callback">
+                      <a-tab-pane key="1" tab="全部数据">
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                              明细数据
+                            </a-col>
+                            <a-col :span="16">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetIData" :manual="false" @before-start="exportIData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportTData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetTData" :manual="false" @before-start="exportTData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="idata" ref="grid_00" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="tdata" ref="grid_01" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportTData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetTData" :manual="false" @before-start="exportTData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportMData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetMData" :manual="false" @before-start="exportMData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="tdata" ref="grid_01" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="mdata" ref="grid_02" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportMData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetMData" :manual="false" @before-start="exportMData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportEData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetEData" :manual="false" @before-start="exportEData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="mdata" ref="grid_02" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="edata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
-                    </a-tab-pane>
-                    <a-tab-pane key="2" tab="业绩考核类" force-render>
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
-                            明细数据
-                          </a-col>
-                          <a-col :span="16">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportYIdata();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetYIdata" :manual="false" @before-start="exportYIdata();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportEData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetEData" :manual="false" @before-start="exportEData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="yidata" ref="grid_y0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="edata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
+                      </a-tab-pane>
+                      <a-tab-pane key="2" tab="业绩考核类" force-render>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                              明细数据
+                            </a-col>
+                            <a-col :span="16">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetYIData" :manual="false" @before-start="exportYIData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportYTData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetYTData" :manual="false" @before-start="exportYTData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="yidata" ref="grid_y0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="ytdata" ref="grid_y1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportYTData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetYTData" :manual="false" @before-start="exportYTData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportYMData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetYMData" :manual="false" @before-start="exportYMData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="ytdata" ref="grid_y1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="ymdata" ref="grid_y2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportYMData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetYMData" :manual="false" @before-start="exportYMData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportYEData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetYEData" :manual="false" @before-start="exportYEData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="ymdata" ref="grid_y2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="yedata" ref="grid_y3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
-                    </a-tab-pane>
-                    <a-tab-pane key="3" tab="总裁/总经理/特殊贡献">
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
-                            明细数据
-                          </a-col>
-                          <a-col :span="16">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportGIdata();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetGIData" :manual="false" @before-start="exportGIdata();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportYEData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetYEData" :manual="false" @before-start="exportYEData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="gidata" ref="grid_g0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="yedata" ref="grid_y3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
+                      </a-tab-pane>
+                      <a-tab-pane key="3" tab="总裁/总经理/特殊贡献">
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                              明细数据
+                            </a-col>
+                            <a-col :span="16">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportGIData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetGIData" :manual="false" @before-start="exportGIData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportGTData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetGTData" :manual="false" @before-start="exportGTData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="gidata" ref="grid_g0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="gtdata" ref="grid_g1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportGTData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetGTData" :manual="false" @before-start="exportGTData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportGMData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetGMData" :manual="false" @before-start="exportGMData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="gtdata" ref="grid_g1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="gmdata" ref="grid_g2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportGMData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetGMData" :manual="false" @before-start="exportGMData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportGEData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetGEData" :manual="false" @before-start="exportGEData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="gmdata" ref="grid_g2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="gedata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
-                    </a-tab-pane>
-                    <a-tab-pane key="4" tab="其他业务类">
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
-                            明细数据
-                          </a-col>
-                          <a-col :span="16">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportOIdata();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetOIdata" :manual="false" @before-start="exportOIdata();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <van-button name="file" @click="exportGEData();" style="display:none;" >导出</van-button>
+                                <excel-export :sheet="sheetGEData" :manual="false" @before-start="exportGEData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="oidata" ref="grid_o0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="gedata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
+                      </a-tab-pane>
+                      <a-tab-pane key="4" tab="其他业务类">
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                              明细数据
+                            </a-col>
+                            <a-col :span="16">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetOIData" :manual="false" @before-start="exportOIData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportOTData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetOTData" :manual="false" @before-start="exportOTData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="oidata" ref="grid_o0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="otdata" ref="grid_o1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetOTData" :manual="false" @before-start="exportOTData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、奖惩类型、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportOMData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetOMData" :manual="false" @before-start="exportOMData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="otdata" ref="grid_o1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="omdata" ref="grid_o2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、奖惩类型、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetOMData" :manual="false" @before-start="exportOMData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;" >
-                          <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                            汇总数据（按发放周期、员工账户）
-                          </a-col>
-                          <a-col :span="10">
-                            <div style="position:absolute; right: -20px; top: -2px;">
-                              <van-button name="file" @click="exportOEData();" style="display:none;" >导出</van-button>
-                              <excel-export :sheet="sheetOEData" :manual="false" @before-start="exportOEData();">
-                                <div>导出</div>
-                              </excel-export>
-                            </div>
-                          </a-col>
-                        </a-row>
-                      </div>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="omdata" ref="grid_o2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
 
-                      <div class="reward-apply-content-item reward-apply-content-title" style="">
-                        <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                          <vue-excel-editor v-model="oedata" ref="grid_o3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
-                              <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                              <vue-excel-column field="period"      label="发放期间"   width="100px" />
-                              <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
-                              <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
-                              <vue-excel-column field="username"    label="员工姓名"   width="100px" />
-                              <vue-excel-column field="account"     label="员工OA"    width="100px" />
-                              <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                              <vue-excel-column field="zone"        label="所属区域"   width="100px" />
-                              <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                              <vue-excel-column field="project"     label="项目/中心"  width="100px" />
-                              <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                              <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                              <vue-excel-column field="amount"      label="分配金额"   width="100px" />
-                              <vue-excel-column field="status"    label="状态"      width="80px" />
-                          </vue-excel-editor>
-                        </a-row>
-                      </div>
-                    </a-tab-pane>
-                  </a-tabs>
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;" >
+                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                              汇总数据（按发放周期、员工账户）
+                            </a-col>
+                            <a-col :span="10">
+                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                                <excel-export :sheet="sheetOEData" :manual="false" @before-start="exportOEData();">
+                                  <div>导出</div>
+                                </excel-export>
+                              </div>
+                            </a-col>
+                          </a-row>
+                        </div>
+
+                        <div class="reward-apply-content-item reward-apply-content-title" style="">
+                          <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
+                            <vue-excel-editor v-model="oedata" ref="grid_o3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                                <vue-excel-column field="type"        label="分配性质"   width="80px" />
+                                <vue-excel-column field="period"      label="发放期间"   width="100px" />
+                                <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
+                                <vue-excel-column field="reward_name" label="奖惩名称"   width="100px" />
+                                <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                                <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                                <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                                <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                                <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                                <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                                <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                                <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                                <vue-excel-column field="amount"      label="分配金额"   width="100px" />
+                                <vue-excel-column field="status"    label="状态"      width="80px" />
+                            </vue-excel-editor>
+                          </a-row>
+                        </div>
+                      </a-tab-pane>
+                    </a-tabs>
                 </div>
 
                 <div style="height:100px;">
@@ -1118,6 +1120,8 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
             return index == findex;
           });
@@ -1133,6 +1137,8 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.reward_type = '全部类型';
             item.amount = amap.get(item.e_key) ;
             return index == findex;
@@ -1213,6 +1219,8 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
             return index == findex;
           });
@@ -1228,6 +1236,8 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.reward_type = '业绩考核类';
             item.amount = amap.get(item.e_key) ;
             return index == findex;
@@ -1308,6 +1318,8 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
             return index == findex;
           });
@@ -1323,6 +1335,8 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.reward_type = '总裁/总经理/特殊贡献';
             item.amount = amap.get(item.e_key) ;
             return index == findex;
@@ -1403,6 +1417,8 @@ export default {
             const findex = mtemplist.findIndex((elem,index) => {
               return elem.m_key == item.m_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.amount = amap.get(item.m_key) ;
             return index == findex;
           });
@@ -1418,6 +1434,8 @@ export default {
             const findex = etemplist.findIndex((elem,index) => {
               return elem.e_key == item.e_key
             });
+            item.pname = '--';
+            item.reward_name = '--';
             item.reward_type = '其他业务类';
             item.amount = amap.get(item.e_key) ;
             return index == findex;
@@ -1448,7 +1466,7 @@ export default {
 
       },
       // 导出明细数据
-      async exportIdata(){
+      async exportIData(){
          this.$refs.grid_00.exportTable('xlsx', false, '奖惩明细数据');
          this.sheetIData[0].table = this.idata;
       },
@@ -1469,7 +1487,7 @@ export default {
       },
 
       // 导出明细数据 其他业务类
-      async exportOIdata(){
+      async exportOIData(){
          this.$refs.grid_o0.exportTable('xlsx', false, '奖惩明细数据');
          this.sheetOIData[0].table = this.oidata;
       },
@@ -1490,7 +1508,7 @@ export default {
       },
 
       // 导出明细数据 业绩考核类
-      async exportYIdata(){
+      async exportYIData(){
          this.$refs.grid_y0.exportTable('xlsx', false, '奖惩明细数据');
          this.sheetYIData[0].table = this.yidata;
       },
@@ -1511,7 +1529,7 @@ export default {
       },
 
       // 导出明细数据 总裁/总经理/特殊贡献
-      async exportGIdata(){
+      async exportGIData(){
          this.$refs.grid_g0.exportTable('xlsx', false, '奖惩明细数据');
          this.sheetGIData[0].table = this.gidata;
       },
