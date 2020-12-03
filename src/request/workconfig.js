@@ -225,7 +225,7 @@ export const reward = (that) => {
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
             click: () => {
-                that.$router.push(`/reward/rewardmonth?type=quarter`);
+                that.$router.push(`/reward/rewardquarter?type=quarter`);
             },
         }, {
             name: "奖罚审批",
