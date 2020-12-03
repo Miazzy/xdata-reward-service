@@ -1182,15 +1182,19 @@ export default {
             item.group_key = `Group_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}_${tools.deNull(item.pname)}`;
             item.m_key = `M_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}_${tools.deNull(item.account)}`;
             item.e_key = `E_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.account)}`;
+            item.r_key = `M_Key_Y_${tools.deNull(item.period)}_${tools.deNull(item.reward_type)}`;
             let total = amap.get(item.group_key) ? amap.get(item.group_key) + item.amount : 0.00 + item.amount;
             let mtotal = amap.get(item.m_key) ? amap.get(item.m_key) + item.amount : 0.00 + item.amount;
             let etotal = amap.get(item.e_key) ? amap.get(item.e_key) + item.amount : 0.00 + item.amount;
+            let rtotal = amap.get(item.r_key) ? amap.get(item.r_key) + item.amount : 0.00 + item.amount;
             console.log(`yeji g_key:${item.group_key} total: ${total}`);
             console.log(`yeji m_key:${item.m_key} total: ${mtotal}`);
             console.log(`yeji e_key:${item.e_key} total: ${etotal}`);
+            console.log(`yeji r_key:${item.r_key} total: ${rtotal}`);
             amap.set(item.group_key , total);
             amap.set(item.m_key , mtotal);
             amap.set(item.e_key , etotal);
+            amap.set(item.r_key , etotal);
           });
         } catch (error) {
           console.log(error);
