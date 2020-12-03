@@ -67,6 +67,23 @@ self.addEventListener('install', function(event) {
                 "https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js",
                 "https://unpkg.com/mint-ui/lib/index.js",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.0/css/vconsole.css",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/pay.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/time_00.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/home_00.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/hire.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.0.1/images/pay03.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.0.0/images/pay02.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.0.0/images/pay00.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/yuebao.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_8.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_5.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.0.2/images/pay07.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/shenpi.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhoubao.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhushou.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-file-04.svg",
+                "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-rank-01.svg",
             ]);
         })
     );
