@@ -135,7 +135,7 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请奖金</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.amount"  placeholder="请输入本次奖罚申请的单项奖金总额！" @blur="validFieldToast('amount')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input-number  :parser="value => value.replace(/\$\s?|(,*)/g, '')" precision="2" v-model="item.amount"  placeholder="请输入本次奖罚申请的单项奖金总额！" @blur="validFieldToast('amount')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -146,7 +146,7 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，注意是发放周期！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-month-picker :locale="locale" format="YYYY年MM月" v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放性质</span>
@@ -163,7 +163,7 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属周期</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，注意不是发放周期！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-month-picker :locale="locale" format="YYYY年MM月" v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚名称</span>
@@ -372,6 +372,8 @@
                         <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                         <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="reward_release_company" label="激励分配方" width="100px" />
+                        <vue-excel-column field="cost_bearer" label="成本承担方" width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
                         <vue-excel-column field="ratio"       label="分配比率"   width="80px" summary="sum" />
@@ -458,6 +460,7 @@ import * as workflow from '@/request/workflow';
 import * as manageAPI from '@/request/manage';
 import * as wflowprocess from '@/request/wflow.process';
 import * as workconfig from '@/request/workconfig';
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 
 try {
   Vue.component("downloadExcel", JsonExcel);
@@ -470,6 +473,7 @@ export default {
   mixins: [window.mixin],
   data() {
     return {
+      locale,
       iswechat:false,
       iswework:false,
       pageName: "奖罚管理",
@@ -495,8 +499,8 @@ export default {
               bpm_status: '',
               reward_type: '',
               reward_name: '',
-              reward_period: dayjs().format('YYYY年MM月'),
-              reward_release_period: dayjs().format('YYYY年MM月'),
+              reward_period: new moment(),
+              reward_release_period: new moment(),
               reward_release_feature: '当期分配',
               hr_admin_ids: '',
               hr_admin_names: '',
@@ -1304,6 +1308,8 @@ export default {
                     apply_username: userinfo.username,
                     apply_realname: userinfo.realname,
                     files: this.item.files,
+                    reward_release_company: this.item.reward_release_company,
+                    cost_bearer: this.item.cost_bearer,
                     files_00: this.item.files_00,
                     files_01: this.item.files_01,
                     files_02: this.item.files_02,
@@ -1657,6 +1663,8 @@ export default {
                     apply_username: userinfo.username,
                     apply_realname: userinfo.realname,
                     files: this.item.files,
+                    reward_release_company: this.item.reward_release_company,
+                    cost_bearer: this.item.cost_bearer,
                     files_00: this.item.files_00,
                     files_01: this.item.files_01,
                     files_02: this.item.files_02,
@@ -1918,6 +1926,14 @@ export default {
     vertical-align: middle;
     height: 27px;
     line-height: 27px;
+}
+
+.reward-apply-content-item .ant-input-number {
+  width:100%;
+}
+
+.reward-apply-content-item .ant-calendar-picker {
+  width:100%;
 }
 
 </style>
