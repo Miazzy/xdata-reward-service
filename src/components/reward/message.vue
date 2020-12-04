@@ -186,6 +186,7 @@ export default {
   },
   methods: {
     async init() {
+      const patchResp = await superagent.get(workconfig.queryAPI.tableSerialAPI.replace('{table_name}', this.tablename)).set('accept', 'json'); //发送自动设置排序号请求
       this.panename = tools.getUrlParam('panename') || storage.getStore(`reward_message_panename`) || 'myrewardlist';
       this.userinfo = await this.weworkLogin(); //查询当前登录用户
       this.tabname = storage.getStore(`reward_message_tabname`) || 0 ;

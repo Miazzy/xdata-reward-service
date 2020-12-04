@@ -346,7 +346,8 @@
                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
                         <vue-excel-column field="period"      label="发放期间"   width="80px" />
-                        <vue-excel-column field="reward_tname" label="奖罚类别"   width="80px" />
+                        <vue-excel-column field="reward_period" label="所属周期" width="100px" />
+                        <vue-excel-column field="reward_tname"  label="奖罚类别" width="80px" />
                         <vue-excel-column field="username"    label="员工姓名"   width="80px" />
                         <vue-excel-column field="account"     label="员工OA"    width="80px" />
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />

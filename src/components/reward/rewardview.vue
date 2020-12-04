@@ -264,8 +264,23 @@
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                   <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                    <a-table :columns="columns" :data-source="data">
-                    </a-table>
+                     <!-- <a-table :columns="columns" :data-source="data"> </a-table> -->
+                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="true" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                        <vue-excel-column field="type"        label="分配性质"   width="100px" />
+                        <vue-excel-column field="period"      label="发放周期"   width="100px" />
+                        <vue-excel-column field="reward_period" label="所属周期" width="100px" />
+                        <vue-excel-column field="reward_tname"  label="奖罚类别" width="100px" />
+                        <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                        <vue-excel-column field="account"     label="员工OA"    width="100px" />
+                        <vue-excel-column field="company"     label="所属单位"   width="100px" />
+                        <vue-excel-column field="zone"        label="所属区域"   width="100px" />
+                        <vue-excel-column field="project"     label="项目/中心"  width="100px" />
+                        <vue-excel-column field="pname"       label="项目名称"   width="100px" />
+                        <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                        <vue-excel-column field="ratio"       label="分配比率"   width="70px" summary="sum" />
+                    </vue-excel-editor>
                    </a-row>
                 </div>
 
@@ -686,6 +701,8 @@ export default {
     this.queryInfo();
   },
   methods: {
+    async onDelete(){},
+    async onUpdate(){},
     //上传提示
     async toastUpload(flag){
       if(flag == 'start'){
