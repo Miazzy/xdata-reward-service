@@ -174,6 +174,23 @@
                   </a-row>
                 </div>
 
+                <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
+                  <a-row>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>分配单位</span>
+                    </a-col>
+                    <a-col :span="8">
+                      <a-input v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>成本承担方</span>
+                    </a-col>
+                    <a-col :span="8">
+                      <a-input v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                  </a-row>
+                </div>
+
                 <div class="reward-apply-content-item" style="height:auto;margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row style="height:auto;">
                     <a-col :span="4" style="height:auto; font-size:1.0rem; margin-top:5px; text-align: center;">
@@ -341,24 +358,24 @@
                    </a-row>
                 </div>
 
-                <div class="reward-apply-content-item reward-apply-content-title" style="width:100%;">
+                <div class="reward-apply-content-item reward-apply-content-title" style="margin-right:8.75rem;">
                   <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;width:100%;height:auto;" >
                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
-                        <vue-excel-column field="period"      label="发放期间"   width="80px" />
+                        <vue-excel-column field="period"      label="发放期间"   width="100px" />
                         <vue-excel-column field="reward_period" label="所属周期" width="100px" />
-                        <vue-excel-column field="reward_tname"  label="奖罚类别" width="80px" />
-                        <vue-excel-column field="username"    label="员工姓名"   width="80px" />
-                        <vue-excel-column field="account"     label="员工OA"    width="80px" />
+                        <vue-excel-column field="reward_tname"  label="奖罚类别" width="100px" />
+                        <vue-excel-column field="username"    label="员工姓名"   width="100px" />
+                        <vue-excel-column field="account"     label="员工OA"    width="100px" />
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />
-                        <vue-excel-column field="zone"        label="所属区域"   width="80px" />
+                        <vue-excel-column field="zone"        label="所属区域"   width="100px" />
                         <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                         <vue-excel-column field="pname"       label="项目名称"   width="100px" />
-                        <vue-excel-column field="department"  label="所属部门"   width="80px" />
-                        <vue-excel-column field="position"    label="员工职务"   width="80px" />
-                        <vue-excel-column field="amount"      label="分配金额"   width="70px" summary="sum" />
-                        <vue-excel-column field="ratio"       label="分配比率"   width="70px" summary="sum" />
-                        <vue-excel-column field="v_status"    label="状态"      width="40px" type="map" :options="statusType" />
+                        <vue-excel-column field="department"  label="所属部门"   width="100px" />
+                        <vue-excel-column field="position"    label="员工职务"   width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                        <vue-excel-column field="ratio"       label="分配比率"   width="80px" summary="sum" />
+                        <vue-excel-column field="v_status"    label="状态"      width="60px" type="map" :options="statusType" />
                     </vue-excel-editor>
                    </a-row>
                 </div>

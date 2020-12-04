@@ -858,6 +858,8 @@ export const compValidation = {
             hr_name: '',
             files: '',
             apply_realname: '',
+            reward_release_company: '',
+            cost_bearer: '',
         },
         valid: {
             title: '请输入奖罚申请的标题！',
@@ -872,6 +874,8 @@ export const compValidation = {
             hr_name: '请输入负责薪资管理的人力经理！',
             files: '请上传奖罚明细的Excel文档！',
             apply_realname: '请输入申请人姓名！',
+            reward_release_company: '请输入奖罚/激励分配单位！',
+            cost_bearer: '请输入奖罚/激励的成本承担方！',
         }
     }
 }
