@@ -46,7 +46,11 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚类别</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_type" readonly placeholder="请填写奖罚类别！" @blur="validFieldToast('reward_type')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"  />
+                      <a-select id="reward-month-picker" :default-value="item.reward_type" v-model="item.reward_type" placeholder="请填写奖罚类别！"  @blur="validFieldToast('reward_type')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0; width:100%;  border-width: 0px 0px 0px 0px;" >
+                        <a-select-option v-for="value in ['业绩考核奖','总裁专项奖','总经理专项奖','特殊贡献奖','其他奖罚']" :key="value" >
+                          {{ value }}
+                        </a-select-option>
+                      </a-select>
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请时间</span>
@@ -82,13 +86,13 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属公司</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.company" placeholder="请输入申请人员所属公司！" @blur="validFieldToast('company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input v-model="item.company" :readonly="!!item.company" placeholder="请输入申请人员所属公司！" @blur="validFieldToast('company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属部门</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.department" placeholder="请输入申请人员所属部门！" @blur="validFieldToast('department')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input v-model="item.department" :readonly="!!item.department" placeholder="请输入申请人员所属部门！" @blur="validFieldToast('department')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -145,14 +149,18 @@
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
                     </a-col>
-                    <a-col :span="8">
-                      <a-month-picker :locale="locale" format="YYYY年MM月" v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    <a-col :span="8" >
+                      <a-month-picker id="reward-month-picker" :locale="locale" format="YYYY年MM月" v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放性质</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_release_feature"  placeholder="请输入本次奖罚/激励申请的发放性质，如当期分配/延期分配！" @blur="validFieldToast('reward_release_feature')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-select id="reward-month-picker" default-value="当期分配" v-model="item.reward_release_feature" placeholder="请输入本次奖罚/激励申请的发放性质，如当期分配/延期分配！"  @blur="validFieldToast('reward_release_feature')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0; width:100%;  border-width: 0px 0px 0px 0px;" >
+                        <a-select-option v-for="value in ['当期分配','延期分配']" :key="value" >
+                          {{ value }}
+                        </a-select-option>
+                      </a-select>
                     </a-col>
                   </a-row>
                 </div>
@@ -162,8 +170,8 @@
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属周期</span>
                     </a-col>
-                    <a-col :span="8">
-                      <a-month-picker :locale="locale" format="YYYY年MM月" v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    <a-col :span="8" >
+                      <a-month-picker id="reward-month-picker" :locale="locale" format="YYYY年MM月" v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚名称</span>
@@ -365,6 +373,8 @@
                         <vue-excel-column field="period"      label="发放期间"   width="100px" />
                         <vue-excel-column field="reward_period" label="所属周期" width="100px" />
                         <vue-excel-column field="reward_tname"  label="奖罚类别" width="100px" />
+                        <vue-excel-column field="reward_release_company" label="激励分配方" width="100px" />
+                        <vue-excel-column field="cost_bearer" label="成本承担方" width="100px" />
                         <vue-excel-column field="username"    label="员工姓名"   width="100px" />
                         <vue-excel-column field="account"     label="员工OA"    width="100px" />
                         <vue-excel-column field="company"     label="所属单位"   width="100px" />
@@ -372,8 +382,6 @@
                         <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                         <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
-                        <vue-excel-column field="reward_release_company" label="激励分配方" width="100px" />
-                        <vue-excel-column field="cost_bearer" label="成本承担方" width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
                         <vue-excel-column field="ratio"       label="分配比率"   width="80px" summary="sum" />
@@ -1941,5 +1949,21 @@ export default {
 .reward-apply-content-item .ant-calendar-picker {
   width:100%;
 }
+
+.reward-apply-content-item .ant-calendar-picker input{
+  border-width: 0px 0px 1px;
+  border-style: solid;
+  border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+  border-image: initial;
+}
+
+.reward-apply-content-item .ant-calendar-picker-input {
+    outline: none;
+    border-width: 0px 0px 1px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+}
+
 
 </style>

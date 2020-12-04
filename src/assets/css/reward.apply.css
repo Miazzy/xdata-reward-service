@@ -92,3 +92,39 @@
     height: 27px;
     line-height: 27px;
 }
+
+#reward-month-picker .ant-calendar-picker-input input {
+    outline: none;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+    width: 100%;
+}
+
+#reward-month-picker input[readonly=true] {
+    outline: none;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+    width: 100%;
+}
+
+#reward-month-picker div[role="combobox"] {
+    outline: none;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+    width: 100%;
+}
+
+.ant-calendar-picker-input {
+    outline: none;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgb(250, 212, 212) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+    width: 100%;
+}
