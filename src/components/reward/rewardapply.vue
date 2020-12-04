@@ -674,6 +674,8 @@ export default {
                   elem.period = this.item.reward_release_period;
                   elem.type = this.item.reward_release_feature;
                   elem.project = elem.project ? elem.project : temp.project;
+                  elem.reward_release_company = this.item.reward_release_company;
+                  elem.cost_bearer = this.item.cost_bearer;
                   elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
                   console.log(`project: ${elem.project} or temp.project:${temp.project}`);
                 }
@@ -1830,6 +1832,8 @@ export default {
                 zone,
                 project,
                 message:'',
+                reward_release_company :this.item.reward_release_company,
+                cost_bearer : this.item.cost_bearer,
                 v_status: 'valid',
               });
             }
@@ -1856,6 +1860,8 @@ export default {
               zone,
               project,
               message:'',
+              reward_release_company :this.item.reward_release_company,
+              cost_bearer : this.item.cost_bearer,
               v_status: 'valid',
             });
           } catch (error) {
