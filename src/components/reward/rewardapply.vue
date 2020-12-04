@@ -1663,8 +1663,8 @@ export default {
                     bpm_status: '1', //流程状态 1：待提交  2：审核中  3：审批中  4：已完成  5：已完成  10：已作废 100：已驳回
                     reward_type: this.item.reward_type,
                     reward_name: this.item.reward_name,
-                    reward_period: this.item.reward_period,
-                    reward_release_period: this.item.reward_release_period,
+                    reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'),
+                    reward_release_period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
                     reward_release_feature: this.item.reward_release_feature,
                     hr_admin_ids: user_group_ids,
                     hr_admin_names: user_group_names,
@@ -1695,7 +1695,6 @@ export default {
                     item.create_time = dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss');
                     item.pid = id;
                     item.reward_tname = elem.reward_type;
-                    item.period = elem.reward_release_period;
                     item.type = elem.reward_release_feature;
                     item.hr_admin_ids = elem.hr_admin_ids;
                     item.hr_id = elem.hr_id;
@@ -1826,8 +1825,6 @@ export default {
               return this.data.push({
                 key: tools.queryUniqueID(),
                 type: this.item.reward_release_feature,
-                // period: this.item.reward_release_period,
-                // reward_period: this.item.reward_period, //所属周期
                 reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
                 period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
                 reward_tname: this.item.reward_type,
@@ -1856,8 +1853,6 @@ export default {
             this.data.push({
               key: tools.queryUniqueID(),
               type: this.item.reward_release_feature,
-              // period: this.item.reward_release_period,
-              // reward_period: this.item.reward_period, //所属周期
               reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
               period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
               reward_tname: this.item.reward_type,
