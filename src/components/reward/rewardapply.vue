@@ -677,9 +677,9 @@ export default {
                   elem.position = user.position;
                   elem.mobile = user.mobile;
                   elem.zone = temp.zone;
-                  elem.reward_period = this.item.reward_period, //所属周期
                   elem.reward_tname = this.item.reward_type;
-                  elem.period = this.item.reward_release_period;
+                  elem.reward_period = dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
+                  elem.period = dayjs(this.item.reward_release_period).format('YYYY年MM月');
                   elem.type = this.item.reward_release_feature;
                   elem.project = elem.project ? elem.project : temp.project;
                   elem.reward_release_company = this.item.reward_release_company;
@@ -1826,8 +1826,10 @@ export default {
               return this.data.push({
                 key: tools.queryUniqueID(),
                 type: this.item.reward_release_feature,
-                period: this.item.reward_release_period,
-                reward_period: this.item.reward_period, //所属周期
+                // period: this.item.reward_release_period,
+                // reward_period: this.item.reward_period, //所属周期
+                reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
+                period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
                 reward_tname: this.item.reward_type,
                 username: username,
                 account: userid,
@@ -1854,8 +1856,10 @@ export default {
             this.data.push({
               key: tools.queryUniqueID(),
               type: this.item.reward_release_feature,
-              period: this.item.reward_release_period,
-              reward_period: this.item.reward_period, //所属周期
+              // period: this.item.reward_release_period,
+              // reward_period: this.item.reward_period, //所属周期
+              reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
+              period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
               reward_tname: this.item.reward_type,
               username: username,
               account: userid,
