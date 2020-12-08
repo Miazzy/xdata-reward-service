@@ -482,6 +482,44 @@ export const columns = {
             key: 'mobile',
             ellipsis: true,
         }, ],
+        vueExcelLabels: {
+            footerLeft: (top, bottom) => ``,
+            first: '头页',
+            previous: '上一页',
+            next: '下一页',
+            last: '尾页',
+            footerRight: {
+                selected: '',
+                filtered: '',
+                loaded: ''
+            },
+            processing: '工作中',
+            tableSetting: '设定',
+            exportExcel: '导出 Excel',
+            importExcel: '导入 Excel',
+            back: '返回',
+            reset: '预设',
+            sortingAndFiltering: '排序及过滤',
+            sortAscending: '小至大排序',
+            sortDescending: '大至小排序',
+            near: '≒ 接近',
+            exactMatch: '= 等于',
+            notMatch: '≠ 不等于',
+            greaterThan: '&gt; 大于',
+            greaterThanOrEqualTo: '≥ 大于或等于',
+            lessThan: '&lt; 少于',
+            lessThanOrEqualTo: '≤ 少于或等于',
+            regularExpression: '~ 正规表示式',
+            customFilter: '过滤内容',
+            listFirstNValuesOnly: n => `只列出${n}项`,
+            apply: '应用',
+            noRecordIsRead: '没有记录被读取',
+            readonlyColumnDetected: '不可更新唯读记录',
+            columnHasValidationError: (name, err) => `记录栏位 ${name} 发生核实错误: ${err}`,
+            noMatchedColumnName: '没有能配对之栏位',
+            invalidInputValue: '输入错误内容',
+            missingKeyColumn: '找不到关键栏位'
+        }
     }
 }
 

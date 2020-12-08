@@ -98,7 +98,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="idata" ref="grid_00" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="idata" ref="grid_00" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_period" label="所属期间"   width="100px" />
@@ -136,7 +136,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="tdata" ref="grid_01" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="tdata" ref="grid_01" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -173,7 +173,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="mdata" ref="grid_02" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="mdata" ref="grid_02" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -210,7 +210,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="edata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="edata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -247,7 +247,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="yidata" ref="grid_y0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="yidata" ref="grid_y0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_period" label="所属期间"   width="100px" />
@@ -285,7 +285,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="ytdata" ref="grid_y1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="ytdata" ref="grid_y1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -322,7 +322,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="ymdata" ref="grid_y2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="ymdata" ref="grid_y2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -359,7 +359,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="yedata" ref="grid_y3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="yedata" ref="grid_y3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -397,7 +397,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="gidata" ref="grid_g0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="gidata" ref="grid_g0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_period" label="所属期间"   width="100px" />
@@ -435,7 +435,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="gtdata" ref="grid_g1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="gtdata" ref="grid_g1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -472,7 +472,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="gmdata" ref="grid_g2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="gmdata" ref="grid_g2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -509,7 +509,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="gedata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="gedata" ref="grid_03" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -546,7 +546,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="oidata" ref="grid_o0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="oidata" ref="grid_o0" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_period" label="所属期间"   width="100px" />
@@ -583,7 +583,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="otdata" ref="grid_o1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="otdata" ref="grid_o1" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -619,7 +619,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="omdata" ref="grid_o2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="omdata" ref="grid_o2" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -655,7 +655,7 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;margin:0px 0.75rem;" >
-                            <vue-excel-editor v-model="oedata" ref="grid_o3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                            <vue-excel-editor v-model="oedata" ref="grid_o3" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row :localized-label="vueExcelLabels"  autocomplete @delete="onDelete" @update="onUpdate" >
                                 <vue-excel-column field="type"        label="分配性质"   width="80px" />
                                 <vue-excel-column field="period"      label="发放期间"   width="100px" />
                                 <vue-excel-column field="reward_type" label="奖惩类型"   width="100px" />
@@ -756,6 +756,7 @@ export default {
       cost_bearer:'',
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
+      vueExcelLabels: workconfig.columns.reward.vueExcelLabels,
       idata:[], //明细数据（全部数据）
       tdata:[], //汇总数据（全部数据）
       mdata:[], //汇总数据（全部数据）
