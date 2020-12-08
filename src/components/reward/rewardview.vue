@@ -168,16 +168,16 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>分配单位</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>激励分配方</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
-                      <a-input readonly v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input readonly v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位（激励分配方）！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>成本承担方</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
-                      <a-input readonly v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input readonly v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位（成本承担方）！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
