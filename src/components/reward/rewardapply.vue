@@ -386,6 +386,7 @@
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
                         <vue-excel-column field="ratio"       label="分配比率"   width="100px" summary="sum" />
+                        <vue-excel-column field="reward_amount" label="奖罚总额"  width="100px" />
                         <vue-excel-column field="content"     label="申请事由"   width="100px" />
                         <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
                     </vue-excel-editor>
@@ -707,6 +708,7 @@ export default {
                   elem.project = elem.project ? elem.project : temp.project;
                   elem.reward_release_company = elem.reward_release_company ? elem.reward_release_company : this.item.reward_release_company;
                   elem.reward_name = elem.reward_name ? elem.reward_name : this.item.reward_name;
+                  elem.reward_amount = elem.reward_amount ? elem.reward_amount : this.item.reward_amount;
                   elem.content = elem.content ? elem.content : this.item.content;
                   elem.cost_bearer = elem.cost_bearer ? elem.cost_bearer : this.item.cost_bearer;
                   elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
@@ -1726,7 +1728,7 @@ export default {
                     item.hr_username = elem.hr_name;
                     item.reward_type = elem.reward_type;
                     item.reward_amount = elem.amount; // 奖金总额
-                    item.reward_name = elem.reward_name; // 奖罚名称
+                    item.reward_name = item.reward_name; // 奖罚名称
                     item.reward_subname = elem.reward_name; // 奖罚名称
                     item.apply_username = elem.apply_username;
                     item.apply_realname = elem.apply_realname;
@@ -1883,6 +1885,7 @@ export default {
                 reward_release_company :this.item.reward_release_company,
                 cost_bearer : this.item.cost_bearer,
                 content: this.item.content,
+                reward_amount: this.item.reward_amount,
                 v_status: 'valid',
               });
             }
@@ -1913,6 +1916,7 @@ export default {
               reward_release_company :this.item.reward_release_company,
               cost_bearer : this.item.cost_bearer,
               content: this.item.content,
+              reward_amount: this.item.reward_amount,
               v_status: 'valid',
             });
           } catch (error) {
