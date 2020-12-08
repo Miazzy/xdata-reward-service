@@ -305,6 +305,30 @@
                    </a-row>
                 </div>
 
+                <div class="reward-apply-content-item reward-apply-content-title" style="margin-top: 35px;">
+                   <a-row style="border-top: 1px dash #f0f0f0;" >
+                    <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="">
+                      审批流程
+                    </a-col>
+                   </a-row>
+                </div>
+
+                <div id="van-user-list" class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
+                  <a-row style="position:relative;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>审批人员</span>
+                    </a-col>
+                    <a-col :span="(iswechat?24:20)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                      <template v-for=" (userinfo , index ) in approve_executelist">
+                        <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
+                        <a-avatar size="large" :key="userinfo.id" :style="execute_node.employee == userinfo.userid ? `color: #f5f5f5; background-color: skyblue; font-size:0.75rem;`:`color: #f56a00; background-color: #fde3cf;font-size:0.75rem;`">
+                          {{ userinfo.username }}
+                        </a-avatar>
+                      </template>
+                    </a-col>
+                  </a-row>
+                </div>
+
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                    <a-row style="border-top: 1px dash #f0f0f0;" >
                     <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="">
@@ -313,7 +337,7 @@
                    </a-row>
                 </div>
 
-                 <div class="reward-apply-content-item reward-apply-content-title" style="">
+                <div class="reward-apply-content-item reward-apply-content-title" style="">
                   <div :style="iswechat?`margin-left:0.25rem;`:`margin-left:8.25rem;`">
                     <van-steps direction="vertical" :active="processLogList.length - 1">
                       <template v-for="value in processLogList">
@@ -324,44 +348,6 @@
                       </template>
                     </van-steps>
                   </div>
-                </div>
-
-                <div v-show="(!(panename == 'myapplylist' || panename == 'mydonelist' || typename == 'hr_admin_ids')) && workflowLogList.length > 0 && role !='view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
-
-                  <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
-                    <a-row>
-                      <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                        审批意见
-                      </a-col>
-                      <a-col :span="(iswechat?24:20)">
-                        <a-textarea
-                          v-model="approve_content"
-                          placeholder="请输入此申请流程的审批意见！"
-                          :auto-size="{ minRows: 10, maxRows: 50 }"
-                          :style="iswechat?`height:80px; border: 0px solid #fefefe;margin-left:0.75rem;  border-bottom: 1px solid #f0f0f0;`:`height:80px; border: 0px solid #fefefe;margin-left:0.00rem;  border-bottom: 1px solid #f0f0f0;`"
-                        />
-                      </a-col>
-                    </a-row>
-                  </div>
-
-                   <a-row style="border-top: 1px dash #f0f0f0;" >
-                    <a-col :span="8 * (iswechat?0:1)">
-
-                    </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
-                      <a-button type="primary" style="width: 120px;color:c0c0c0;" @click="handleDisagree();"  >
-                        驳回
-                      </a-button>
-                    </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
-                      <a-button type="primary" style="width: 120px;" @click="handleAgree();"  >
-                        同意
-                      </a-button>
-                    </a-col>
-                    <a-col :span="8 * (iswechat?2:1)">
-
-                    </a-col>
-                   </a-row>
                 </div>
 
                 <div v-show="panename == 'myrewardlist' && typename == 'hr_admin_ids' && (bpm_status == '4' || bpm_status == '5') && role != 'view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
@@ -427,8 +413,16 @@
 
                   <div v-show="approve_executelist.length > 0" class="reward-apply-content-item reward-apply-content-title" style="">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <a-table :columns="wfcolumns" :data-source="approve_executelist">
-                      </a-table>
+                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdateExecute" >
+                        <vue-excel-column field="key"        label="流程顺序"   width="80px" />
+                        <vue-excel-column field="username"      label="审批人员"   width="180px" />
+                        <vue-excel-column field="userid" label="审批账户" width="180px" />
+                        <vue-excel-column field="company"  label="所属单位" width="180px" />
+                        <vue-excel-column field="department"  label="所属部门" width="180px" />
+                        <vue-excel-column field="position" label="审批职务" width="180px" />
+                        <vue-excel-column field="mobile" label="联系电话" width="180px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
+                    </vue-excel-editor>
                     </a-row>
                   </div>
 
@@ -556,10 +550,18 @@
 
                 <div v-show="panename == 'myapplylist' && typename == 'create_by' && (bpm_status == '2' || bpm_status == '3') && workflowLogList.length >= 0 && role != 'view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
 
-                  <div class="reward-apply-content-item reward-apply-content-title" style="">
+                  <div class="reward-apply-content-item reward-apply-content-title" style="display:none;">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <a-table :columns="wfcolumns" :data-source="approve_executelist">
-                      </a-table>
+                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdateExecute" >
+                        <vue-excel-column field="key"        label="流程顺序"   width="80px" />
+                        <vue-excel-column field="username"      label="审批人员"   width="180px" />
+                        <vue-excel-column field="userid" label="审批账户" width="180px" />
+                        <vue-excel-column field="company"  label="所属单位" width="180px" />
+                        <vue-excel-column field="department"  label="所属部门" width="180px" />
+                        <vue-excel-column field="position" label="审批职务" width="180px" />
+                        <vue-excel-column field="mobile" label="联系电话" width="180px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
+                      </vue-excel-editor>
                     </a-row>
                   </div>
 
@@ -589,11 +591,47 @@
 
                 </div>
 
+                <div v-show="(!(panename == 'myapplylist' || panename == 'mydonelist' || typename == 'hr_admin_ids')) && workflowLogList.length > 0 && role !='view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
+
+                  <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
+                    <a-row>
+                      <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                        审批意见
+                      </a-col>
+                      <a-col :span="(iswechat?24:20)">
+                        <a-textarea
+                          v-model="approve_content"
+                          placeholder="请输入此申请流程的审批意见！"
+                          :auto-size="{ minRows: 10, maxRows: 50 }"
+                          :style="iswechat?`height:80px; border: 0px solid #fefefe;margin-left:0.75rem;  border-bottom: 1px solid #f0f0f0;`:`height:80px; border: 0px solid #fefefe;margin-left:0.00rem;  border-bottom: 1px solid #f0f0f0;`"
+                        />
+                      </a-col>
+                    </a-row>
+                  </div>
+
+                   <a-row style="border-top: 1px dash #f0f0f0;" >
+                    <a-col :span="8 * (iswechat?0:1)">
+
+                    </a-col>
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
+                      <a-button type="primary" style="width: 120px;color:c0c0c0;" @click="handleDisagree();"  >
+                        驳回
+                      </a-button>
+                    </a-col>
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
+                      <a-button type="primary" style="width: 120px;" @click="handleAgree();"  >
+                        同意
+                      </a-button>
+                    </a-col>
+                    <a-col :span="8 * (iswechat?2:1)">
+
+                    </a-col>
+                   </a-row>
+                </div>
 
                 <div style="height:100px;">
 
                 </div>
-
 
               </div>
 
@@ -692,6 +730,8 @@ export default {
 
       approve_executelist:[],
       approve_notifylist:[],
+
+      execute_node:'',//当前待审批人员名称
 
       role:'',
       tablename:'bs_reward_apply',
@@ -821,6 +861,12 @@ export default {
           logList.map(item => { item.action = '待审批'; item.action_opinion = '尚未审批，请等待审批完成！'; });
           this.processLogList = [...historyLogList , ...logList];
           this.workflowLogList = logList;
+
+          try {
+            this.execute_node = JSON.parse(JSON.stringify(logList[0]));
+          } catch (error) {
+            console.log(error);
+          }
 
           // 查找是否有本人的待审批记录，如果不存在，则无法进行驳回及同意操作
           const mylog = logList.find(item => {return item.employee == userinfo.username});
@@ -1159,10 +1205,18 @@ export default {
           }
 
           try {
-            this.workflowLogList = await workflow.queryPRLogByDataID(this.item.id);
+            this.approve_executelist = await query.queryTableDataByPid('pr_log_unode' , this.item.id , 'key'); //查询奖罚明细数据
           } catch (error) {
             console.log(error);
           }
+
+          try {
+            this.workflowLogList = await workflow.queryPRLogByDataID(this.item.id);
+            debugger;
+          } catch (error) {
+            console.log(error);
+          }
+
 
           try {
             if(item){
