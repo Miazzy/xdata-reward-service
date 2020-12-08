@@ -25,14 +25,14 @@
 
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px;">
                   <a-row>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>流程标题</span>
+                    <a-col :span="4 * (iswechat?2:1)" :style="iswechat?`font-size:1.0rem; margin-top:5px; text-align: center;`:`font-size:1.0rem; margin-top:5px; text-align: center;`">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>流程标题</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                        <a-input readonly v-model="item.title" placeholder="请输入奖罚申请流程标题！" @blur="validFieldToast('title')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col v-show="item.serialid" :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;margin-left:-12px;" ><span style="color:red;margin-right:0px;position:absolute;left:-20px;top:0px;width:100%;"></span>流程序号</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>流程序号</span>
                     </a-col>
                     <a-col v-show="item.serialid" :span="8 * (iswechat?2:1)">
                        <a-input readonly v-model="item.serialid" placeholder="" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -43,13 +43,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚类别</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>奖罚类别</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="item.reward_type" readonly placeholder="请填写奖罚类别！" @blur="validFieldToast('reward_type')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"  />
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请时间</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:8px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>申请时间</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="item.create_time" readonly placeholder="请输入申请时间！" @blur="validFieldToast('create_time')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"  />
@@ -68,7 +68,7 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请人员</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>申请人员</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="item.apply_realname" :readonly="!!item.apply_realname" placeholder="请输入申请人员姓名！" @blur="validFieldToast('apply_realname')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -79,13 +79,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属公司</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>所属公司</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.company" placeholder="请输入申请人员所属公司！" @blur="validFieldToast('company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属部门</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:8px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>所属部门</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.department" placeholder="请输入申请人员所属部门！" @blur="validFieldToast('department')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -104,7 +104,7 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>人力经理</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>人力经理</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.hr_name" placeholder="请输入奖罚申请流程需要知会的人力职能人员！" @blur="validFieldToast('hr_name')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -123,7 +123,7 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请奖金</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>申请奖金</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.amount"  placeholder="请输入本次奖罚申请的单项奖金总额！" @blur="validFieldToast('amount')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -134,13 +134,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>发放周期</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，注意是发放周期！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放性质</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:8px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>发放性质</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.reward_release_feature"  placeholder="请输入本次奖罚/激励申请的发放性质，如当期分配/延期分配！" @blur="validFieldToast('reward_release_feature')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -151,13 +151,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>所属周期</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>所属周期</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，注意不是发放周期！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚名称</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:8px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>奖罚名称</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.reward_name" placeholder="请输入本次奖罚申请的奖罚名称！" @blur="validFieldToast('reward_name')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -168,13 +168,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>激励分配方</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>激励分配方</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位（激励分配方）！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>成本承担方</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:8px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>成本承担方</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input readonly v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位（成本承担方）！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -185,7 +185,7 @@
                 <div class="reward-apply-content-item" style="height:auto;margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row style="height:auto;">
                     <a-col :span="4 * (iswechat?2:1)" style="height:auto; font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请事由</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>申请事由</span>
                     </a-col>
                     <a-col :span="iswechat ? 24 : 20" style="height:auto;">
                       <a-textarea
