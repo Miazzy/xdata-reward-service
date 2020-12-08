@@ -412,6 +412,14 @@
                         <van-button name="file" @click="rewardApproveAdd();"  >添加</van-button>
                       </div>
                     </a-col>
+                    <a-col :span="(iswechat?24:10)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                      <template v-for=" (userinfo , index ) in approve_executelist">
+                        <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
+                        <a-avatar size="large" :key="userinfo.id" style="color: #f56a00; backgroundColor: #fde3cf;font-size:0.75rem;">
+                          {{ userinfo.username }}
+                        </a-avatar>
+                      </template>
+                    </a-col>
                   </a-row>
                   <a-row>
                     <a-col :span="3 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
@@ -425,10 +433,18 @@
                 </div>
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
-                  <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;`:`border-top: 1px dash #f0f0f0;margin:0px 5rem;`" >
-                    <a-table :columns="wfcolumns" :data-source="approve_executelist" >
-                    </a-table>
-                   </a-row>
+                  <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;`:`border-top: 1px dash #f0f0f0;margin:0px 3.25rem 0px 5rem;`" >
+                    <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdateExecute" >
+                        <vue-excel-column field="key"        label="流程顺序"   width="80px" />
+                        <vue-excel-column field="username"      label="审批人员"   width="180px" />
+                        <vue-excel-column field="userid" label="审批账户" width="180px" />
+                        <vue-excel-column field="company"  label="所属单位" width="180px" />
+                        <vue-excel-column field="department"  label="所属部门" width="180px" />
+                        <vue-excel-column field="position" label="审批职务" width="180px" />
+                        <vue-excel-column field="mobile" label="联系电话" width="180px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
+                    </vue-excel-editor>
+                  </a-row>
                 </div>
 
                 <div v-show="role != 'view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
@@ -613,6 +629,26 @@ export default {
   methods: {
       onDelete(){
         console.log('delete');
+      },
+      async onUpdateExecute(records){
+
+        if(records.length > 1){
+          return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+        }
+        const temp = this.approve_executelist.filter(elem => { // 过滤被删除的数据
+          return elem.v_status == 'valid';
+        });
+
+        if(this.approve_executelist.length != temp.length){ // 过滤被删除的数据
+          return vant.Dialog.confirm({
+            title: '温馨提示',
+            message: `您确定删除选中数据嘛？`,
+          }).then(()=>{
+            this.approve_executelist = temp;
+          }).catch(() => {
+            this.approve_executelist.map(item => { item.v_status = 'valid'; });
+          })
+        }
       },
       async onUpdate(records){
 
@@ -1932,6 +1968,7 @@ export default {
         }
 
         const index = this.approve_executelist.findIndex( item => {
+          debugger;
           return item.userid == this.approve_userid;
         })
 
@@ -1941,7 +1978,7 @@ export default {
 
         try {
           const mobile = this.approve_mobile ? `${this.approve_mobile.slice(0,3)}****${this.approve_mobile.slice(-4)}` : '';
-          const user = {key: this.approve_executelist.length + 1 , id:tools.queryUniqueID(),username:this.approve_username , userid: this.approve_userid , mobile , company: this.approve_company , department : this.approve_department , position : this.approve_position};
+          const user = {key: this.approve_executelist.length + 1 , id:tools.queryUniqueID(),username:this.approve_username , userid: this.approve_userid , mobile , company: this.approve_company , department : this.approve_department , position : this.approve_position , v_status:'valid'};
           this.approve_executelist.push(JSON.parse(JSON.stringify(user)));
           this.approve_userid = '';
           this.approve_username = '';
