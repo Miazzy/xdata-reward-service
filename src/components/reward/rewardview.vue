@@ -314,7 +314,7 @@
                 </div>
 
                  <div class="reward-apply-content-item reward-apply-content-title" style="">
-                  <div style="margin-left:100px;">
+                  <div :style="iswechat?`margin-left:0.25rem;`:`margin-left:8.25rem;`">
                     <van-steps direction="vertical" :active="processLogList.length - 1">
                       <template v-for="value in processLogList">
                         <van-step :key="value.id">
@@ -338,7 +338,7 @@
                           v-model="approve_content"
                           placeholder="请输入此申请流程的审批意见！"
                           :auto-size="{ minRows: 10, maxRows: 50 }"
-                          style="height:80px; border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"
+                          :style="iswechat?`height:80px; border: 0px solid #fefefe;margin-left:0.75rem;  border-bottom: 1px solid #f0f0f0;`:`height:80px; border: 0px solid #fefefe;margin-left:0.00rem;  border-bottom: 1px solid #f0f0f0;`"
                         />
                       </a-col>
                     </a-row>
@@ -348,12 +348,12 @@
                     <a-col :span="8 * (iswechat?0:1)">
 
                     </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="(iswechat?6:4)" style="">
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
                       <a-button type="primary" style="width: 120px;color:c0c0c0;" @click="handleDisagree();"  >
                         驳回
                       </a-button>
                     </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="(iswechat?6:4)" style="">
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
                       <a-button type="primary" style="width: 120px;" @click="handleAgree();"  >
                         同意
                       </a-button>
