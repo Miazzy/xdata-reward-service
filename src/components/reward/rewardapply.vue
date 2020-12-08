@@ -185,16 +185,16 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>分配单位</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span><span style="margin-right:0px;left:-0px;top:0px;">激励分配方</span></span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位（激励分配方）！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>成本承担方</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span>成本承担方</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位（成本承担方）！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -385,8 +385,9 @@
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
                         <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
-                        <vue-excel-column field="ratio"       label="分配比率"   width="80px" summary="sum" />
-                        <vue-excel-column field="v_status"    label="状态"      width="60px" type="map" :options="statusType" />
+                        <vue-excel-column field="ratio"       label="分配比率"   width="100px" summary="sum" />
+                        <vue-excel-column field="content"     label="申请事由"   width="100px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
                     </vue-excel-editor>
                    </a-row>
                 </div>
@@ -666,6 +667,21 @@ export default {
         if(!this.item.reward_release_period){
           return this.$toast.fail('请输入奖罚申请的发放周期！');
         }
+        if(!this.item.reward_period){
+          return this.$toast.fail('请输入奖罚申请的所属周期！');
+        }
+        if(!this.item.reward_name){
+          return this.$toast.fail('请输入奖罚申请的奖罚名称(激励名称)！');
+        }
+        if(!this.item.reward_release_company){
+          return this.$toast.fail('请输入奖罚申请的激励分配方（奖罚/激励分配单位）！');
+        }
+        if(!this.item.cost_bearer){
+          return this.$toast.fail('请输入奖罚申请的成本承担方（奖罚/激励的成本承担单位）！');
+        }
+        if(!this.item.content){
+          return this.$toast.fail('请输入奖罚申请的申请事由！');
+        }
         try {
           for(const idata of data){
             let trows = idata.data;
@@ -691,6 +707,7 @@ export default {
                   elem.project = elem.project ? elem.project : temp.project;
                   elem.reward_release_company = elem.reward_release_company ? elem.reward_release_company : this.item.reward_release_company;
                   elem.reward_name = elem.reward_name ? elem.reward_name : this.item.reward_name;
+                  elem.content = elem.content ? elem.content : this.item.content;
                   elem.cost_bearer = elem.cost_bearer ? elem.cost_bearer : this.item.cost_bearer;
                   elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
                   console.log(`project: ${elem.project} or temp.project:${temp.project}`);
@@ -1767,6 +1784,21 @@ export default {
         if(!this.item.reward_release_period){
           return this.$toast.fail('请输入奖罚申请的发放周期！');
         }
+        if(!this.item.reward_period){
+          return this.$toast.fail('请输入奖罚申请的所属周期！');
+        }
+        if(!this.item.reward_name){
+          return this.$toast.fail('请输入奖罚申请的奖罚名称(激励名称)！');
+        }
+        if(!this.item.reward_release_company){
+          return this.$toast.fail('请输入奖罚申请的激励分配方（奖罚/激励分配单位）！');
+        }
+        if(!this.item.cost_bearer){
+          return this.$toast.fail('请输入奖罚申请的成本承担方（奖罚/激励的成本承担单位）！');
+        }
+        if(!this.item.content){
+          return this.$toast.fail('请输入奖罚申请的申请事由！');
+        }
         if(!/^[0-9]+.{0,1}[0-9]{0,2}$/g.test(this.release_amount)){
           return this.$toast.fail('请在分配金额处输入数字！');
         }
@@ -1850,6 +1882,7 @@ export default {
                 message:'',
                 reward_release_company :this.item.reward_release_company,
                 cost_bearer : this.item.cost_bearer,
+                content: this.item.content,
                 v_status: 'valid',
               });
             }
@@ -1879,6 +1912,7 @@ export default {
               message:'',
               reward_release_company :this.item.reward_release_company,
               cost_bearer : this.item.cost_bearer,
+              content: this.item.content,
               v_status: 'valid',
             });
           } catch (error) {
@@ -1923,56 +1957,4 @@ export default {
 <style scoped >
     @import "../../assets/css/reward.home.css";
     @import "../../assets/css/reward.apply.css";
-
-
-#reward-download-excel-button {
-    background-image: linear-gradient(to right, #f96033, red);
-    margin: 10px 10px 10px 10px;
-    padding: 1px 20px;
-    border-radius: 8px;
-    color: #f0f0f0;
-    font-size: 12px;
-    text-align: center;
-    vertical-align: middle;
-    height: 27px;
-    line-height: 27px;
-}
-
-#reward-items-download-excel-button {
-    background-image: linear-gradient(to right, #f96033, red);
-    margin: 10px 10px 10px 10px;
-    padding: 1px 20px;
-    border-radius: 8px;
-    color: #f0f0f0;
-    font-size: 12px;
-    text-align: center;
-    vertical-align: middle;
-    height: 27px;
-    line-height: 27px;
-}
-
-.reward-apply-content-item .ant-input-number {
-  width:100%;
-}
-
-.reward-apply-content-item .ant-calendar-picker {
-  width:100%;
-}
-
-.reward-apply-content-item .ant-calendar-picker input{
-  border-width: 0px 0px 1px;
-  border-style: solid;
-  border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
-  border-image: initial;
-}
-
-.reward-apply-content-item .ant-calendar-picker-input {
-    outline: none;
-    border-width: 0px 0px 1px;
-    border-style: solid;
-    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
-    border-image: initial;
-}
-
-
 </style>

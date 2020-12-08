@@ -128,3 +128,52 @@
     border-image: initial;
     width: 100%;
 }
+
+#reward-download-excel-button {
+    background-image: linear-gradient(to right, #f96033, red);
+    margin: 10px 10px 10px 10px;
+    padding: 1px 20px;
+    border-radius: 8px;
+    color: #f0f0f0;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    height: 27px;
+    line-height: 27px;
+}
+
+#reward-items-download-excel-button {
+    background-image: linear-gradient(to right, #f96033, red);
+    margin: 10px 10px 10px 10px;
+    padding: 1px 20px;
+    border-radius: 8px;
+    color: #f0f0f0;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    height: 27px;
+    line-height: 27px;
+}
+
+.reward-apply-content-item .ant-input-number {
+    width: 100%;
+}
+
+.reward-apply-content-item .ant-calendar-picker {
+    width: 100%;
+}
+
+.reward-apply-content-item .ant-calendar-picker input {
+    border-width: 0px 0px 1px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+}
+
+.reward-apply-content-item .ant-calendar-picker-input {
+    outline: none;
+    border-width: 0px 0px 1px;
+    border-style: solid;
+    border-color: rgb(254, 254, 254) rgb(254, 254, 254) rgb(240, 240, 240);
+    border-image: initial;
+}
