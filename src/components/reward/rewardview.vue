@@ -71,7 +71,7 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>申请人员</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input readonly v-model="item.apply_realname" :readonly="!!item.apply_realname" placeholder="请输入申请人员姓名！" @blur="validFieldToast('apply_realname')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input v-model="item.apply_realname" :readonly="!!item.apply_realname" placeholder="请输入申请人员姓名！" @blur="validFieldToast('apply_realname')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -137,13 +137,13 @@
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，注意是发放周期！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input readonly v-model="item.reward_release_period"  placeholder="请输入本次奖罚/激励申请的发放周期，注意是发放周期！" @blur="validFieldToast('reward_release_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放性质</span>
                     </a-col>
                     <a-col :span="8">
-                      <a-input v-model="item.reward_release_feature"  placeholder="请输入本次奖罚/激励申请的发放性质，如当期分配/延期分配！" @blur="validFieldToast('reward_release_feature')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input readonly v-model="item.reward_release_feature"  placeholder="请输入本次奖罚/激励申请的发放性质，如当期分配/延期分配！" @blur="validFieldToast('reward_release_feature')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -161,6 +161,23 @@
                     </a-col>
                     <a-col :span="8">
                       <a-input readonly v-model="item.reward_name" placeholder="请输入本次奖罚申请的奖罚名称！" @blur="validFieldToast('reward_name')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                  </a-row>
+                </div>
+
+                <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
+                  <a-row>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>分配单位</span>
+                    </a-col>
+                    <a-col :span="8">
+                      <a-input readonly v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                    </a-col>
+                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>成本承担方</span>
+                    </a-col>
+                    <a-col :span="8">
+                      <a-input readonly v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -1130,8 +1147,6 @@ export default {
           const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
           const item = await query.queryTableData(this.tablename , this.item.id); //查询数据
 
-
-
           try {
             this.data = await query.queryTableDataByPid('bs_reward_items' , this.item.id); //查询奖罚明细数据
           } catch (error) {
@@ -1146,6 +1161,7 @@ export default {
 
           try {
             if(item){
+              debugger;
               this.item = {
                 id: item.id,
                 serialid: item.serialid,
@@ -1162,9 +1178,9 @@ export default {
                 bpm_status: item.bpm_status, //流程状态 1：待提交  2：审核中  3：审批中  4：已完成  5：已完成  10：已作废
                 reward_type: item.reward_type,
                 reward_name: item.reward_name,
-                reward_period: item.reward_period,
-                reward_release_period: item.reward_release_period,
                 reward_release_feature: item.reward_release_feature,
+                reward_release_company: item.reward_release_company,
+                cost_bearer: item.cost_bearer,
                 hr_admin_ids: item.hr_admin_ids,
                 hr_admin_names: item.hr_admin_names,
                 hr_id: item.hr_id,
@@ -1180,6 +1196,14 @@ export default {
                 files_05: item.files_05,
                 status: item.status,
               }
+
+              try {
+                this.item.reward_period = item.reward_period instanceof Date || item.reward_period instanceof moment || Date.parse(item.reward_period) ? dayjs(item.reward_period).format('YYYY年MM月') : item.reward_period ;
+                this.item.reward_release_period = item.reward_release_period  instanceof Date || item.reward_release_period instanceof moment || Date.parse(item.reward_release_period)? dayjs(item.reward_release_period).format('YYYY年MM月') : item.reward_release_period  ;
+              } catch (error) {
+                console.log(error);
+              }
+
               this.vdata = item;
             }
 

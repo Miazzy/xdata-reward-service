@@ -373,6 +373,7 @@
                         <vue-excel-column field="period"      label="发放期间"   width="100px" />
                         <vue-excel-column field="reward_period" label="所属周期" width="100px" />
                         <vue-excel-column field="reward_tname"  label="奖罚类别" width="100px" />
+                        <vue-excel-column field="reward_name"  label="奖罚名称" width="100px" />
                         <vue-excel-column field="reward_release_company" label="激励分配方" width="100px" />
                         <vue-excel-column field="cost_bearer" label="成本承担方" width="100px" />
                         <vue-excel-column field="username"    label="员工姓名"   width="100px" />
@@ -567,6 +568,9 @@ export default {
       fields: {
               '分配性质':'type',
               '发放期间': 'period',
+              '奖罚名称':'reward_name',
+              '激励分配方': 'reward_release_company',
+              '成本承担方': 'cost_bearer',
               '员工姓名':'username',
               '员工OA':'account',
               '所属单位':'company',
@@ -580,6 +584,9 @@ export default {
       datas:[{
               'type':'当期分配',
               'period': '‘2020年01月’',
+              'reward_name':'奖罚名称',
+              'reward_release_company':'激励分配方',
+              'cost_bearer':'成本承担方',
               'username':'员工姓名XXX',
               'account':'account',
               'company':'领地集团总部',
@@ -666,7 +673,7 @@ export default {
               const list = await manageAPI.queryUserByID(item['员工OA'],'融量',101); //查询OA账户，获取员工单位，部门，区域
               ratio = tools.divisionPercentage(item['分配金额'] , this.item.amount);
               try {
-                let elem = { key: tools.queryUniqueID(), type: item['分配性质'], period: item['发放期间'].replace(regexp,""), username: item['员工姓名'], account: item['员工OA'], company: item['所属单位'], department: item['所属部门'], position: item['员工职务'], mobile: '', amount: item['分配金额'], ratio, zone:'', project: item['所属项目'], message:'',  v_status: 'valid', }
+                let elem = { key: tools.queryUniqueID(), type: item['分配性质'], period: item['发放期间'].replace(regexp,""),reward_name:item['奖罚名称'],reward_release_company:item['激励分配方'],cost_bearer:item['成本承担方'], username: item['员工姓名'], account: item['员工OA'], company: item['所属单位'], department: item['所属部门'], position: item['员工职务'], mobile: '', amount: item['分配金额'], ratio, zone:'', project: item['所属项目'], message:'',  v_status: 'valid', }
                 if(list && list.length > 0){
                   const user = list[0];
                   let temp = tools.queryZoneProjectAll(user.company.split('||')[0], ['领地集团有限公司','领悦服务','宝瑞商管','医疗健康板块', '金融板块' ,'邛崃创达公司'], user.company.split('||')[1]);
@@ -682,8 +689,9 @@ export default {
                   elem.period = dayjs(this.item.reward_release_period).format('YYYY年MM月');
                   elem.type = this.item.reward_release_feature;
                   elem.project = elem.project ? elem.project : temp.project;
-                  elem.reward_release_company = this.item.reward_release_company;
-                  elem.cost_bearer = this.item.cost_bearer;
+                  elem.reward_release_company = elem.reward_release_company ? elem.reward_release_company : this.item.reward_release_company;
+                  elem.reward_name = elem.reward_name ? elem.reward_name : this.item.reward_name;
+                  elem.cost_bearer = elem.cost_bearer ? elem.cost_bearer : this.item.cost_bearer;
                   elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
                   console.log(`project: ${elem.project} or temp.project:${temp.project}`);
                 }
@@ -1828,6 +1836,7 @@ export default {
                 reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
                 period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
                 reward_tname: this.item.reward_type,
+                reward_name: this.item.reward_name,
                 username: username,
                 account: userid,
                 company: company,
@@ -1856,6 +1865,7 @@ export default {
               reward_period: dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
               period: dayjs(this.item.reward_release_period).format('YYYY年MM月'),
               reward_tname: this.item.reward_type,
+              reward_name: this.item.reward_name,
               username: username,
               account: userid,
               company: company,
