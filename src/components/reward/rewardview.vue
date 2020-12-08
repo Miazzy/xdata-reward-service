@@ -1213,7 +1213,6 @@ export default {
 
           try {
             this.workflowLogList = await workflow.queryPRLogByDataID(this.item.id);
-            debugger;
           } catch (error) {
             console.log(error);
           }
@@ -1221,7 +1220,6 @@ export default {
 
           try {
             if(item){
-              debugger;
               this.item = {
                 id: item.id,
                 serialid: item.serialid,
