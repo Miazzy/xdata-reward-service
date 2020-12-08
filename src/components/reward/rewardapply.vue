@@ -119,7 +119,7 @@
                     </a-col>
                     <a-col :span="(iswechat?24:9)">
                       <div style="margin-left: 10px;">
-                        <van-address-list v-show="userList.length > 0" v-model="item.hr_id" :list="userList" default-tag-text="默认" edit-disabled @select="selectNotifyUser();" />
+                        <van-address-list v-show="userList.length > 0" v-model="item.hr_id" :list="userList" default-tag-text="默认" edit-disabled @select="selectNotifyUser" />
                       </div>
                     </a-col>
                   </a-row>
@@ -426,7 +426,7 @@
                     </a-col>
                     <a-col :span="(iswechat?24:9)">
                       <div style="margin-left: 10px;">
-                        <van-address-list v-show="approve_userlist.length > 0" v-model="approve_userid" :list="approve_userlist" default-tag-text="默认" edit-disabled @select="selectApproveUser();" />
+                        <van-address-list v-show="approve_userlist.length > 0" v-model="approve_userid" :list="approve_userlist" default-tag-text="默认" edit-disabled @select="selectApproveUser" />
                       </div>
                     </a-col>
                   </a-row>
@@ -1171,18 +1171,38 @@ export default {
       },
 
       //选中当前知会人员
-      async selectApproveUser(value){
-        //获取员工基本信息
-        const user = this.approve_userlist.find((item,index) => {return this.approve_userid == item.id});
-        //设置员工
-        this.approve_username = user.name;
-        this.approve_mobile = user.mobile;
-        this.approve_company = user.company;
-        this.approve_department = user.department;
-        //查询员工职务
-        const temp = await query.queryUserInfoByMobile(user.mobile);
-        //设置员工职务
-        this.approve_position = temp.position;
+      async selectApproveUser(record , value){
+
+        try {
+          if(tools.isNull(record)){
+            //获取员工基本信息
+            const user = this.approve_userlist.find((item,index) => {return this.approve_userid == item.id});
+            //设置员工
+            this.approve_username = user.name;
+            this.approve_userid = user.id;
+            this.approve_mobile = user.mobile;
+            this.approve_company = user.company;
+            this.approve_department = user.department;
+            this.approve_mobile = record.mobile;
+            //查询员工职务
+            const temp = await query.queryUserInfoByMobile(user.mobile);
+            //设置员工职务
+            this.approve_position = temp.position;
+          } else {
+            this.approve_username = record.name;
+            this.approve_userid = record.id;
+            this.approve_company = record.company;
+            this.approve_department = record.department;
+            this.approve_mobile = record.mobile;
+            const temp = await query.queryUserInfoByMobile(record.mobile); //查询员工职务
+            this.approve_position = temp ? temp.position : ''; //设置员工职务
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+
+
       },
 
       // 获取URL或者二维码信息
