@@ -6,7 +6,7 @@
         <keep-alive>
           <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" style="position:relative;">
 
-            <div style="position:absolute;left:0px width:80px;" >
+            <div v-if="!iswechat" style="position:absolute;left:0px width:80px;" >
               <van-sidebar v-model="activeTabKey">
                 <van-sidebar-item style="display:block;" title="审批" :to="`/reward/message`" />
                 <van-sidebar-item style="display:none;" title="云文档" :to="`/reward/netdisk`" />
@@ -17,11 +17,11 @@
               </van-sidebar>
             </div>
 
-            <div style="position:absolute; left:80px; width:900px;" >
+            <div :style="iswechat?`position:absolute; left:0rem; width:100%;`:`position:absolute; left:80px; width:900px;`" >
               <template v-for="(pane,index) in paneflows"  >
                 <a-card  :key="pane.id"  :title="pane.title"  class="pane-flow-card" >
                   <template v-for="item in pane.taskflows"  >
-                    <a-card-grid :key="item.href" style="width:25%;textAlign:'center'">
+                    <a-card-grid :key="item.href" :style="iswechat?`width:50%;textAlign:'center'`:`width:25%;textAlign:'center'`">
                       <a-card-meta>
                         <div slot="title" class="card-title pane-flow-card-meta" @click="item.click" >
                           <div class="pane-flow-card-meta-icon">
@@ -41,7 +41,7 @@
               </template>
             </div>
 
-            <div style="position:absolute; left:1000px; width: 300px;">
+            <div v-if="!iswechat" style="position:absolute; left:1000px; width: 300px;">
                 <a-card
                   title="便捷导航"
                   style="margin-bottom: 24px"
@@ -98,10 +98,11 @@ export default {
   mixins: [window.mixin],
   data() {
     return {
+      iswechat:false,
+      iswework:false,
       pageName: "奖罚管理",
       momentNewMsg: true,
       activeTabKey: 3,
-      iswechat:'',
       paneflows: workconfig.reward(this),
       wflows: workconfig.getRewardWflow(this),
       quicktags: workconfig.getRewardQuickTag(this),
@@ -118,7 +119,8 @@ export default {
     // 查询初始化信息
     async queryInfo() {
       try {
-        this.iswechat = tools.isWechat(); //查询当前是否微信端
+        this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
+        this.iswework = tools.isWework(); //查询是否为企业微信
         this.userinfo = await this.weworkLogin(); //查询当前登录用户
       } catch (error) {
         console.log(error);

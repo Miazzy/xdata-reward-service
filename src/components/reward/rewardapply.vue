@@ -208,7 +208,7 @@
                       <a-textarea
                         v-model="item.content"
                         @blur="validFieldToast('content')"
-                        placeholder="请输入奖罚申请流程的申请事由！"
+                        :placeholder="iswechat?`     请输入奖罚申请流程的申请事由！`:`请输入奖罚申请流程的申请事由！`"
                         :auto-size="{ minRows: 10, maxRows: 50 }"
                         style="height:120px; border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"
                       />
@@ -232,7 +232,7 @@
                     <a-col :span=" iswechat?24:20 " style="height:auto;margin-left:0px;">
                       <a-textarea
                         v-model="item.remark"
-                        placeholder="请输入奖罚申请流程的申请事由！"
+                        :placeholder="iswechat?`     请输入奖罚申请流程的申请事由！`:`请输入奖罚申请流程的申请事由！`"
                         :auto-size="{ minRows: 10, maxRows: 50 }"
                         style="height:80px; border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;"
                       />
@@ -449,19 +449,19 @@
 
                 <div v-show="role != 'view' " class="reward-apply-content-item" style="margin-top:35px;margin-bottom:5px; margin-right:10px;">
                    <a-row style="border-top: 1px dash #f0f0f0;" >
-                    <a-col :span="8">
+                    <a-col :span="8 * (iswechat?0:1)">
                     </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
                       <a-button type="primary" style="width: 120px;color:c0c0c0;" @click="handleSave();"  >
                         保存
                       </a-button>
                     </a-col>
-                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                    <a-col class="reward-apply-content-title-text" :span="(iswechat?12:4)" style="">
                       <a-button type="primary" style="width: 120px;" @click="handleApply();"  >
                         提交
                       </a-button>
                     </a-col>
-                    <a-col :span="8">
+                    <a-col :span="8 * (iswechat?0:1)">
                     </a-col>
                    </a-row>
                 </div>
