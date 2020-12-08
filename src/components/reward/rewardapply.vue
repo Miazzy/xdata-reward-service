@@ -708,7 +708,7 @@ export default {
                   elem.project = elem.project ? elem.project : temp.project;
                   elem.reward_release_company = elem.reward_release_company ? elem.reward_release_company : this.item.reward_release_company;
                   elem.reward_name = elem.reward_name ? elem.reward_name : this.item.reward_name;
-                  elem.reward_amount = elem.reward_amount ? elem.reward_amount : this.item.reward_amount;
+                  elem.reward_amount = elem.reward_amount ? elem.reward_amount : this.item.amount;
                   elem.content = elem.content ? elem.content : this.item.content;
                   elem.cost_bearer = elem.cost_bearer ? elem.cost_bearer : this.item.cost_bearer;
                   elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
@@ -1885,7 +1885,7 @@ export default {
                 reward_release_company :this.item.reward_release_company,
                 cost_bearer : this.item.cost_bearer,
                 content: this.item.content,
-                reward_amount: this.item.reward_amount,
+                reward_amount: this.item.amount,
                 v_status: 'valid',
               });
             }
@@ -1916,7 +1916,7 @@ export default {
               reward_release_company :this.item.reward_release_company,
               cost_bearer : this.item.cost_bearer,
               content: this.item.content,
-              reward_amount: this.item.reward_amount,
+              reward_amount: this.item.amount,
               v_status: 'valid',
             });
           } catch (error) {
