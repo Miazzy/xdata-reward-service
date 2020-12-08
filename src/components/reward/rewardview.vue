@@ -281,7 +281,7 @@
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                   <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;`:`border-top: 1px dash #f0f0f0;margin:0px 5rem;`" >
-                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="true" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                     <vue-excel-editor v-model="data" ref="grid" width="100%" :page="30" :no-num-col="false" :readonly="true" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
                       <vue-excel-column field="type"        label="分配性质"   width="80px" />
                       <vue-excel-column field="period"      label="发放期间"   width="100px" />
                       <vue-excel-column field="reward_period" label="所属周期" width="100px" />
@@ -413,7 +413,7 @@
 
                   <div v-show="approve_executelist.length > 0" class="reward-apply-content-item reward-apply-content-title" style="">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdateExecute" >
+                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="100" :no-num-col="false" :readonly="false" no-footer autocomplete @delete="onDelete" @update="onUpdateExecute" >
                         <vue-excel-column field="key"        label="流程顺序"   width="80px" />
                         <vue-excel-column field="username"      label="审批人员"   width="180px" />
                         <vue-excel-column field="userid" label="审批账户" width="180px" />
@@ -552,7 +552,7 @@
 
                   <div class="reward-apply-content-item reward-apply-content-title" style="display:none;">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdateExecute" >
+                      <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="100" :no-num-col="false" :readonly="false" no-footer autocomplete @delete="onDelete" @update="onUpdateExecute" >
                         <vue-excel-column field="key"        label="流程顺序"   width="80px" />
                         <vue-excel-column field="username"      label="审批人员"   width="180px" />
                         <vue-excel-column field="userid" label="审批账户" width="180px" />

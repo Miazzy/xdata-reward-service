@@ -7,7 +7,7 @@
 
             <div style="background-color:#f0f0f0;">
 
-              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0px; margin-left: 5rem; margin-right: 5rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
+              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0px; margin-left: 0.25rem; margin-right: 0.25rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
 
                 <div class="reward-apply-header" style="height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem; ">
                   奖罚月度报表
