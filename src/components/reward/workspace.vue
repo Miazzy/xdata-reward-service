@@ -17,19 +17,20 @@
               </van-sidebar>
             </div>
 
-            <div :style="iswechat?`position:absolute; left:0rem; width:100%;`:`position:absolute; left:80px; width:900px;`" >
+            <div :id="iswechat?`reward-workspace-content-wechat`:'reward-workspace-content' " :style="iswechat?`position:absolute; left:0rem; width:100%;`:`position:absolute; left:80px; width:900px;`" >
               <template v-for="(pane,index) in paneflows"  >
                 <a-card  :key="pane.id"  :title="pane.title"  class="pane-flow-card" >
                   <template v-for="item in pane.taskflows"  >
-                    <a-card-grid :key="item.href" :style="iswechat?`width:50%;textAlign:'center'`:`width:25%;textAlign:'center'`">
+                    <a-card-grid :key="item.href" :style="iswechat?`width:25%;textAlign:'center'`:`width:25%;textAlign:'center'`">
                       <a-card-meta>
                         <div slot="title" class="card-title pane-flow-card-meta" @click="item.click" >
-                          <div class="pane-flow-card-meta-icon">
+                          <div class="pane-flow-card-meta-icon" :style="iswechat?`display:block;width:100%;margin-left:0.5rem;`:''">
                             <a-avatar size="large"  :src="item.avatar" />
                           </div>
-                          <div class="pane-flow-card-meta-title" >
-                            <a class="pane-flow-card-meta-tname" >{{ item.name }}</a>
-                            <div class="pane-flow-card-meta-description" > {{ item.description }} </div>
+                          <div class="pane-flow-card-meta-title" :style="iswechat?`display:block;width:100%;margin-left:0.25rem;margin-top:0.15rem;`:''">
+                            <a v-if="!iswechat" class="pane-flow-card-meta-tname" style="text-align: center;">{{ iswechat ? item.name.replace('我的',''):item.name }}</a>
+                            <div v-if="!iswechat" class="pane-flow-card-meta-description" > {{ item.description }} </div>
+                            <div v-if="!!iswechat" class="pane-flow-card-meta-description" style="margin-top:0.35rem;"> {{ iswechat ? item.name : item.name }} </div>
                           </div>
                         </div>
                       </a-card-meta>

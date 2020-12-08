@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.ant-avatar-lg {
+#reward-message-content .ant-avatar-lg {
     width: 48px;
     height: 48px;
     line-height: 48px;

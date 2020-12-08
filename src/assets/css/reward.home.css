@@ -100,3 +100,21 @@
 .pane-right-item-group-tag {
     margin-bottom: 10px;
 }
+
+#reward-workspace-content-wechat .ant-card-grid {
+    float: left;
+    width: 33.33%;
+    padding: 15px 0px;
+    border: 0;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: 0 0 0 0 #e8e8e8, 0 0 0 0 #e8e8e8, 0 0 0 0 #e8e8e8, inset 0 0 0 0 #e8e8e8, inset 0 0 0 0 #e8e8e8;
+    transition: all .3s;
+}
+
+#reward-apply-content-wechat .ant-avatar-lg {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+}

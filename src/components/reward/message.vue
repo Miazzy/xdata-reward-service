@@ -16,7 +16,7 @@
               </van-sidebar>
             </div>
 
-            <div v-if="!iswechat" style="position:absolute; left:80px; width:240px;">
+            <div v-if="!iswechat" id="reward-message-content" style="position:absolute; left:80px; width:240px;">
               <a-card class="pane-flow-card" :style="paneflowcard">
                 <div style="margin:10px 15px 10px 25px;">
                   <a-input-search
