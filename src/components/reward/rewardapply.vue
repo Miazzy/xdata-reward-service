@@ -368,7 +368,7 @@
 
                 <div class="reward-apply-content-item reward-apply-content-title" :style="iswechat?`margin-right:0.25rem;`:`margin-right:8.75rem;`">
                   <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;width:100%;height:auto;`:`border-top: 1px dash #f0f0f0;margin:0px 5rem;width:100%;height:auto;`" >
-                    <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" filter-row autocomplete @delete="onDelete" @update="onUpdate" >
+                    <vue-excel-editor v-model="data" ref="grid" width="100%" :page="20" :no-num-col="false" :readonly="false" autocomplete @delete="onDelete" @update="onUpdate" >
                         <vue-excel-column field="type"        label="分配性质"   width="80px" />
                         <vue-excel-column field="period"      label="发放期间"   width="100px" />
                         <vue-excel-column field="reward_period" label="所属周期" width="100px" />
@@ -1183,11 +1183,12 @@ export default {
             this.approve_mobile = user.mobile;
             this.approve_company = user.company;
             this.approve_department = user.department;
-            this.approve_mobile = record.mobile;
+            this.approve_mobile = user.mobile;
             //查询员工职务
             const temp = await query.queryUserInfoByMobile(user.mobile);
             //设置员工职务
             this.approve_position = temp.position;
+            debugger;
           } else {
             this.approve_username = record.name;
             this.approve_userid = record.id;
@@ -1196,6 +1197,7 @@ export default {
             this.approve_mobile = record.mobile;
             const temp = await query.queryUserInfoByMobile(record.mobile); //查询员工职务
             this.approve_position = temp ? temp.position : ''; //设置员工职务
+            debugger;
           }
         } catch (error) {
           console.log(error);
@@ -1438,6 +1440,15 @@ export default {
                     delete item.key;
                     delete item.v_status;
                     await manageAPI.postTableData('bs_reward_items' , item);
+                  }
+
+                  //提交此表单对应的审批节点数据
+                  for(let item of this.approve_executelist){
+                    item.id = tools.queryUniqueID() ;
+                    item.pid = id;
+                    item.bid = id;
+                    delete item.$id;
+                    await manageAPI.postTableData('pr_log_unode' , item);
                   }
 
                   //设置关联子数据
@@ -1793,6 +1804,18 @@ export default {
                     delete item.v_status;
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
+
+                  //提交此表单对应的审批节点数据
+                  for(let item of this.approve_executelist){
+                    item.id = tools.queryUniqueID() ;
+                    item.pid = id;
+                    item.bid = id;
+                    delete item.$id;
+                    await manageAPI.postTableData('pr_log_unode' , item);
+                  }
+
+                  //设置关联子数据
+                  elem.child_data = JSON.stringify(this.data);
 
                   //发送自动设置排序号请求
                   const patchResp = await superagent.get(workconfig.queryAPI.tableSerialAPI.replace('{table_name}', this.tablename)).set('accept', 'json');
