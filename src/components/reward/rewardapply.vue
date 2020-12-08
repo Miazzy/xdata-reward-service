@@ -1212,7 +1212,7 @@ export default {
 
         try {
 
-          this.iswechat = (document.body.clientWidth || window.screen.width) > 1000 ?  tools.isWework() : tools.isWechat(); //查询当前是否微信端
+          this.iswechat = (document.body.clientWidth || window.screen.width) > 800 ?  tools.isWework() : tools.isWechat(); //查询当前是否微信端
           this.iswework = tools.isWework(); //查询是否为企业微信
           this.userinfo = await this.weworkLogin(); //查询当前登录用户
 
