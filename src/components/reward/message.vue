@@ -5,7 +5,7 @@
         <keep-alive>
           <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" style="position:relative;">
 
-            <div style="position:absolute;left:0px width:80px;" >
+            <div v-if="!iswechat" style="position:absolute;left:0px width:80px;" >
               <van-sidebar v-model="activeTabKey">
                 <van-sidebar-item style="display:block;" title="审批" :to="`/reward/message`" />
                 <van-sidebar-item style="display:none;" title="云文档" :to="`/reward/netdisk`" />
@@ -16,7 +16,7 @@
               </van-sidebar>
             </div>
 
-            <div style="position:absolute; left:80px; width:240px;">
+            <div v-if="!iswechat" style="position:absolute; left:80px; width:240px;">
               <a-card class="pane-flow-card" :style="paneflowcard">
                 <div style="margin:10px 15px 10px 25px;">
                   <a-input-search
@@ -53,7 +53,7 @@
               </a-card>
             </div>
 
-            <div id="van-reward-content" style="position:absolute; left:325px; width:1100px;">
+            <div id="van-reward-content" :style="iswechat?`position:absolute; left:0rem; width:50rem;`:`position:absolute; left:325px; width:1100px;`">
               <a-col style="padding: 0 12px 0 0" >
                 <template v-for=" paneflow in paneflows ">
 
@@ -84,18 +84,18 @@
 
                     <div id="reward-list-item" style="background:#fefefe;margin:10px 2px; pading:10px 2px; height: 650px; overflow-y:scroll;">
                       <a-list-item :key="index" v-for="(item, index) in paneflow.dataSource" style="background:#fefefe;margin:10px 10px;pading:10px 10px;border-bottom:1px solid #f0f0f0;">
-                        <a-list-item-meta :description="item.description" style="display:block;">
+                        <a-list-item-meta :description="item.description" style="display:block;width:20rem;">
                           <a-avatar style="display:none;" slot="avatar" size="large" shape="square" :src="item.avatar"/>
                           <a slot="title">
                             <span style="display:block;"> {{ item.title ? (item.title) : ''}} </span>
                             <span style="display:block;margin-top:5px;">{{ item.content ? (item.content.slice(0,30) + '...') : '' }} </span>
                           </a>
                         </a-list-item-meta>
-                     <div slot="actions">
+                        <div slot="actions">
                           <a @click="queryRewardView(item.id , panename , item.typename , item.bpm_status , item.apply_realname || item.proponents , item.pid)">查看</a>
                         </div>
                         <div class="list-content">
-                          <div v-show="item.reward_period" class="list-content-item">
+                          <div v-show="item.reward_period && !iswechat" class="list-content-item">
                             <span>申请奖金</span>
                             <p>{{ item.amount }}</p>
                           </div>
@@ -103,7 +103,7 @@
                             <span>所属周期</span>
                             <p>{{ item.reward_period }}</p>
                           </div>
-                          <div class="list-content-item">
+                          <div v-if="!iswechat" class="list-content-item">
                             <span>开始时间</span>
                             <p>{{ item.startAt }}</p>
                           </div>
@@ -154,6 +154,8 @@ export default {
   mixins: [window.mixin],
   data() {
     return {
+      iswechat:false,
+      iswework:false,
       activeTabKey: 0,
       pageName: "奖罚消息",
       momentNewMsg: true,
@@ -187,6 +189,8 @@ export default {
   methods: {
     async init() {
       const patchResp = await superagent.get(workconfig.queryAPI.tableSerialAPI.replace('{table_name}', this.tablename)).set('accept', 'json'); //发送自动设置排序号请求
+      this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
+      this.iswework = tools.isWework(); //查询是否为企业微信
       this.panename = tools.getUrlParam('panename') || storage.getStore(`reward_message_panename`) || 'myrewardlist';
       this.userinfo = await this.weworkLogin(); //查询当前登录用户
       this.tabname = storage.getStore(`reward_message_tabname`) || 0 ;
