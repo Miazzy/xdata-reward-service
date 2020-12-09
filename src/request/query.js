@@ -652,6 +652,9 @@ export async function queryRewardDataByID(period = '') {
  */
 export async function queryRewardItemByID(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    // 获取用户基础信息
+    const userinfo = await storage.getStore('system_userinfo');
+
     //获取日期查询条件
     let periodSQL = await queryPeriodSQL(period);
 
@@ -662,7 +665,7 @@ export async function queryRewardItemByID(period = '', zone = '', type = '', nam
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)~and(hr_admin_ids,like,~${userinfo.username}~)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -693,6 +696,9 @@ export async function queryRewardItemByID(period = '', zone = '', type = '', nam
  */
 export async function queryRewardItemByID_Y(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    // 获取用户基础信息
+    const userinfo = await storage.getStore('system_userinfo');
+
     //获取日期查询条件
     let periodSQL = await queryPeriodSQL(period);
 
@@ -703,7 +709,7 @@ export async function queryRewardItemByID_Y(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)~and(hr_admin_ids,like,~${userinfo.username}~)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -734,6 +740,9 @@ export async function queryRewardItemByID_Y(period = '', zone = '', type = '', n
  */
 export async function queryRewardItemByID_G(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    // 获取用户基础信息
+    const userinfo = await storage.getStore('system_userinfo');
+
     //获取日期查询条件
     let periodSQL = await queryPeriodSQL(period);
 
@@ -744,7 +753,7 @@ export async function queryRewardItemByID_G(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)~and(hr_admin_ids,like,~${userinfo.username}~)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
@@ -775,6 +784,9 @@ export async function queryRewardItemByID_G(period = '', zone = '', type = '', n
  */
 export async function queryRewardItemByID_O(period = '', zone = '', type = '', name = '', pname = '', cost = '', sql = '') {
 
+    // 获取用户基础信息
+    const userinfo = await storage.getStore('system_userinfo');
+
     //获取日期查询条件
     let periodSQL = await queryPeriodSQL(period);
 
@@ -785,7 +797,7 @@ export async function queryRewardItemByID_O(period = '', zone = '', type = '', n
     sql += cost ? `~and(cost_bearer,like,~${cost}~)` : '';
 
     //提交URL
-    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)${sql}&_sort=account&_p=0&_size=10000`;
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/bs_reward_items?_where=${periodSQL}~and(bpm_status,in,4,5)~and(hr_admin_ids,like,~${userinfo.username}~)${sql}&_sort=account&_p=0&_size=10000`;
 
     //获取缓存中的数据
     var cache = storage.getStore(`sys_bs_reward_items&url${queryURL}`);
