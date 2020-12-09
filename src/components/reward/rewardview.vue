@@ -1900,7 +1900,6 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleRejectWF();
         result == 'success' ? (this.tasktype = 'done' , this.role = 'view') : '';
-
         this.role = 'view';
         await tools.sleep(1000);
         await this.queryInfo();
@@ -1914,7 +1913,6 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleConfirmWF();
         result == 'success' ? (this.tasktype = 'done' , this.role = 'view') : '';
-
         this.role = 'view';
         await tools.sleep(1000);
         await this.queryInfo();
@@ -1928,7 +1926,6 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleApproveWF();
         result == 'success' ? (this.tasktype = 'done', this.role = 'view') : '';
-
         this.role = 'view';
         await tools.sleep(1000);
         await this.queryInfo();
