@@ -1264,6 +1264,9 @@ export default {
 
           try {
             this.data = await query.queryTableDataByPid('bs_reward_items' , this.item.id); //查询奖罚明细数据
+            this.data.map( item => {
+              item.ratio = (item.amount && item.reward_amount) ? tools.divisionPercentage(item.amount , item.reward_amount) : item.ratio;
+            })
           } catch (error) {
             console.log(error);
           }

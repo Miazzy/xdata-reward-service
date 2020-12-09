@@ -1522,7 +1522,7 @@ export default {
         if((this.data == null || this.data.length == 0) && !this.item.files ){
           await vant.Dialog.alert({
             title: '温馨提示',
-            message: `请确认内容是否填写完整，错误：${this.message['files']}！`,
+            message: `请确认内容是否填写完整，错误：检查是否填写奖罚明细！`,
           });
           return false;
         }
@@ -1643,25 +1643,8 @@ export default {
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
 
-                  //审批流程lockID
-                  let wid = id;
-                  try {
-                    wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
-                  } catch (error) {
-                    wid = id;
-                  }
-
-                  //提交此表单对应的审批节点数据
-                  for(let item of this.approve_executelist){
-                    item.id = tools.queryUniqueID() ;
-                    item.pid = id;
-                    item.bid = id;
-                    item.workflow_lock_id = wid;
-                    item.wid = wid;
-                    item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                    delete item.$id;
-                    await manageAPI.postTableData('pr_log_unode' , item);
-                  }
+                  //向数据库中插入审批流程节点、知会流程节点
+                  await this.handleLogNode(id, true , true);
 
                   //设置关联子数据
                   elem.child_data = JSON.stringify(this.data);
@@ -2065,6 +2048,7 @@ export default {
         }
         //提交此表单对应的审批节点数据
         if(uflag == true){
+          debugger;
           await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id); // 迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
           await tools.sleep(100); // 稍微等待一下
           for(let item of this.approve_executelist){
@@ -2080,6 +2064,7 @@ export default {
         }
         //提交此表单对应的审批节点数据
         if(mflag == true){
+          debugger;
           await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);  // 迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
           await tools.sleep(100); // 稍微等待一下
           for(let item of this.approve_notifylist){

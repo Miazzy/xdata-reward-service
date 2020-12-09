@@ -477,6 +477,8 @@ export async function queryWeworkUser() {
                 console.log(error);
             }
 
+            debugger;
+
             //设置system_userinfo
             storage.setStore('system_linfo', JSON.stringify({ username: response.body.userinfo.userid, password: '************' }), 3600 * 24 * 30);
             storage.setStore('system_userinfo', JSON.stringify(response.body.userinfo), 3600 * 24 * 30);
