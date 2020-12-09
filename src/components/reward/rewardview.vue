@@ -318,8 +318,19 @@
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>审批人员</span>
                     </a-col>
-                    <a-col :span="(iswechat?24:20)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                    <a-col :span="(iswechat?24:8)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
                       <template v-for=" (userinfo , index ) in approve_executelist">
+                        <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
+                        <a-avatar size="large" :key="userinfo.id" :style="execute_node.employee == userinfo.userid ? `color: #f5f5f5; background-color: skyblue; font-size:0.75rem;`:`color: #f56a00; background-color: #fde3cf;font-size:0.75rem;`">
+                          {{ userinfo.username }}
+                        </a-avatar>
+                      </template>
+                    </a-col>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>知会人员</span>
+                    </a-col>
+                    <a-col :span="(iswechat?24:8)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                      <template v-for=" (userinfo , index ) in approve_notifylist">
                         <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
                         <a-avatar size="large" :key="userinfo.id" :style="execute_node.employee == userinfo.userid ? `color: #f5f5f5; background-color: skyblue; font-size:0.75rem;`:`color: #f56a00; background-color: #fde3cf;font-size:0.75rem;`">
                           {{ userinfo.username }}
@@ -525,7 +536,6 @@
 
                   <div class="reward-apply-content-item reward-apply-content-title" style="">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <!-- <a-table :columns="wfcolumns" :data-source="approve_notifylist"></a-table> -->
                       <vue-excel-editor v-model="approve_notifylist" ref="grid_notify" width="100%" :page="100" :no-num-col="false" :readonly="false" no-footer :localized-label="vueExcelLabels" autocomplete @delete="onDelete" @update="onUpdateNotify" >
                         <vue-excel-column field="key"        label="流程顺序"   width="80px" />
                         <vue-excel-column field="username"      label="审批人员"   width="180px" />
@@ -1259,7 +1269,8 @@ export default {
           }
 
           try {
-            this.approve_executelist = await query.queryTableDataByPid('pr_log_unode' , this.item.id , 'key'); //查询奖罚明细数据
+            this.approve_executelist = await query.queryTableDataByPid('pr_log_unode' , this.item.id , 'key'); //查询奖罚审批节点明细数据
+            this.approve_notifylist = await query.queryTableDataByPid('pr_log_mnode' , this.item.id , 'key'); //查询奖罚知会节点明细数据
           } catch (error) {
             console.log(error);
           }

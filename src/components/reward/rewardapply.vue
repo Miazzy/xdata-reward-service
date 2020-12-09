@@ -432,9 +432,55 @@
                   </a-row>
                 </div>
 
-                <div class="reward-apply-content-item reward-apply-content-title" style="">
+                <div v-show="approve_executelist.length > 0" class="reward-apply-content-item reward-apply-content-title" style="">
                   <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;`:`border-top: 1px dash #f0f0f0;margin:0px 3.25rem 0px 5rem;`" >
                     <vue-excel-editor v-model="approve_executelist" ref="grid_execute" width="100%" :page="100" no-footer :no-num-col="false" :readonly="false" autocomplete :localized-label="vueExcelLabels" @delete="onDelete" @update="onUpdateExecute" >
+                        <vue-excel-column field="key"        label="流程顺序"   width="80px" />
+                        <vue-excel-column field="username"      label="审批人员"   width="180px" />
+                        <vue-excel-column field="userid" label="审批账户" width="180px" />
+                        <vue-excel-column field="company"  label="所属单位" width="180px" />
+                        <vue-excel-column field="department"  label="所属部门" width="180px" />
+                        <vue-excel-column field="position" label="审批职务" width="180px" />
+                        <vue-excel-column field="mobile" label="联系电话" width="180px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
+                    </vue-excel-editor>
+                  </a-row>
+                </div>
+
+                <div id="van-user-list" class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
+                  <a-row style="position:relative;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>知会人员</span>
+                    </a-col>
+                    <a-col :span="8 * (iswechat?2:1)">
+                      <a-input v-model="notify_username" placeholder="请输入申请流程的知会人员！" @blur="queryNotifyNodeMan();" @click="queryNotifyNodeMan();" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0; width:320px;" />
+                      <div style="position:absolute; right: 5px; top: -2px;">
+                        <van-button name="file" @click="rewardNotifyAdd();"  >添加</van-button>
+                      </div>
+                    </a-col>
+                    <a-col :span="(iswechat?24:10)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                      <template v-for=" (userinfo , index ) in approve_notifylist">
+                        <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
+                        <a-avatar size="large" :key="userinfo.id" style="color: #f56a00; backgroundColor: #fde3cf;font-size:0.75rem;">
+                          {{ userinfo.username }}
+                        </a-avatar>
+                      </template>
+                    </a-col>
+                  </a-row>
+                  <a-row>
+                    <a-col :span="3 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    </a-col>
+                    <a-col :span="(iswechat?24:9)">
+                      <div style="margin-left: 10px;">
+                        <van-address-list v-show="notify_userlist.length > 0" v-model="notify_userid" :list="notify_userlist" default-tag-text="默认" edit-disabled @select="selectApproveUser" />
+                      </div>
+                    </a-col>
+                  </a-row>
+                </div>
+
+                <div v-show="approve_notifylist.length > 0" class="reward-apply-content-item reward-apply-content-title" style="">
+                  <a-row :style="iswechat?`border-top: 1px dash #f0f0f0;margin:0px 0.25rem;`:`border-top: 1px dash #f0f0f0;margin:0px 3.25rem 0px 5rem;`" >
+                    <vue-excel-editor v-model="approve_notifylist" ref="grid_notify" width="100%" :page="100" no-footer :no-num-col="false" :readonly="false" autocomplete :localized-label="vueExcelLabels" @delete="onDelete" @update="onUpdateNotify" >
                         <vue-excel-column field="key"        label="流程顺序"   width="80px" />
                         <vue-excel-column field="username"      label="审批人员"   width="180px" />
                         <vue-excel-column field="userid" label="审批账户" width="180px" />
@@ -570,6 +616,16 @@ export default {
       approve_position:'',
       approve_userlist:[],
       approve_executelist:[],
+      approve_notifylist:[],
+
+      notify_userid:'',
+      notify_username:'',
+      notify_mobile:'',
+      notify_department:'',
+      notify_company:'',
+      notify_position:'',
+      notify_userlist:[],
+
       role:'',
       file:'',
       uploadURL:'https://upload.yunwisdom.club:30443/sys/common/upload',
@@ -630,6 +686,26 @@ export default {
   methods: {
       onDelete(){
         console.log('delete');
+      },
+      async onUpdateNotify(records){
+
+        if(records.length > 1){
+          return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+        }
+        const temp = this.approve_notifylist.filter(elem => { // 过滤被删除的数据
+          return elem.v_status == 'valid';
+        });
+
+        if(this.approve_notifylist.length != temp.length){ // 过滤被删除的数据
+          return vant.Dialog.confirm({
+            title: '温馨提示',
+            message: `您确定删除选中数据嘛？`,
+          }).then(()=>{
+            this.approve_notifylist = temp;
+          }).catch(() => {
+            this.approve_notifylist.map(item => { item.v_status = 'valid'; });
+          })
+        }
       },
       async onUpdateExecute(records){
 
@@ -1169,6 +1245,98 @@ export default {
         }
 
       },
+      async queryNotifyNodeMan(){
+
+        //获取盖章人信息
+        const user_admin_name = this.notify_username;
+
+        //输入的用户
+        if(!user_admin_name || user_admin_name.length <= 1){
+          return;
+        }
+
+        try {
+          if(!!user_admin_name){
+
+            //从用户表数据中获取填报人资料
+            let user = await manageAPI.queryUserByNameReward(user_admin_name.trim(),200);
+
+            if(!!user){
+
+              //如果是用户数组列表，则展示列表，让用户自己选择
+              if(Array.isArray(user)){
+
+                try {
+                  user.map((elem,index) => {
+                    let company = elem.textfield1.split('||')[0];
+                    company = company.slice(company.lastIndexOf('>')+1);
+                    let department = elem.textfield1.split('||')[1];
+                    department = department.slice(department.lastIndexOf('>')+1);
+                    let mobile = elem.mobile ? `${elem.mobile.slice(0,3)}****${elem.mobile.slice(-4)}` : '';
+                    this.notify_userlist.push({id:elem.loginid , name:elem.lastname , mobile:elem.mobile, tel: mobile , address: company + "||" + elem.textfield1.split('||')[1] , company: company , department:department , mail: elem.email , isDefault: !index });
+                  })
+
+                  //获取盖印人姓名
+                  this.notify_username = user[0].lastname;
+                  //当前盖印人编号
+                  this.notify_userid = this.userid = user[0].loginid;
+
+                  try {
+                    this.selectNotifyNodeUser();
+                  } catch (error) {
+                    console.log(error);
+                  }
+
+                } catch (error) {
+                  console.log(error);
+                }
+
+              } else { //如果只有一个用户数据，则直接设置
+
+                try {
+                  let company = user.textfield1.split('||')[0];
+                  company = company.slice(company.lastIndexOf('>')+1);
+                  let department = user.textfield1.split('||')[1];
+                  department = department.slice(department.lastIndexOf('>')+1);
+                  let mobile = elem.mobile ? `${elem.mobile.slice(0,3)}****${elem.mobile.slice(-4)}` : '';
+                  //将用户数据推送至对方数组
+                  this.notify_userlist.push({id:user.loginid , name:user.lastname , mobile:elem.mobile, tel:mobile , address: company + "||" + user.textfield1.split('||')[1] , company: company , department:department , mail: this.item.dealMail, isDefault: !this.release_userlist.length });
+
+                  //获取盖印人姓名
+                  this.notify_username = user.lastname;
+                  //当前盖印人编号
+                  this.notify_userid = this.userid = user.loginid;
+
+                  try {
+                    this.selectNotifyNodeUser();
+                  } catch (error) {
+                    console.log(error);
+                  }
+
+                } catch (error) {
+                  console.log(error);
+                }
+
+              }
+
+              //遍历去重
+              try {
+                this.notify_userlist = this.notify_userlist.filter((item,index) => {
+                  item.isDefault = index == 0 ? true : false;
+                  let findex = this.notify_userlist.findIndex((subitem,index) => { return subitem.id == item.id });
+                  return index == findex;
+                })
+              } catch (error) {
+                console.log(error);
+              }
+
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+      },
 
       //选中当前知会人员
       async selectApproveUser(record , value){
@@ -1196,6 +1364,41 @@ export default {
             this.approve_mobile = record.mobile;
             const temp = await query.queryUserInfoByMobile(record.mobile); //查询员工职务
             this.approve_position = temp ? temp.position : ''; //设置员工职务
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+
+
+      },
+
+       //选中当前知会人员
+      async selectNotifyNodeUser(record , value){
+
+        try {
+          if(tools.isNull(record)){
+            //获取员工基本信息
+            const user = this.notify_userlist.find((item,index) => {return this.notify_userid == item.id});
+            //设置员工
+            this.notify_username = user.name;
+            this.notify_userid = user.id;
+            this.notify_mobile = user.mobile;
+            this.notify_company = user.company;
+            this.notify_department = user.department;
+            this.notify_mobile = user.mobile;
+            //查询员工职务
+            const temp = await query.queryUserInfoByMobile(user.mobile);
+            //设置员工职务
+            this.notify_position = temp.position;
+          } else {
+            this.notify_username = record.name;
+            this.notify_userid = record.id;
+            this.notify_company = record.company;
+            this.notify_department = record.department;
+            this.notify_mobile = record.mobile;
+            const temp = await query.queryUserInfoByMobile(record.mobile); //查询员工职务
+            this.notify_position = temp ? temp.position : ''; //设置员工职务
           }
         } catch (error) {
           console.log(error);
@@ -1814,25 +2017,8 @@ export default {
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
 
-                  //审批流程lockID
-                  let wid = id;
-                  try {
-                    wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
-                  } catch (error) {
-                    wid = id;
-                  }
-
-                  //提交此表单对应的审批节点数据
-                  for(let item of this.approve_executelist){
-                    item.id = tools.queryUniqueID() ;
-                    item.pid = id;
-                    item.bid = id;
-                    item.workflow_lock_id = wid;
-                    item.wid = wid;
-                    item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                    delete item.$id;
-                    await manageAPI.postTableData('pr_log_unode' , item);
-                  }
+                  //向数据库中插入审批流程节点、知会流程节点
+                  await this.handleLogNode(id, true , true);
 
                   //设置关联子数据
                   elem.child_data = JSON.stringify(this.data);
@@ -1867,6 +2053,46 @@ export default {
                }
           });
 
+      },
+
+      // 向数据库插入审批节点Data
+      async handleLogNode(id , uflag = true , mflag = true){
+        let wid = id; //审批流程lockID
+        try {
+          wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
+        } catch (error) {
+          wid = id;
+        }
+        //提交此表单对应的审批节点数据
+        if(uflag == true){
+          await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id); // 迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
+          await tools.sleep(100); // 稍微等待一下
+          for(let item of this.approve_executelist){
+            item.id = tools.queryUniqueID() ;
+            item.pid = id;
+            item.bid = id;
+            item.workflow_lock_id = wid;
+            item.wid = wid;
+            item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            delete item.$id;
+            await manageAPI.postTableData('pr_log_unode' , item);
+          }
+        }
+        //提交此表单对应的审批节点数据
+        if(mflag == true){
+          await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);  // 迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
+          await tools.sleep(100); // 稍微等待一下
+          for(let item of this.approve_notifylist){
+            item.id = tools.queryUniqueID() ;
+            item.pid = id;
+            item.bid = id;
+            item.workflow_lock_id = wid;
+            item.wid = wid;
+            item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            delete item.$id;
+            await manageAPI.postTableData('pr_log_mnode' , item);
+          }
+        }
       },
 
       // 执行奖罚明细分配函数
@@ -2047,6 +2273,35 @@ export default {
           this.approve_mobile = '';
           this.approve_position = '';
           this.approve_userlist = [];
+        } catch (error) {
+          console.log(error);
+        }
+
+      },
+      // 知会人员添加函数
+      async rewardNotifyAdd(){
+
+        if(!this.notify_userid){
+          return this.$toast.success('请选择审批人员处下拉列表中的待选审批人员！');
+        }
+
+        const index = this.approve_notifylist.findIndex( item => {
+          return item.userid == this.notify_userid;
+        })
+
+        if(index>=0){
+          return this.$toast.success('该审批人员已经添加，请重新输入！');
+        }
+
+        try {
+          const mobile = this.notify_mobile ? `${this.notify_mobile.slice(0,3)}****${this.notify_mobile.slice(-4)}` : '';
+          const user = {key: this.approve_notifylist.length + 1 , id:tools.queryUniqueID(),username:this.notify_username , userid: this.notify_userid , mobile , company: this.notify_company , department : this.notify_department , position : this.notify_position , v_status:'valid'};
+          this.approve_notifylist.push(JSON.parse(JSON.stringify(user)));
+          this.notify_userid = '';
+          this.notify_username = '';
+          this.notify_mobile = '';
+          this.notify_position = '';
+          this.notify_userlist = [];
         } catch (error) {
           console.log(error);
         }
