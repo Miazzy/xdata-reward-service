@@ -842,7 +842,7 @@ export async function patchTableData(tableName, id, node) {
 
     //大写转小写
     tableName = tableName.toLowerCase();
-    //更新URL PATCH	/api/tableName/:id	Updates row element by primary key
+    //更新URL PATCH	/api/tableName/:id	Updates row element by primary key /api/v3/mysql/mtdata
     var patchURL = `${window.requestAPIConfig.restapi}/api/${tableName}/${id}`;
 
     //如果传入数据为空，则直接返回错误
@@ -856,6 +856,27 @@ export async function patchTableData(tableName, id, node) {
             .send(node)
             .set('accept', 'json');
 
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+/**
+ * 迁移数据
+ * @param {*} tableName
+ * @param {*} historyName
+ * @param {*} field
+ * @param {*} value
+ */
+export async function moveTableData(tableName = '', historyName = '', field = 'pid', value = '') {
+
+    tableName = tableName.toLowerCase();
+    historyName = historyName.toLowerCase();
+    var patchURL = `${window.requestAPIConfig.restapi}/api/v3/mysql/mtdata?tname=${tableName}&hname=${historyName}&field=${field}&value=${value}`;
+
+    try {
+        var res = await superagent.get(patchURL).set('accept', 'json');
         return res.body;
     } catch (err) {
         console.log(err);

@@ -1440,11 +1440,22 @@ export default {
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
 
+                  //审批流程lockID
+                  let wid = id;
+                  try {
+                    wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
+                  } catch (error) {
+                    wid = id;
+                  }
+
                   //提交此表单对应的审批节点数据
                   for(let item of this.approve_executelist){
                     item.id = tools.queryUniqueID() ;
                     item.pid = id;
                     item.bid = id;
+                    item.workflow_lock_id = wid;
+                    item.wid = wid;
+                    item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
                     delete item.$id;
                     await manageAPI.postTableData('pr_log_unode' , item);
                   }
@@ -1803,11 +1814,22 @@ export default {
                     await manageAPI.postTableData('bs_reward_items' , item);
                   }
 
+                  //审批流程lockID
+                  let wid = id;
+                  try {
+                    wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
+                  } catch (error) {
+                    wid = id;
+                  }
+
                   //提交此表单对应的审批节点数据
                   for(let item of this.approve_executelist){
                     item.id = tools.queryUniqueID() ;
                     item.pid = id;
                     item.bid = id;
+                    item.workflow_lock_id = wid;
+                    item.wid = wid;
+                    item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
                     delete item.$id;
                     await manageAPI.postTableData('pr_log_unode' , item);
                   }

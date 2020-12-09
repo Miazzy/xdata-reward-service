@@ -422,7 +422,7 @@
                         <vue-excel-column field="position" label="审批职务" width="180px" />
                         <vue-excel-column field="mobile" label="联系电话" width="180px" />
                         <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
-                    </vue-excel-editor>
+                      </vue-excel-editor>
                     </a-row>
                   </div>
 
@@ -451,8 +451,16 @@
 
                   <div v-show="approve_notifylist.length > 0" class="reward-apply-content-item reward-apply-content-title" style="">
                     <a-row style="border-top: 1px dash #f0f0f0;margin:0px 5rem;" >
-                      <a-table :columns="wfcolumns" :data-source="approve_notifylist">
-                      </a-table>
+                      <vue-excel-editor v-model="approve_notifylist" ref="grid_execute" width="100%" :page="100" :no-num-col="false" :readonly="false" no-footer :localized-label="vueExcelLabels" autocomplete @delete="onDelete" @update="onUpdateNotify" >
+                        <vue-excel-column field="key"        label="流程顺序"   width="80px" />
+                        <vue-excel-column field="username"      label="审批人员"   width="180px" />
+                        <vue-excel-column field="userid" label="审批账户" width="180px" />
+                        <vue-excel-column field="company"  label="所属单位" width="180px" />
+                        <vue-excel-column field="department"  label="所属部门" width="180px" />
+                        <vue-excel-column field="position" label="审批职务" width="180px" />
+                        <vue-excel-column field="mobile" label="联系电话" width="180px" />
+                        <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
+                      </vue-excel-editor>
                     </a-row>
                   </div>
 
@@ -765,6 +773,42 @@ export default {
   methods: {
     async onDelete(){},
     async onUpdate(){},
+    async onUpdateExecute(records){
+      if(records.length > 1){
+        return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+      }
+      const temp = this.approve_executelist.filter(elem => { // 过滤被删除的数据
+        return elem.v_status == 'valid';
+      });
+      if(this.approve_executelist.length != temp.length){ // 过滤被删除的数据
+        return vant.Dialog.confirm({
+          title: '温馨提示',
+          message: `您确定删除选中数据嘛？`,
+        }).then(()=>{
+          this.approve_executelist = temp;
+        }).catch(() => {
+          this.approve_executelist.map(item => { item.v_status = 'valid'; });
+        })
+      }
+    },
+    async onUpdateNotify(records){
+      if(records.length > 1){
+        return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+      }
+      const temp = this.approve_notifylist.filter(elem => { // 过滤被删除的数据
+        return elem.v_status == 'valid';
+      });
+      if(this.approve_notifylist.length != temp.length){ // 过滤被删除的数据
+        return vant.Dialog.confirm({
+          title: '温馨提示',
+          message: `您确定删除选中数据嘛？`,
+        }).then(()=>{
+          this.approve_notifylist = temp;
+        }).catch(() => {
+          this.approve_notifylist.map(item => { item.v_status = 'valid'; });
+        })
+      }
+    },
     //上传提示
     async toastUpload(flag){
       if(flag == 'start'){
@@ -1384,6 +1428,41 @@ export default {
 
       },
 
+      // 向数据库插入审批节点Data
+      async handleLogNode(id){
+        //审批流程lockID
+        let wid = id;
+        try {
+          wid = `${id}#${parseInt(Math.random()*100000000).toString().slice(0,3)}`;
+        } catch (error) {
+          wid = id;
+        }
+
+        //提交此表单对应的审批节点数据
+        for(let item of this.approve_executelist){
+          item.id = tools.queryUniqueID() ;
+          item.pid = id;
+          item.bid = id;
+          item.workflow_lock_id = wid;
+          item.wid = wid;
+          item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
+          delete item.$id;
+          await manageAPI.postTableData('pr_log_unode' , item);
+        }
+
+        //提交此表单对应的审批节点数据
+        for(let item of this.approve_notifylist){
+          item.id = tools.queryUniqueID() ;
+          item.pid = id;
+          item.bid = id;
+          item.workflow_lock_id = wid;
+          item.wid = wid;
+          item.create_time = dayjs().format('YYYY-MM-DD HH:mm:ss'),
+          delete item.$id;
+          await manageAPI.postTableData('pr_log_mnode' , item);
+        }
+      },
+
       /**
        * @function 提交自由流程
        */
@@ -1614,14 +1693,26 @@ export default {
                     const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/reward/rewardview?id=${this.item.id}&pid=&tname=bs_reward_apply&panename=myrewardlist&typename=hr_admin_ids&bpm_status=4&proponents=${user_group_ids}&role=hr`);
 
                     /************************  工作流程日志(开始)  ************************/
-                    //修改bpm流程状态为 2:审批中
+                    // 修改bpm流程状态为 2:审批中
                     await manageAPI.patchTableData(this.tablename , this.item.id , { id : this.item.id ,  status: '审批中', bpm_status: '2', });
 
-                    //向HR推送，HR确认后
+                    // 向HR推送，HR确认后
                     await this.handleNotifyHR(user_group_ids , userinfo ,  this.item , receiveURL);
 
-                    //记录 审批人 经办人 审批表单 表单编号 记录编号 操作(同意/驳回) 意见 内容 表单数据
+                    // 记录 审批人 经办人 审批表单 表单编号 记录编号 操作(同意/驳回) 意见 内容 表单数据
                     await this.handleSubmitWF(userinfo , wfUsers , nfUsers , approver , this.tablename , this.item.id , this.item  , dayjs().format('YYYY-MM-DD HH:mm:ss'));
+
+                    // 迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
+                    await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id);
+
+                    // 迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
+                    await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);
+
+                    // 稍微等待一下
+                    await tools.sleep(300);
+
+                    // 新增审批流程节点pr_log_unode，新增知会审批节点pr_log_mnode
+                    await this.handleLogNode(id);
 
                     /************************  工作流程日志(结束)  ************************/
 
@@ -1771,6 +1862,12 @@ export default {
 
         //新增驳回记录
         await this.handleSaveHistoryWFLog(this.tablename , this.item , userinfo , '撤销' , this.approve_content);
+
+        //迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
+        await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id);
+
+        //迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
+        await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);
 
         this.workflowLogList = await workflow.queryPRLogByDataID(id);
         this.$toast.fail('撤销流程审批成功！');
