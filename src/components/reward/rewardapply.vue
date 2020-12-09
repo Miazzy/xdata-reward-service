@@ -141,6 +141,17 @@
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input-number  :parser="value => value.replace(/\$\s?|(,*)/g, '')" precision="2" v-model="item.amount"  placeholder="请输入本次奖罚申请的单项奖金总额！" @blur="validFieldToast('amount')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚名称</span>
+                    </a-col>
+                    <a-col :span="8 * (iswechat?2:1)">
+                      <a-input v-if="item.reward_type !== '业绩考核奖'" v-model="item.reward_name" placeholder="请输入本次奖罚申请的奖罚名称！" @blur="validFieldToast('reward_name')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-select v-if="item.reward_type === '业绩考核奖'" id="reward-month-picker" :default-value="item.reward_name" v-model="item.reward_name" placeholder="请填写奖罚类别！"  @blur="validFieldToast('reward_type')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0; width:100%;  border-width: 0px 0px 0px 0px;" >
+                        <a-select-option v-for="value in rewardtname" :key="value" >
+                          {{ value }}
+                        </a-select-option>
+                      </a-select>
+                    </a-col>
                   </a-row>
                 </div>
 
@@ -174,10 +185,10 @@
                       <a-month-picker id="reward-month-picker" :locale="locale" format="YYYY年MM月" v-model="item.reward_period"  placeholder="请输入本次奖罚/激励申请的所属周期，格式为YYYY年MM月！" @blur="validFieldToast('reward_period')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>奖罚名称</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>项目名称</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
-                      <a-input v-model="item.reward_name" placeholder="请输入本次奖罚申请的奖罚名称！" @blur="validFieldToast('reward_name')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                      <a-input   v-model="item.project"  placeholder="请输入本次奖罚申请的项目名称！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                 </div>
@@ -579,6 +590,7 @@ export default {
               hr_admin_names: '',
               hr_id: '',
               hr_name: '',
+              project:'',
               user_admin_name:'',
               apply_username: '',
               apply_realname: '',
@@ -594,6 +606,7 @@ export default {
       columns: workconfig.columns.reward.items,
       wfcolumns: workconfig.columns.reward.wfcolumns,
       vueExcelLabels: workconfig.columns.reward.vueExcelLabels,
+      rewardtname: workconfig.columns.reward.rewardtname,
       data: [],
       tablename:'bs_reward_apply',
       readonly: false,
@@ -818,13 +831,13 @@ export default {
                   elem.reward_period = dayjs(this.item.reward_period).format('YYYY年MM月'), //所属周期
                   elem.period = dayjs(this.item.reward_release_period).format('YYYY年MM月');
                   elem.type = this.item.reward_release_feature;
-                  elem.project = elem.project ? elem.project : temp.project;
+                  elem.project = elem.project ? elem.project : (temp.project ? temp.project : this.item.project);
                   elem.reward_release_company = elem.reward_release_company ? elem.reward_release_company : this.item.reward_release_company;
                   elem.reward_name = elem.reward_name ? elem.reward_name : this.item.reward_name;
                   elem.reward_amount = elem.reward_amount ? elem.reward_amount : this.item.amount;
                   elem.content = elem.content ? elem.content : this.item.content;
                   elem.cost_bearer = elem.cost_bearer ? elem.cost_bearer : this.item.cost_bearer;
-                  elem.pname = idata.sheetName == "奖罚明细模板" ? '': idata.sheetName;
+                  elem.pname = idata.sheetName == "奖罚明细模板" ? this.item.project : idata.sheetName;
                   console.log(`project: ${elem.project} or temp.project:${temp.project}`);
                 }
                 this.data.push(elem);
@@ -2190,6 +2203,7 @@ export default {
                 ratio,
                 zone,
                 project,
+                pname: this.item.project  ,
                 message:'',
                 reward_release_company :this.item.reward_release_company,
                 cost_bearer : this.item.cost_bearer,
@@ -2221,6 +2235,7 @@ export default {
               ratio,
               zone,
               project,
+              pname: this.item.project  ,
               message:'',
               reward_release_company :this.item.reward_release_company,
               cost_bearer : this.item.cost_bearer,
