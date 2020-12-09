@@ -326,10 +326,10 @@
                         </a-avatar>
                       </template>
                     </a-col>
-                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col v-if="approve_notifylist.length>0" :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>知会人员</span>
                     </a-col>
-                    <a-col :span="(iswechat?24:8)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
+                    <a-col v-if="approve_notifylist.length>0" :span="(iswechat?24:8)" :style="iswechat?`margin-top:0.50rem;margin-left:1.25rem;`:`margin-top:-0.00rem;margin-left:0.00rem;`">
                       <template v-for=" (userinfo , index ) in approve_notifylist">
                         <a-icon v-if=" index !== 0 " :key="`${userinfo.id}-icon`" type="swap-right" />
                         <a-avatar size="large" :key="userinfo.id" :style="execute_node.employee == userinfo.userid ? `color: #f5f5f5; background-color: skyblue; font-size:0.75rem;`:`color: #f56a00; background-color: #fde3cf;font-size:0.75rem;`">
@@ -1494,7 +1494,7 @@ export default {
       /**
        * @function 提交自由流程
        */
-      async handleSubmitWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime) {
+      async handleSubmitWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime , notifylist) {
 
           try {
             //校验提交信息是否准确
@@ -1508,7 +1508,7 @@ export default {
             }
 
             try {
-              await this.handleStartWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime);
+              await this.handleStartWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime , notifylist);
             } catch (error) {
               console.log(error);
             }
@@ -1521,7 +1521,7 @@ export default {
       /**
        * @function 启动自由流程
        */
-      async handleStartWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime){
+      async handleStartWF(userinfo, wfUsers, nfUsers , approver , curTableName , curItemID , data , ctime , notifylist){
 
         try {
           //自由流程节点
@@ -1729,7 +1729,7 @@ export default {
                     await this.handleNotifyHR(user_group_ids , userinfo ,  this.item , receiveURL);
 
                     // 记录 审批人 经办人 审批表单 表单编号 记录编号 操作(同意/驳回) 意见 内容 表单数据
-                    await this.handleSubmitWF(userinfo , wfUsers , nfUsers , approver , this.tablename , this.item.id , this.item  , dayjs().format('YYYY-MM-DD HH:mm:ss'));
+                    await this.handleSubmitWF(userinfo , wfUsers , nfUsers , approver , this.tablename , this.item.id , this.item  , dayjs().format('YYYY-MM-DD HH:mm:ss') , this.approve_notifylist);
 
                     // 新增审批流程节点pr_log_unode，新增知会审批节点pr_log_mnode
                     await this.handleLogNode(id , true , true);

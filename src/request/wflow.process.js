@@ -493,6 +493,18 @@ export async function handleApproveWF(curRow = '', fixedWFlow = '', data = [], t
                 console.log(error);
             }
 
+            //发送企业微信通知，告知知会人员查看审批流程
+            try {
+                //获取所有知会用户
+                const approve_notifylist = await query.queryTableDataByPid('pr_log_mnode', bussinessCodeID, 'key'); //查询奖罚知会节点明细数据
+                const nfuserlist = (approve_notifylist.map(obj => { return obj.userid })).toString();
+                receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/reward/rewardview?id=${bussinessCodeID}&pid=&tname=bs_reward_apply&panename=mytodolist&typename=wflow_done&bpm_status=4&proponents=${nfuserlist}`);
+                await superagent.get(`${window.requestAPIConfig.restapi}/api/v1/weappms/${nfuserlist}/亲爱的同事，您收到一条奖罚申请流程知会：${bussinessNode["title"]}，内容：${bussinessNode['content']}！?type=reward&rurl=${receiveURL}`)
+                    .set('accept', 'json');
+            } catch (error) {
+                console.log(error);
+            }
+
             //再次检查此奖惩申请的流程状态，是否为已完成，如果不是已完成，则设置为已完成
             try {
                 //修改审批状态为审批中
