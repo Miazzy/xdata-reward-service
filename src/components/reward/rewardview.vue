@@ -1869,11 +1869,8 @@ export default {
         //新增驳回记录
         await this.handleSaveHistoryWFLog(this.tablename , this.item , userinfo , '撤销' , this.approve_content);
 
-        //迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
-        await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id);
-
-        //迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
-        await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);
+        //迁移审批节点数据
+        await this.handleMoveTableData();
 
         this.workflowLogList = await workflow.queryPRLogByDataID(id);
         this.$toast.fail('撤销流程审批成功！');
@@ -1884,6 +1881,18 @@ export default {
         this.loading = false;
         await tools.sleep(2000);
         await this.queryProcessLog();
+      },
+
+      // 迁移审批节点数据
+      async handleMoveTableData(){
+        //迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
+        await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id);
+        //迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
+        await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);
+        //迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
+        await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id);
+        //迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
+        await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);
       },
 
       // 执行驳回功能
