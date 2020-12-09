@@ -7,7 +7,7 @@
           <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
 
             <!-- 奖罚申请 -->
-            <div style="background-color:#f0f0f0;">
+            <div id="reward-apply-content" style="background-color:#f0f0f0;">
 
               <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0px; margin-left: 0.25rem; margin-right: 0.25rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
 
@@ -185,13 +185,13 @@
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px; margin-right:10px;">
                   <a-row>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span><span style="margin-right:0px;left:-0px;top:0px;">激励分配方</span></span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span><span style="margin-right:0px;left:-0px;top:0px;">{{iswechat?'激励分配':'激励分配方'}}</span></span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="item.reward_release_company"  placeholder="请输入本次奖罚/激励的分配单位（激励分配方）！" @blur="validFieldToast('reward_release_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                     <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span>成本承担方</span>
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-8px;top:0px;">*</span>{{iswechat?'成本承担':'成本承担方'}}</span>
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="item.cost_bearer" placeholder="请输入本次奖罚/激励的成本承担单位（成本承担方）！" @blur="validFieldToast('reward_cost_company')" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
@@ -2037,4 +2037,13 @@ export default {
 <style scoped >
     @import "../../assets/css/reward.home.css";
     @import "../../assets/css/reward.apply.css";
+    .ant-input:focus, .ant-input:hover {
+        outline-color:#f0f0f0;
+        border-color: #f0f0f0;
+        border-right-width: 1px!important;
+    }
+    .ant-input::selection {
+        color: #fff;
+        background: #f0f0f0;
+    }
 </style>
