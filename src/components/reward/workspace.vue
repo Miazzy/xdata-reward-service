@@ -4,7 +4,7 @@
       <a-row :gutter="24">
 
         <keep-alive>
-          <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" style="position:relative;">
+          <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24" style="position:relative;background-color:#f9f9f9;">
 
             <div v-if="!iswechat" style="position:absolute;left:0px width:80px;" >
               <van-sidebar v-model="activeTabKey">
@@ -23,7 +23,7 @@
               </div>
             </header>
 
-            <van-swipe v-if="iswechat" :autoplay="3000">
+            <van-swipe v-if="iswechat" :autoplay="3000" style="margin-bottom:1.25rem;">
               <van-swipe-item v-for="(image, index) in images" :key="index">
                 <img width="100%" height="200px;" v-lazy="image.files" />
               </van-swipe-item>

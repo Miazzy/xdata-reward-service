@@ -7,13 +7,24 @@
 
             <div style="background-color:#f0f0f0;">
 
-              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
-                <a-page-header
+              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 0px solid #f0f0f0; front-size: 1rem;" >
+
+                <a-page-header v-if="!iswechat"
                   style="border: 1px solid rgb(235, 237, 240)"
                   title="奖罚系统"
                   sub-title=""
                   @back="() => { this.$router.push(`/`)}"
                 />
+
+                <header v-if="iswechat" id="wx-header" class="header-menu" v-show="!searchFlag" style="overflow-x: hidden;" >
+                  <div class="center" style="position:relative;">
+                      <router-link to="/" @click="$router.push(`/`)" tag="div" class="iconfont icon-left">
+                          <span>返回</span>
+                      </router-link>
+                      <span>季度报表</span>
+                  </div>
+                </header>
+
                 <div class="reward-apply-header" style="height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem; ">
                   奖罚季度报表
                 </div>
@@ -720,6 +731,8 @@ export default {
   mixins: [window.mixin],
   data() {
     return {
+      iswechat:false,
+      iswework:false,
       pageName: "奖罚季度报表",
       momentNewMsg: true,
       activeTabKey: 3,
@@ -1071,6 +1084,8 @@ export default {
       // 获取URL或者二维码信息
       async queryInfo() {
 
+        this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
+        this.iswework = tools.isWework(); //查询是否为企业微信
         this.userinfo = await this.weworkLogin(); //查询当前登录用户
 
       },

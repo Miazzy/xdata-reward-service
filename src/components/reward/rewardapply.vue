@@ -10,14 +10,25 @@
             <!-- 奖罚申请 -->
             <div id="reward-apply-content" style="background-color:#f0f0f0;">
 
-              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 1px solid #f0f0f0; front-size: 1rem;" >
-              <a-page-header
-                style="border: 1px solid rgb(235, 237, 240)"
-                title="奖罚系统"
-                sub-title=""
-                @back="() => { this.$router.push(`/`)}"
-              />
-                <div class="reward-apply-header" style="height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem; ">
+              <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 0px solid #f0f0f0; front-size: 1rem;" >
+
+                <a-page-header v-if="!iswechat"
+                  style="border: 1px solid rgb(235, 237, 240)"
+                  title="奖罚系统"
+                  sub-title=""
+                  @back="() => { this.$router.push(`/`)}"
+                />
+
+                <header v-if="iswechat" id="wx-header" class="header-menu" v-show="!searchFlag" style="overflow-x: hidden;" >
+                  <div class="center" style="position:relative;">
+                      <router-link to="/" @click="$router.push(`/`)" tag="div" class="iconfont icon-left">
+                          <span>返回</span>
+                      </router-link>
+                      <span>奖罚申请流程</span>
+                  </div>
+                </header>
+
+                <div class="reward-apply-header" :style="iswechat?`height:1.75rem; width:100%; text-align:center; margin-top:1.25rem; font-size: 1.20rem;`:`height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem;` ">
                   奖罚申请流程
                 </div>
 
