@@ -221,7 +221,13 @@ export const reward = (that) => {
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
             click: () => {
-                that.$router.push(`/reward/rewardmonth?type=month`);
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
+                    that.$router.push(`/reward/rewardmonth?type=month`);
+                } else {
+                    that.$toast('您没有查看月度报表的权限！');
+                }
             },
         }, {
             name: "季度报表",
@@ -229,7 +235,13 @@ export const reward = (that) => {
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
             click: () => {
-                that.$router.push(`/reward/rewardquarter?type=quarter`);
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
+                    that.$router.push(`/reward/rewardquarter?type=quarter`);
+                } else {
+                    that.$toast('您没有查看季度报表的权限！');
+                }
             },
         }, {
             name: "年度报表",
@@ -237,7 +249,13 @@ export const reward = (that) => {
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
             click: () => {
-                that.$router.push(`/reward/rewardyear?type=year`);
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
+                    that.$router.push(`/reward/rewardyear?type=year`);
+                } else {
+                    that.$toast('您没有查看年度报表的权限！');
+                }
             },
         }, {
             name: "月度图表",
@@ -245,7 +263,13 @@ export const reward = (that) => {
             href: "/account/todolist",
             description: '查看/导出月度奖罚明细及汇总',
             click: () => {
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
 
+                } else {
+                    that.$toast('您没有查看月度图表的权限！');
+                }
             }
         }, {
             name: "季度图表",
@@ -253,7 +277,13 @@ export const reward = (that) => {
             href: "/account/donelist",
             description: '查看/导出季度奖罚明细及汇总',
             click: () => {
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
 
+                } else {
+                    that.$toast('您没有查看季度图表的权限！');
+                }
             }
         }, {
             name: "年度图表",
@@ -261,7 +291,13 @@ export const reward = (that) => {
             href: "/account/donelist",
             description: '查看/导出年度奖罚明细及汇总',
             click: () => {
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
 
+                } else {
+                    that.$toast('您没有查看年度图表的权限！');
+                }
             }
         }, {
             name: "统计分析",
