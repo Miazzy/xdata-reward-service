@@ -118,3 +118,27 @@
     line-height: 40px;
     border-radius: 50%;
 }
+
+#reward-home-wechat .ant-card-head {
+    min-height: 1.5rem;
+    margin-bottom: -1px;
+    padding: 0 24px;
+    color: rgba(0, 0, 0, .85);
+    font-weight: 300;
+    font-size: 0.85rem;
+    background: transparent;
+    border-bottom: 1px solid #f9f9f9;
+    border-radius: 1px 1px 0 0;
+    zoom: 1;
+}
+
+#reward-home-wechat .ant-card-head-title {
+    display: inline-block;
+    flex: 1;
+    padding: 0.50rem 0.00rem;
+    margin: 0.00rem 0rem 0.00rem 0rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.85rem;
+}
