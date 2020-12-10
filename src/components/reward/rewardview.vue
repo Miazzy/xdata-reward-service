@@ -667,6 +667,8 @@
 
               </div>
 
+              <a-back-top />
+
             </div>
 
           </a-col>
