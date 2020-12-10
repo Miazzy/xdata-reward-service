@@ -70,6 +70,7 @@ self.addEventListener('install', function(event) {
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-file-04.svg",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/icon-rank-01.svg",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.3/cdn/common/vue-router.min.js",
+                "https://upload.yunwisdom.club:30443/files/20201112125500220_%E6%88%AA%E5%B1%8F.png",
             ]);
         })
     );

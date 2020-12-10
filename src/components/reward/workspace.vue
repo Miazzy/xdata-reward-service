@@ -17,12 +17,24 @@
               </van-sidebar>
             </div>
 
+            <header v-if="iswechat" id="wx-header" class="header-menu" style="overflow-x: hidden;" >
+              <div class="center" style="position:relative;">
+                  <span>奖罚申请</span>
+              </div>
+            </header>
+
+            <van-swipe v-if="iswechat" :autoplay="3000">
+              <van-swipe-item v-for="(image, index) in images" :key="index">
+                <img width="100%" height="200px;" v-lazy="image.files" />
+              </van-swipe-item>
+            </van-swipe>
+
             <div :id="iswechat?`reward-workspace-content-wechat`:'reward-workspace-content' " :style="iswechat?`position:absolute; left:0rem; width:100%;`:`position:absolute; left:80px; width:900px;`" >
               <template v-for="(pane,index) in paneflows"  >
                 <a-card  :key="pane.id"  :title="pane.title"  class="pane-flow-card" >
-                  <template v-for="item in pane.taskflows"  >
-                    <a-card-grid :key="item.href" :style="iswechat?`width:25%;textAlign:'center'`:`width:25%;textAlign:'center'`">
-                      <a-card-meta>
+                  <template v-for="(item , index ) in pane.taskflows"  >
+                    <a-card-grid  :key="item.href" :style="iswechat?`width:24%;textAlign:'center'`:`width:25%;textAlign:'center'`">
+                      <a-card-meta :style="index%4 == 0 ? `margin-left:0.55rem;` : (index%4 == 3 ? `margin-right:0.35rem;`:``)">
                         <div slot="title" class="card-title pane-flow-card-meta" @click="item.click" >
                           <div class="pane-flow-card-meta-icon" :style="iswechat?`display:block;width:100%;margin-left:0.5rem;`:''">
                             <a-avatar size="large"  :src="item.avatar" />
@@ -107,6 +119,8 @@ export default {
       paneflows: workconfig.reward(this),
       wflows: workconfig.getRewardWflow(this),
       quicktags: workconfig.getRewardQuickTag(this),
+      images: storage.getStore('system_app_image'),
+      imageTableName: 'bs_home_pictures',
       userinfo:null,
     };
   },
@@ -123,6 +137,7 @@ export default {
         this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
         this.iswework = tools.isWework(); //查询是否为企业微信
         this.userinfo = await this.weworkLogin(); //查询当前登录用户
+        this.queryImagesUrl();
       } catch (error) {
         console.log(error);
       }
@@ -134,6 +149,23 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    // 查询首页图片
+    async queryImagesUrl(){
+      const image = await storage.getStore('system_app_image'); // 获取缓存中的图片
+      if(image && image.length > 0){ // 如果存在图片数据，则直接使用图片数据
+        return this.images = image;
+      }
+      const userinfo = await storage.getStore('system_userinfo'); //获取当前登录用户信息
+      let whereSQL = `~and(bpm_status,in,4,5)~and(create_by,in,admin,manager)~and(type,eq,REWARD)`;  //查询SQL
+      try {
+        this.images = await query.queryTableDataByWhereSQL(this.imageTableName , `_where=(status,in,3)${whereSQL}&_fields=files&_sort=-id`);
+        this.images.map(item => { item.files = `https://upload.yunwisdom.club:30443/${item.files}`; });
+        storage.setStore('system_app_image',JSON.stringify(this.images), 3600 * 24 * 3);
+      } catch (error) {
+        console.log(error);
+      }
+
     },
   },
 };
