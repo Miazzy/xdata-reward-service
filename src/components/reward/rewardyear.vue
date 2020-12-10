@@ -1,5 +1,5 @@
 <template>
-  <div id="reward-home">
+  <div :id="iswechat?`reward-home-wechat`:`reward-home`">
       <div style="background-color:#f0f0f0;">
       <a-row :gutter="24">
         <keep-alive>

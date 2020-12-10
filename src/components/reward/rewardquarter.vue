@@ -1,5 +1,5 @@
 <template>
-  <div id="reward-home">
+  <div :id="iswechat?`reward-home-wechat`:`reward-home`">
       <div style="background-color:#f0f0f0;">
       <a-row :gutter="24">
         <keep-alive>
@@ -21,17 +21,17 @@
                       <router-link to="/" @click="$router.push(`/`)" tag="div" class="iconfont icon-left">
                           <span>返回</span>
                       </router-link>
-                      <span>季度报表</span>
+                      <span>奖罚季度报表</span>
                   </div>
                 </header>
 
-                <div class="reward-apply-header" style="height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem; ">
+                <div class="reward-apply-header" :style="iswechat?`height:1.75rem; width:100%; text-align:center; margin-top:20px; font-size: 1.20rem;`:`height:80px; width:100%; text-align:center; margin-top:20px; font-size: 1.5rem;` ">
                   奖罚季度报表
                 </div>
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="">
                    <a-row style="border-top: 1px dash #f0f0f0;" >
-                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                    <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="font-size:1.05rem;">
                       基础信息
                     </a-col>
                    </a-row>
@@ -39,48 +39,51 @@
 
                 <div class="reward-apply-content-item" style="margin-top:5px;margin-bottom:5px;">
                   <a-row>
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;">*</span>发放周期</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="period" placeholder="请输入发放周期！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
+                       <div style="position:absolute; right: -50px; top: 2px;">
+                        <van-button v-if="iswechat" name="file" @click="queryRewardMonthInfo();queryRewardMonthInfo_Y();queryRewardMonthInfo_O();queryRewardMonthInfo_G();"  >查询</van-button>
+                       </div>
                     </a-col>
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>所属区域</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="zone" placeholder="请输入所属区域！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                        <div style="position:absolute; right: -120px; top: -2px;">
-                        <van-button name="file" @click="queryRewardQuarterInfo();queryRewardQuarterInfo_Y();queryRewardQuarterInfo_O();queryRewardQuarterInfo_G();"  >查询</van-button>
-                        <van-button name="file" @click="queryCollected();" >汇总</van-button>
+                        <van-button v-if="!iswechat" name="file" @click="queryRewardQuarterInfo();queryRewardQuarterInfo_Y();queryRewardQuarterInfo_O();queryRewardQuarterInfo_G();"  >查询</van-button>
+                        <van-button v-if="!iswechat" name="file" @click="queryCollected();" >汇总</van-button>
                        </div>
                     </a-col>
                   </a-row>
                   <a-row style="margin-top:10px;">
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>奖惩类型</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="reward_type" placeholder="请输入奖惩类型！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>奖惩名称</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="reward_name" placeholder="请输入奖惩或激励名称！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
                   <a-row style="margin-top:10px;">
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
                       <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"></span>项目名称</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="pname" placeholder="请输入项目名称！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
-                    <a-col :span="4" style="font-size:1.0rem; margin-top:5px; text-align: center;">
-                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>成本承担方</span>
+                    <a-col :span="4 * (iswechat?2:1)" style="font-size:1.0rem; margin-top:5px; text-align: center;">
+                      <span style="position:relative;" ><span style="color:red;margin-right:0px;position:absolute;left:-10px;top:0px;"> </span>{{ iswechat?`成本承担`:`成本承担方` }}</span>
                     </a-col>
-                    <a-col :span="6">
+                    <a-col :span="6 * (iswechat?2:1)">
                        <a-input :readonly="false" v-model="cost_bearer" placeholder="请输入成本承担方！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0;" />
                     </a-col>
                   </a-row>
@@ -88,22 +91,22 @@
 
                 <div class="reward-apply-content-item reward-apply-content-title" style="margin-top:3rem;">
                    <a-row style="border-top: 1px dash #f0f0f0;" >
-                    <a-col class="reward-apply-content-title-text" :span="4" style="">
+                    <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="font-size:1.05rem;">
                       报表信息
                     </a-col>
                    </a-row>
                 </div>
 
-                <div style="margin-top:1.25rem; margin-left:4.75rem;margin-right:3.0rem;">
+                <div :style="iswechat?`margin-top:0.35rem; margin-left:0.05rem;margin-right:0.05rem;`:`margin-top:1.25rem; margin-left:4.75rem;margin-right:3.0rem;`" >
                     <a-tabs @change="callback">
                       <a-tab-pane key="1" tab="全部数据">
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               明细数据
                             </a-col>
                             <a-col :span="16">
-                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                              <div :style="iswechat ? `position:absolute;right:-6.0rem;top:-1.5rem;` : `position:absolute; right: -9.0rem; top: -2px;`">
                                 <excel-export :sheet="sheetIData" :manual="false" @before-start="exportIData();">
                                   <div>导出</div>
                                 </excel-export>
@@ -136,10 +139,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
+                              {{ iswechat ? `汇总数据（按发放周期、奖惩类型、员工账户、项目）` : `汇总数据（按发放周期、奖惩类型、员工账户、项目名称）`}}
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportTData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetTData" :manual="false" @before-start="exportTData();">
@@ -173,10 +176,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、奖惩类型、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportMData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetMData" :manual="false" @before-start="exportMData();">
@@ -210,10 +213,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportEData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetEData" :manual="false" @before-start="exportEData();">
@@ -248,11 +251,11 @@
                       <a-tab-pane key="2" tab="业绩考核类" force-render>
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               明细数据
                             </a-col>
                             <a-col :span="16">
-                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                              <div :style="iswechat ? `position:absolute;right:-6.0rem;top:-1.5rem;` : `position:absolute; right: -9.0rem; top: -2px;`" >
                                 <excel-export :sheet="sheetYIData" :manual="false" @before-start="exportYIData();">
                                   <div>导出</div>
                                 </excel-export>
@@ -285,10 +288,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
+                              {{ iswechat ? `汇总数据（按发放周期、奖惩类型、员工账户、项目）` : `汇总数据（按发放周期、奖惩类型、员工账户、项目名称）`}}
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportYTData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetYTData" :manual="false" @before-start="exportYTData();">
@@ -322,10 +325,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、奖惩类型、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportYMData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetYMData" :manual="false" @before-start="exportYMData();">
@@ -359,10 +362,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportYEData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetYEData" :manual="false" @before-start="exportYEData();">
@@ -397,11 +400,11 @@
                       <a-tab-pane key="3" tab="总裁/总经理/特殊贡献">
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               明细数据
                             </a-col>
                             <a-col :span="16">
-                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                              <div :style="iswechat ? `position:absolute;right:-6.0rem;top:-1.5rem;` : `position:absolute; right: -9.0rem; top: -2px;`">
                                 <van-button name="file" @click="exportGIData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetGIData" :manual="false" @before-start="exportGIData();">
                                   <div>导出</div>
@@ -435,10 +438,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
+                              {{ iswechat ? `汇总数据（按发放周期、奖惩类型、员工账户、项目）` : `汇总数据（按发放周期、奖惩类型、员工账户、项目名称）`}}
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportGTData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetGTData" :manual="false" @before-start="exportGTData();">
@@ -472,10 +475,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、奖惩类型、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportGMData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetGMData" :manual="false" @before-start="exportGMData();">
@@ -509,10 +512,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <van-button name="file" @click="exportGEData();" style="display:none;" >导出</van-button>
                                 <excel-export :sheet="sheetGEData" :manual="false" @before-start="exportGEData();">
@@ -547,11 +550,11 @@
                       <a-tab-pane key="4" tab="其他业务类">
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="4" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="4 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               明细数据
                             </a-col>
                             <a-col :span="16">
-                              <div style="position:absolute; right: -9.0rem; top: -2px;">
+                              <div :style="iswechat ? `position:absolute;right:-6.0rem;top:-1.5rem;` : `position:absolute; right: -9.0rem; top: -2px;`">
                                 <excel-export :sheet="sheetOIData" :manual="false" @before-start="exportOIData();">
                                   <div>导出</div>
                                 </excel-export>
@@ -584,10 +587,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
-                              汇总数据（按发放周期、奖惩类型、员工账户、项目名称）
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
+                              {{ iswechat ? `汇总数据（按发放周期、奖惩类型、员工账户、项目）` : `汇总数据（按发放周期、奖惩类型、员工账户、项目名称）`}}
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <excel-export :sheet="sheetOTData" :manual="false" @before-start="exportOTData();">
                                   <div>导出</div>
@@ -620,10 +623,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、奖惩类型、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <excel-export :sheet="sheetOMData" :manual="false" @before-start="exportOMData();">
                                   <div>导出</div>
@@ -656,10 +659,10 @@
 
                         <div class="reward-apply-content-item reward-apply-content-title" style="">
                           <a-row style="border-top: 1px dash #f0f0f0;" >
-                            <a-col class="reward-apply-content-title-text" :span="10" style="float:left;text-align:left;margin-left:10px;">
+                            <a-col class="reward-apply-content-title-text" :span="10 * (iswechat?2:1)" style="float:left;text-align:left;margin-left:10px;">
                               汇总数据（按发放周期、员工账户）
                             </a-col>
-                            <a-col :span="10">
+                            <a-col v-if="!iswechat" :span="10">
                               <div style="position:absolute; right: -9.0rem; top: -2px;">
                                 <excel-export :sheet="sheetOEData" :manual="false" @before-start="exportOEData();">
                                   <div>导出</div>
