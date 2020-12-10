@@ -117,7 +117,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -154,7 +154,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -191,7 +191,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -228,7 +228,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -266,7 +266,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -303,7 +303,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -340,7 +340,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -377,7 +377,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -416,7 +416,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -453,7 +453,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -490,7 +490,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -527,7 +527,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -565,7 +565,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -601,7 +601,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -637,7 +637,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>
@@ -673,7 +673,7 @@
                                 <vue-excel-column field="project"     label="项目/中心"  width="100px" />
                                 <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                                 <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                                <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
+                                <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
                                 <vue-excel-column field="status"      label="状态"      width="80px" />
                             </vue-excel-editor>
                           </a-row>

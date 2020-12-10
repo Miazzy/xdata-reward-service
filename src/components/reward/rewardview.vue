@@ -302,9 +302,9 @@
                       <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                       <vue-excel-column field="department"  label="所属部门"   width="100px" />
                       <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                      <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
-                      <vue-excel-column field="ratio"       label="分配比率"   width="100px" summary="sum" />
-                      <vue-excel-column field="reward_amount" label="奖罚总额"  width="100px" />
+                      <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
+                      <vue-excel-column field="ratio"       label="分配比率(%)"   width="100px" summary="sum" />
+                      <vue-excel-column field="reward_amount" label="奖罚总额(￥)"  width="100px" />
                       <vue-excel-column field="content"     label="申请事由"   width="100px" />
                     </vue-excel-editor>
                    </a-row>

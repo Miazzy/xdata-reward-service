@@ -358,7 +358,7 @@
                     </a-col>
                     <a-col :span="8 * (iswechat?2:1)">
                       <a-input v-model="release_amount" placeholder="请输入奖罚明细中的奖罚金额！" style="border: 0px solid #fefefe;  border-bottom: 1px solid #f0f0f0; width: 320px; " />
-                      <span style="color:red;font-size:0.6rem;display:block;margin-top:15px;">奖项金额，正数表示为奖励、激励，负数表示为罚款！</span>
+                      <span style="color:red;font-size:0.6rem;display:block;margin-top:15px;">奖项金额，正数表示为奖励、激励，负数表示为罚款，单位￥！</span>
                     </a-col>
                     <div style="position:absolute; right: 5px; top: -2px;">
                       <van-button name="file" @click="rewardRelease();"  >分配</van-button>
@@ -401,9 +401,9 @@
                         <vue-excel-column field="pname"       label="项目名称"   width="100px" />
                         <vue-excel-column field="department"  label="所属部门"   width="100px" />
                         <vue-excel-column field="position"    label="员工职务"   width="100px" />
-                        <vue-excel-column field="amount"      label="分配金额"   width="100px" summary="sum" />
-                        <vue-excel-column field="ratio"       label="分配比率"   width="100px" summary="sum" />
-                        <vue-excel-column field="reward_amount" label="奖罚总额"  width="100px" />
+                        <vue-excel-column field="amount"      label="分配金额(￥)"   width="100px" summary="sum" />
+                        <vue-excel-column field="ratio"       label="分配比率(%)"   width="100px" summary="sum" />
+                        <vue-excel-column field="reward_amount" label="奖罚总额(￥)"  width="100px" />
                         <vue-excel-column field="content"     label="申请事由"   width="100px" />
                         <vue-excel-column field="v_status"    label="状态"      width="80px" type="map" :options="statusType" />
                     </vue-excel-editor>
@@ -2108,7 +2108,7 @@ export default {
           return this.$toast.fail('请先输入申请奖金总额！');
         }
         if(!this.release_amount){
-          return this.$toast.fail('请输入奖罚明细的分配金额！');
+          return this.$toast.fail('请输入奖罚明细的分配金额(￥)！');
         }
         if(!this.item.reward_release_feature){
           return this.$toast.fail('请输入奖罚申请的分配性质！');
@@ -2132,7 +2132,7 @@ export default {
           return this.$toast.fail('请输入奖罚申请的申请事由！');
         }
         if(!/^[0-9]+.{0,1}[0-9]{0,2}$/g.test(this.release_amount)){
-          return this.$toast.fail('请在分配金额处输入数字！');
+          return this.$toast.fail('请在分配金额处输入数字(￥)！');
         }
 
         if(/[,|，]/.test(this.release_username)){ //如果包含逗号，则表示批量添加
