@@ -164,7 +164,7 @@ export const reward = (that) => {
             },
         }],
     }, {
-        id: 'task-pane',
+        id: 'apply-pane',
         title: '奖罚申请',
         taskflows: [{
             name: "业绩考核奖罚",
@@ -216,7 +216,7 @@ export const reward = (that) => {
             },
         }],
     }, {
-        id: 'common-pane',
+        id: 'count-pane',
         title: '统计报表',
         taskflows: [{
                 name: "月度报表",
