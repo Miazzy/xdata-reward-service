@@ -1,3 +1,6 @@
+import * as storage from '@/request/storage';
+import * as query from '@/request/query';
+
 /**
  * @description 邮件配置
  */
@@ -220,13 +223,14 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/yuebao.png`,
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                debugger;
                 if (response && response.length > 0) {
                     that.$router.push(`/reward/rewardmonth?type=month`);
                 } else {
-                    that.$toast('您没有查看月度报表的权限！');
+                    that.$message.error('您没有查看月度报表的权限！');
                 }
             },
         }, {
@@ -234,13 +238,13 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhoubao.png`,
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
                 if (response && response.length > 0) {
                     that.$router.push(`/reward/rewardquarter?type=quarter`);
                 } else {
-                    that.$toast('您没有查看季度报表的权限！');
+                    that.$message.error('您没有查看季度报表的权限！');
                 }
             },
         }, {
@@ -248,13 +252,13 @@ export const reward = (that) => {
             avatar: `https://cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/ribao.png`,
             href: "/account/myanalyse",
             description: '其他奖罚申请流程',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
                 if (response && response.length > 0) {
                     that.$router.push(`/reward/rewardyear?type=year`);
                 } else {
-                    that.$toast('您没有查看年度报表的权限！');
+                    that.$message.error('您没有查看年度报表的权限！');
                 }
             },
         }, {
@@ -262,13 +266,13 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/position.png`,
             href: "/account/todolist",
             description: '查看/导出月度奖罚明细及汇总',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
                 if (response && response.length > 0) {
 
                 } else {
-                    that.$toast('您没有查看月度图表的权限！');
+                    that.$message.error('您没有查看月度图表的权限！');
                 }
             }
         }, {
@@ -276,13 +280,13 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_8.png`,
             href: "/account/donelist",
             description: '查看/导出季度奖罚明细及汇总',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
                 if (response && response.length > 0) {
 
                 } else {
-                    that.$toast('您没有查看季度图表的权限！');
+                    that.$message.error('您没有查看季度图表的权限！');
                 }
             }
         }, {
@@ -290,13 +294,13 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.1.1/images/position_5.png`,
             href: "/account/donelist",
             description: '查看/导出年度奖罚明细及汇总',
-            click: () => {
+            click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 const response = await query.queryRoleGroupList('COMMON_REWARD_HR_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
                 if (response && response.length > 0) {
 
                 } else {
-                    that.$toast('您没有查看年度图表的权限！');
+                    that.$message.error('您没有查看年度图表的权限！');
                 }
             }
         }, {
@@ -304,7 +308,7 @@ export const reward = (that) => {
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/zhushou.png`,
             href: "/account/myanalyse",
             description: '查看自己的奖罚月/季度报表',
-            click: () => {
+            click: async() => {
                 that.$router.push(`/reward/message?panename=myanalyselist&type=7&back=/reward/workspace`, '_blank');
             },
         }],
