@@ -450,9 +450,9 @@ export async function queryUserInfoByAccount(userid) {
  * @function 查询用户信息通过sign
  */
 export function queryUserNameBySign() {
-    let username = tools.queryUrlString('username', 'search');
-    let sign = tools.queryUrlString('sign', 'search');
-    username = window.atob(window.atob(username)).replace(window.atob(window.atob(sign)), '');
+    let username = tools.queryUrlString('username', 'history');
+    let sign = tools.queryUrlString('sign', 'history');
+    username = window.atob(window.atob(username)).replace('-' + window.atob(window.atob(sign)), '');
     return username;
 }
 
@@ -483,6 +483,7 @@ export async function queryWeworkUser() {
         let code = tools.queryUrlString('code', 'search');
         let system_type = tools.queryUrlString('system_type', 'history');
         let username = queryUserNameBySign();
+        debugger;
 
         //获取用户信息
         if (code) {
@@ -498,11 +499,13 @@ export async function queryWeworkUser() {
             try {
                 if (tools.isNull(userinfo)) {
                     response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${code}`);
-                    userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
+                    userinfo = response && response.body && response.body.userinfo && response.body.errcode == 0 ? response.body.userinfo : null;
+                    console.log(`userinfo:${JSON.stringify(userinfo)}`);
                 }
                 if (tools.isNull(userinfo)) {
                     response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${username}`);
-                    userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
+                    userinfo = response && response.body && response.body.userinfo && response.body.errcode == 0 ? response.body.userinfo : null;
+                    console.log(`userinfo:${JSON.stringify(userinfo)}`);
                 }
                 if (tools.isNull(userinfo)) {
                     response = {};
