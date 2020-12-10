@@ -6,7 +6,7 @@
 
     <header id="wx-header" class="header-menu" v-show="!searchFlag" style="overflow-x: hidden;" >
         <div class="center" style="position:relative;">
-            <router-link to="/app" @click="$router.push(`/app`)" tag="div" class="iconfont icon-left">
+            <router-link to="/" @click="$router.push(`/`)" tag="div" class="iconfont icon-left">
                 <span>返回</span>
             </router-link>
             <span>权限管理</span>
@@ -96,8 +96,6 @@ export default {
               { text: '刷新', value: 2 , icon: 'replay' },
               { text: '搜索', value: 3 , icon: 'search' },
               { text: '重置', value: 4 , icon: 'aim' },
-              { text: '应用', value: 5 , icon: 'apps-o' },
-              { text: '首页', value: 6 , icon: 'wap-home-o' },
               { text: '导出', value: 7 , icon: 'description' },
             ],
             menuCssValue:'',
@@ -143,7 +141,7 @@ export default {
           create_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
           address: '',
           enuserlist: '',
-          groupname: '',
+          groupname: 'COMMON_REWARD_HR_ADMIN',
           platename: '',
           serialid: temp.length > 0 ? temp[0].serialid + 1 : '1',
           status: 'valid',
@@ -271,7 +269,7 @@ export default {
           searchSql = `~and((serialid,like,~${this.searchWord}~)~or(create_by,like,~${this.searchWord}~)~or(platename,like,~${this.searchWord}~)~or(create_time,like,~${this.searchWord}~)~or(groupname,like,~${this.searchWord}~)~or(zonename,like,~${this.searchWord}~)~or(teamname,like,~${this.searchWord}~)~or(userlist,like,~${this.searchWord}~)~or(enuserlist,like,~${this.searchWord}~)~or(address,like,~${this.searchWord}~))`;
         }
         await superagent.get(workconfig.queryAPI.tableSerialAPI.replace('{table_name}', this.tableName)).set('accept', 'json'); //发送自动设置排序号请求
-        const whereSQL = `_where=(status,eq,valid)~and(create_time,gt,${month})${searchSql}&_sort=-create_time&_p=${page}&_size=1000`;
+        const whereSQL = `_where=(status,eq,valid)~and(create_time,gt,${month})~and(groupname,eq,COMMON_REWARD_HR_ADMIN)${searchSql}&_sort=-create_time&_p=${page}&_size=1000`;
         this.initContractList = await manageAPI.queryTableData(this.tableName , whereSQL);
         this.totalpages = await manageAPI.queryTableDataCount(this.tableName , whereSQL);
         this.initContractList.map((item , index) => {

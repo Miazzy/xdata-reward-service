@@ -197,6 +197,20 @@ const routes = [{
         "subPage": resolve => require(["../components/app/moments.vue"], resolve)
     }
 }, {
+    path: '/app/authmanage',
+    name: "权限管理",
+    components: {
+        "default": resolve => require(["../components/app/app.vue"], resolve),
+        "subPage": resolve => require(["../components/form/authmanage.vue"], resolve)
+    }
+}, {
+    path: '/app/employeemanage',
+    name: "员工管理",
+    components: {
+        "default": resolve => require(["../components/app/app.vue"], resolve),
+        "subPage": resolve => require(["../components/form/employeemanage.vue"], resolve)
+    }
+}, {
     path: '/app/news',
     name: "公告",
     components: {

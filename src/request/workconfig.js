@@ -331,6 +331,44 @@ export const reward = (that) => {
             //     },
             // }
         ],
+    }, {
+        id: 'system-pane',
+        title: '系统管理',
+        taskflows: [{
+            name: "权限配置",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/game_00.png`,
+            href: "/app/authmanage",
+            description: '其他奖罚申请流程',
+            click: async() => {
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                if (!userinfo) {
+                    that.$notification.warning({ message: '温馨提示', description: '您尚未登录，请登录后进行操作' });
+                }
+                const response = await query.queryRoleGroupList('COMMON_AUTH_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
+                    that.$router.push(`/app/authmanage`);
+                } else {
+                    that.$notification.warning({ message: '温馨提示', description: '您没有权限配置的权限！' });
+                }
+            },
+        }, {
+            name: "员工管理",
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/game_00.png`,
+            href: "/app/authmanage",
+            description: '其他奖罚申请流程',
+            click: async() => {
+                const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
+                if (!userinfo) {
+                    that.$notification.warning({ message: '温馨提示', description: '您尚未登录，请登录后进行操作' });
+                }
+                const response = await query.queryRoleGroupList('COMMON_AUTH_ADMIN', userinfo.username); //查询直接所在工作组，注意此处是奖罚人力经理管理员
+                if (response && response.length > 0) {
+                    that.$router.push(`/app/employeemanage`);
+                } else {
+                    that.$notification.warning({ message: '温馨提示', description: '您没有员工管理的权限！' });
+                }
+            },
+        }],
     }]
 };
 

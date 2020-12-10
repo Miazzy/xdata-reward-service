@@ -37,7 +37,7 @@
                     </a-card-grid>
                   </template>
                 </a-card>
-                <a-card v-if="index <= 1" :key="pane.id + pane.title" :title="' '" class="pane-flow-card-middle" >
+                <a-card v-if="index <= 2" :key="pane.id + pane.title" :title="' '" class="pane-flow-card-middle" >
                 </a-card>
               </template>
             </div>
