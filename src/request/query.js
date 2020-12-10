@@ -447,6 +447,16 @@ export async function queryUserInfoByAccount(userid) {
 }
 
 /**
+ * @function 查询用户信息通过sign
+ */
+export function queryUserNameBySign() {
+    let username = tools.queryUrlString('username', 'search');
+    let sign = tools.queryUrlString('sign', 'search');
+    username = window.atob(window.atob(username)).replace(window.atob(window.atob(sign)), '');
+    return username;
+}
+
+/**
  * @function 企业微信查询登录用户函数
  */
 export async function queryWeworkUser() {
@@ -458,6 +468,7 @@ export async function queryWeworkUser() {
         //获取用户CODE
         let code = tools.queryUrlString('code', 'search');
         let system_type = tools.queryUrlString('system_type', 'history');
+        let username = queryUserNameBySign();
 
         //获取用户信息
         if (code) {
@@ -471,8 +482,15 @@ export async function queryWeworkUser() {
             }
 
             try {
-                response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${code}`);
-                userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
+                if (tools.isNull(userinfo)) {
+                    response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${code}`);
+                    userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
+                }
+                if (tools.isNull(userinfo)) {
+                    response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${username}`);
+                    userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
+                    debugger;
+                }
             } catch (error) {
                 console.log(error);
             }
