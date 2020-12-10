@@ -1603,7 +1603,7 @@ export default {
 
            // 此处推送消息至第一个审批处
            try {
-              const ctime = dayjs().formatDate('YYYY-MM-DD HH:mm:ss');
+              const ctime = dayjs().format('YYYY-MM-DD HH:mm:ss');
               const receiveURL = encodeURIComponent(`${window.requestAPIConfig.rewarddomain}/#/reward/rewardview?id=${curItemID}&pid=${node.id}&tname=bs_reward_apply&panename=mytodolist&typename=wflow_todo&bpm_status=2&proponents=${firstWflowUser}&username=${btoa(btoa(firstWflowUser + '-' + ctime))}&sign=${btoa(btoa(ctime))}`);
               await superagent.get(`${window.requestAPIConfig.restapi}/api/v1/weappms/${firstWflowUser}/亲爱的同事，${userinfo['name']||userinfo['realname']}(${userinfo["username"]})提交了奖罚申请流程：${data["title"]}，内容：${data['content']}，请您及时进行审批处理！?type=reward&rurl=${receiveURL}`)
                           .set('accept', 'json');
