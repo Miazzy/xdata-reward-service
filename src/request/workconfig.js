@@ -338,7 +338,7 @@ export const reward = (that) => {
             name: "权限配置",
             avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/game_00.png`,
             href: "/app/authmanage",
-            description: '其他奖罚申请流程',
+            description: '系统管理-权限配置',
             click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 if (!userinfo) {
@@ -353,9 +353,9 @@ export const reward = (that) => {
             },
         }, {
             name: "员工管理",
-            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdom_cdn@v1.0.0/images/game_00.png`,
-            href: "/app/authmanage",
-            description: '其他奖罚申请流程',
+            avatar: `//cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r3.0.8/images/worktile_12.png`,
+            href: "/app/employeemanage",
+            description: '系统管理-员工管理',
             click: async() => {
                 const userinfo = await storage.getStore('system_userinfo'); //获取用户基础信息
                 if (!userinfo) {

@@ -6,7 +6,7 @@
 
     <header id="wx-header" class="header-menu" v-show="!searchFlag" style="overflow-x: hidden;" >
         <div class="center" style="position:relative;">
-            <router-link to="/app" @click="$router.push(`/app`)" tag="div" class="iconfont icon-left">
+            <router-link to="/" @click="$router.push(`/`)" tag="div" class="iconfont icon-left">
                 <span>返回</span>
             </router-link>
             <span>员工管理</span>
@@ -98,8 +98,6 @@ export default {
               { text: '刷新', value: 2 , icon: 'replay' },
               { text: '搜索', value: 3 , icon: 'search' },
               { text: '重置', value: 4 , icon: 'aim' },
-              { text: '应用', value: 5 , icon: 'apps-o' },
-              { text: '首页', value: 6 , icon: 'wap-home-o' },
               { text: '导出', value: 7 , icon: 'description' },
             ],
             menuCssValue:'',
