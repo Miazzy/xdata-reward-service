@@ -457,6 +457,20 @@ export function queryUserNameBySign() {
 }
 
 /**
+ * @function 构造用户信息
+ * @param {*} username
+ */
+export function queryUserInfoByFactory(username) {
+    return {
+        userid: username,
+        username: username,
+        realname: username,
+        company: '',
+        department: '',
+    };
+}
+
+/**
  * @function 企业微信查询登录用户函数
  */
 export async function queryWeworkUser() {
@@ -489,7 +503,11 @@ export async function queryWeworkUser() {
                 if (tools.isNull(userinfo)) {
                     response = await superagent.get(`https://api.yunwisdom.club:30443/api/${system_type}/wework_user_code/${username}`);
                     userinfo = response && response.body && response.body.userinfo && response.body.userinfo.errcode == 0 ? response.body.userinfo : null;
-                    debugger;
+                }
+                if (tools.isNull(userinfo)) {
+                    response = {};
+                    response.body = {};
+                    response.body.userinfo = queryUserInfoByFactory(username);
                 }
             } catch (error) {
                 console.log(error);
