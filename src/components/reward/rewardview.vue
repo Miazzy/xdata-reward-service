@@ -6,9 +6,10 @@
         <keep-alive>
           <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
 
-            <!-- 奖罚申请 -->
+
             <div style="background-color:#f0f0f0;">
 
+              <!-- 奖罚申请 内容 -->
               <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 0px solid #f0f0f0; front-size: 1rem;" >
 
                 <a-page-header v-if="!iswechat"
@@ -679,16 +680,15 @@
               </div>
 
               <!-- 奖罚申请操作结果 -->
+              <a-drawer title="" v-show="!!(role == 'view' && antDesignResult.code )" height="350" placement="bottom" :closable="true" :visible="antDesignResult.code"  @close="antDesignResult.code = false;" >
               <a-result id="reward-apply-result"  v-show="!!(role == 'view' && antDesignResult.code )" status="success" title="操作成功" :sub-title="antDesignResult.message" style="background-color:#f9f9f9;" >
                 <template #extra>
                   <a-button key="console" type="primary" @click="$router.push(`/`);">
                     返回工作台
                   </a-button>
-                  <a-button key="buy" @click="refreshData();">
-                    继续申请
-                  </a-button>
                 </template>
               </a-result>
+              </a-drawer>
 
               <a-back-top />
 

@@ -450,9 +450,11 @@ export async function queryUserInfoByAccount(userid) {
  * @function 查询用户信息通过sign
  */
 export function queryUserNameBySign() {
-    let username = tools.queryUrlString('username', 'history');
-    let sign = tools.queryUrlString('sign', 'history');
-    username = window.atob(window.atob(username)).replace('-' + window.atob(window.atob(sign)), '');
+    let username = tools.queryUrlString('username', 'history') || '';
+    let sign = tools.queryUrlString('sign', 'history') || '';
+    if (username && sign) {
+        username = window.atob(window.atob(username)).replace('-' + window.atob(window.atob(sign)), '');
+    }
     return username;
 }
 
