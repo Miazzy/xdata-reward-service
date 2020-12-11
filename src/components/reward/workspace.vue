@@ -134,6 +134,7 @@ export default {
     // 查询初始化信息
     async queryInfo() {
       try {
+        await this.userStatus(); //检查用户是否登录
         this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
         this.iswework = tools.isWework(); //查询是否为企业微信
         this.userinfo = await this.weworkLogin(); //查询当前登录用户
@@ -146,6 +147,18 @@ export default {
     async weworkLogin(){
       try {
         return await query.queryWeworkUser();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async userStatus(){
+      try {
+        let userinfo = await storage.getStore('system_userinfo');
+        let hash = window.location.hash.slice(1);
+        if( tools.isNull(userinfo) || tools.isNull(userinfo.username) || userinfo.username == 'common'){
+          vant.Toast('尚未登录，请登录后在进行审批！');
+          this.$router.push(`/login?back=${encodeURIComponent(hash)}`);
+        }
       } catch (error) {
         console.log(error);
       }

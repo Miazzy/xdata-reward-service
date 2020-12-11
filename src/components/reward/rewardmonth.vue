@@ -1071,6 +1071,18 @@ export default {
           console.log(error);
         }
       },
+      async userStatus(){
+        try {
+          let userinfo = await storage.getStore('system_userinfo');
+          let hash = window.location.hash.slice(1);
+          if( tools.isNull(userinfo) || tools.isNull(userinfo.username) || userinfo.username == 'common'){
+            vant.Toast('尚未登录，请登录后在进行审批！');
+            this.$router.push(`/login?back=${encodeURIComponent(hash)}`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       async download(file){
         const toast = vant.Toast.loading({duration: 0, forbidClick: true, message: '下载中...',});
         await this.saveAsFile(this.downloadURL + file, '相关附件_' + file.split('/')[1]);
@@ -1086,13 +1098,11 @@ export default {
       },
       // 获取URL或者二维码信息
       async queryInfo() {
-
+        await this.userStatus(); //检查用户是否登录
         this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
         this.iswework = tools.isWework(); //查询是否为企业微信
         this.userinfo = await this.weworkLogin(); //查询当前登录用户
-
       },
-
       // 获取奖罚月度报表数据（全部数据）
       async queryRewardMonthInfo(){
         if(!this.period){

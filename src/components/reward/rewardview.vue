@@ -1277,7 +1277,7 @@ export default {
 
         try {
 
-          await this.userStatus();
+          await this.userStatus(); //检查用户是否登录
           this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
           this.iswework = tools.isWework(); //查询是否为企业微信
           this.userinfo = await this.weworkLogin(); //查询当前登录用户
