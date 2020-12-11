@@ -770,6 +770,8 @@ export default {
               files_05:'',
               status: '',
             };
+        this.approve_executelist = [];
+        this.approve_notifylist = [];
       },
       async userStatus(){
         try {
