@@ -907,7 +907,7 @@ export default {
         try {
           let userinfo = await storage.getStore('system_userinfo');
           let hash = window.location.hash.slice(1);
-          if( tools.isNull(userinfo) || tools.isNull(userinfo.username)){
+          if( tools.isNull(userinfo) || tools.isNull(userinfo.username) || userinfo.username == 'common'){
             vant.Toast('尚未登录，请登录后在进行审批！');
             this.$router.push(`/login?back=${encodeURIComponent(hash)}`);
           }
