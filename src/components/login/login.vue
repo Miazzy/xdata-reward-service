@@ -78,7 +78,7 @@ export default {
             vant.Toast('请输入您的手机号码！');
           } else if(tools.isNull(this.certno)){
             vant.Toast('请输入您的身份证号后六位！');
-          } else if(tools.isNull(vuser)){
+          } else if(tools.isNull(vuser) || !vuser.success){
             vant.Toast('此账户不存在！');
           } else {
 
@@ -87,11 +87,11 @@ export default {
 
             if(!tools.isNull(response)){
                 debugger;
-                storage.setStore('system_linfo' , JSON.stringify({username:username,password:'*************'}) , 3600 * 24 * 30);
-                storage.setStore('system_userinfo' , JSON.stringify(userinfo) , 3600 * 24 * 30);
-                storage.setStore('system_token' , JSON.stringify(token) , 3600 * 24 * 30);
-                storage.setStore('system_department' , JSON.stringify(department) , 3600 * 24 * 30);
-                storage.setStore('system_login_time' , dayjs().format('YYYY-MM-DD HH:mm:ss') , 3600 * 24 * 30);
+                //设置system_userinfo
+                storage.setStore('system_linfo', JSON.stringify({ username: response.userinfo.userid, password: '************' }), 3600 * 24 * 30);
+                storage.setStore('system_userinfo', JSON.stringify(response.userinfo), 3600 * 24 * 30);
+                storage.setStore('system_department', JSON.stringify(response.userinfo.department), 3600 * 24 * 30);
+                storage.setStore('system_login_time', dayjs().format('YYYY-MM-DD HH:mm:ss'), 3600 * 24 * 30);
 
                 vant.Toast('登录成功！');
 
@@ -103,7 +103,7 @@ export default {
 
                 this.loading = false;
             } else {
-                vant.Toast('登录失败: ' + response.body.message);
+                vant.Toast('登录失败，错误码(' + response.errcode + ')');
                 this.loading = false;
             }
           }
