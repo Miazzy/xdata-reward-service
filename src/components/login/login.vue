@@ -66,8 +66,6 @@ export default {
         //检查用户是否存在
         let vuser = await query.queryUserInfoByUserMobileCertNO(this.username , this.mobile , this.certno);
 
-        debugger;
-
         //显示加载状态
         this.loading = true;
 
