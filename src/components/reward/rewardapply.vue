@@ -2157,7 +2157,6 @@ export default {
         }
         //提交此表单对应的审批节点数据
         if(uflag == true){
-          debugger;
           await manageAPI.moveTableData('pr_log_unode','pr_log_unode_history','pid',id); // 迁移当前流程中审批节点pr_log_unode，转移到pr_log_undoe_history中
           await tools.sleep(100); // 稍微等待一下
           for(let item of this.approve_executelist){
@@ -2173,7 +2172,6 @@ export default {
         }
         //提交此表单对应的审批节点数据
         if(mflag == true){
-          debugger;
           await manageAPI.moveTableData('pr_log_mnode','pr_log_mnode_history','pid',id);  // 迁移当前流程中知会审批节点pr_log_mnode，转移到pr_log_mndoe_history中
           await tools.sleep(100); // 稍微等待一下
           for(let item of this.approve_notifylist){

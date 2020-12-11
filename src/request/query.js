@@ -485,7 +485,6 @@ export async function queryWeworkUser() {
         let code = tools.queryUrlString('code', 'search');
         let system_type = tools.queryUrlString('system_type', 'history');
         let username = queryUserNameBySign();
-        debugger;
 
         //获取用户信息
         if (code) {
@@ -881,9 +880,6 @@ export async function queryUserInfoByUserMobileCertNO(username = '', mobile = ''
 
     try {
         var res = await superagent.get(queryURL).set('accept', 'json');
-
-        debugger;
-
         console.log(res);
 
         if (res.body != null && res.body.length > 0) {
@@ -916,7 +912,6 @@ export async function queryUserInfoByUserName(username = '') {
 
     try {
         var res = await superagent.get(queryURL).set('accept', 'json');
-        debugger;
         console.log(res);
 
         if (res.body != null && res.body.length > 0) {
