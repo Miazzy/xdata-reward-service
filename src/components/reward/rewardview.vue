@@ -678,6 +678,18 @@
 
               </div>
 
+              <!-- 奖罚申请操作结果 -->
+              <a-result id="reward-apply-result"  v-show="!!(role == 'view' && antDesignResult.code )" status="success" title="操作成功" :sub-title="antDesignResult.message" style="background-color:#f9f9f9;" >
+                <template #extra>
+                  <a-button key="console" type="primary" @click="$router.push(`/`);">
+                    返回工作台
+                  </a-button>
+                  <a-button key="buy" @click="refreshData();">
+                    继续申请
+                  </a-button>
+                </template>
+              </a-result>
+
               <a-back-top />
 
             </div>
@@ -757,7 +769,10 @@ export default {
       vueExcelLabels: workconfig.columns.reward.vueExcelLabels,
       data: [],
       userList:[],
-
+      antDesignResult:{
+        code:false,
+        message:'',
+      },
       approve_userid:'',
       approve_username:'',
       approve_mobile:'',
@@ -1443,6 +1458,8 @@ export default {
         this.$toast.fail('驳回流程审批成功！');
         this.role = 'view';
         this.status = '已驳回';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '驳回流程审批成功！';
 
         //发送企业微信通知，知会流程发起人，此奖罚申请流程已经完成！
         try {
@@ -1686,6 +1703,8 @@ export default {
 
         this.$toast.success('知会确认成功！');
         this.role = 'view';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '知会确认成功！';
 
         //休息1000ms，在查询日志
         await tools.sleep(1000);
@@ -1786,6 +1805,8 @@ export default {
                       this.status = '审批中';
                       this.readonly = true;
                       this.role = 'view';
+                      this.antDesignResult.code = true;
+                      this.antDesignResult.message = '提交奖惩申请流程成功，请等待审批完成！';
                     } catch (error) {
                       console.log(error);
                     }
@@ -1941,6 +1962,9 @@ export default {
         this.$toast.fail('撤销流程审批成功！');
 
         this.role = 'view';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '撤销流程审批成功！';
+
         await tools.sleep(1000);
         await this.queryInfo();
         this.loading = false;
@@ -1965,7 +1989,11 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleRejectWF();
         result == 'success' ? (this.tasktype = 'done' , this.role = 'view') : '';
+
         this.role = 'view';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '驳回流程审批成功！';
+
         await tools.sleep(1000);
         await this.queryInfo();
         this.loading = false;
@@ -1978,7 +2006,11 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleConfirmWF();
         result == 'success' ? (this.tasktype = 'done' , this.role = 'view') : '';
+
         this.role = 'view';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '知会确认成功！';
+
         await tools.sleep(1000);
         await this.queryInfo();
         this.loading = false;
@@ -1991,7 +2023,11 @@ export default {
         this.loading = true;
         let result = await wflowprocess.handleApproveWF();
         result == 'success' ? (this.tasktype = 'done', this.role = 'view') : '';
+
         this.role = 'view';
+        this.antDesignResult.code = true;
+        this.antDesignResult.message = '审批同意操作成功！';
+
         await tools.sleep(1000);
         await this.queryInfo();
         this.loading = false;
