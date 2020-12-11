@@ -8,7 +8,7 @@
           <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
 
             <!-- 奖罚申请 -->
-            <div id="reward-apply-content" style="background-color:#f0f0f0;">
+            <div id="reward-apply-content" v-show="!(role == 'view' && !!item.serialid)" style="background-color:#f0f0f0;">
 
               <div class="reward-apply-content" style="height:auto; background-color:#fefefe; margin-top:0.00rem; margin-left: 0.00rem; margin-right: 0.00rem; margin-bottom: 5rem; border: 0px solid #f0f0f0; front-size: 1rem;" >
 
@@ -547,16 +547,18 @@
                <a-back-top />
             </div>
 
-            <a-result v-show="role == 'view' && !!item.serialid " status="success" title="申请成功" sub-title="您已成功完成一条奖罚申请！" >
+            <!-- 奖罚申请操作结果 -->
+            <a-result id="reward-apply-result"  v-show="role == 'view' && !!item.serialid " status="success" title="申请成功" sub-title="您已成功完成一条奖罚申请！" style="background-color:#f9f9f9;" >
               <template #extra>
                 <a-button key="console" type="primary" @click="$router.push(`/`);">
                   返回工作台
                 </a-button>
-                <a-button key="buy" @click="$router.push(window.location.hash.slice(1));">
+                <a-button key="buy" @click="window.location.reload();">
                   继续申请
                 </a-button>
               </template>
             </a-result>
+
           </a-col>
         </keep-alive>
       </a-row>
