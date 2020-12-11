@@ -808,53 +808,53 @@ export default {
     this.queryInfo();
   },
   methods: {
-    async onDelete(){},
-    async onUpdate(){},
-    async onUpdateExecute(records){
-      if(records.length > 1){
-        return this.$toast.fail('管理员您好，一次只能更新一条数据！');
-      }
-      const temp = this.approve_executelist.filter(elem => { // 过滤被删除的数据
-        return elem.v_status == 'valid';
-      });
-      if(this.approve_executelist.length != temp.length){ // 过滤被删除的数据
-        return vant.Dialog.confirm({
-          title: '温馨提示',
-          message: `您确定删除选中数据嘛？`,
-        }).then(()=>{
-          this.approve_executelist = temp;
-        }).catch(() => {
-          this.approve_executelist.map(item => { item.v_status = 'valid'; });
-        })
-      }
-    },
-    async onUpdateNotify(records){
-      if(records.length > 1){
-        return this.$toast.fail('管理员您好，一次只能更新一条数据！');
-      }
-      const temp = this.approve_notifylist.filter(elem => { // 过滤被删除的数据
-        return elem.v_status == 'valid';
-      });
-      if(this.approve_notifylist.length != temp.length){ // 过滤被删除的数据
-        return vant.Dialog.confirm({
-          title: '温馨提示',
-          message: `您确定删除选中数据嘛？`,
-        }).then(()=>{
-          this.approve_notifylist = temp;
-        }).catch(() => {
-          this.approve_notifylist.map(item => { item.v_status = 'valid'; });
-        })
-      }
-    },
-    //上传提示
-    async toastUpload(flag){
-      if(flag == 'start'){
-        vant.Toast.loading({duration: 0, forbidClick: true, message: '上传中...',});
-      } else if(flag == 'fail'){
-        this.$toast.success('文件上传失败，请稍后重试！');
-      }
-    },
-    //上传文件成功后回调函数
+      async onDelete(){},
+      async onUpdate(){},
+      async onUpdateExecute(records){
+        if(records.length > 1){
+          return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+        }
+        const temp = this.approve_executelist.filter(elem => { // 过滤被删除的数据
+          return elem.v_status == 'valid';
+        });
+        if(this.approve_executelist.length != temp.length){ // 过滤被删除的数据
+          return vant.Dialog.confirm({
+            title: '温馨提示',
+            message: `您确定删除选中数据嘛？`,
+          }).then(()=>{
+            this.approve_executelist = temp;
+          }).catch(() => {
+            this.approve_executelist.map(item => { item.v_status = 'valid'; });
+          })
+        }
+      },
+      async onUpdateNotify(records){
+        if(records.length > 1){
+          return this.$toast.fail('管理员您好，一次只能更新一条数据！');
+        }
+        const temp = this.approve_notifylist.filter(elem => { // 过滤被删除的数据
+          return elem.v_status == 'valid';
+        });
+        if(this.approve_notifylist.length != temp.length){ // 过滤被删除的数据
+          return vant.Dialog.confirm({
+            title: '温馨提示',
+            message: `您确定删除选中数据嘛？`,
+          }).then(()=>{
+            this.approve_notifylist = temp;
+          }).catch(() => {
+            this.approve_notifylist.map(item => { item.v_status = 'valid'; });
+          })
+        }
+      },
+      //上传提示
+      async toastUpload(flag){
+        if(flag == 'start'){
+          vant.Toast.loading({duration: 0, forbidClick: true, message: '上传中...',});
+        } else if(flag == 'fail'){
+          this.$toast.success('文件上传失败，请稍后重试！');
+        }
+      },
+      //上传文件成功后回调函数
       async uploadSuccess(file , res){
         vant.Toast.clear();
         this.item.files = JSON.parse(res).message;
@@ -902,6 +902,18 @@ export default {
         this.item.files_05 = JSON.parse(res).message;
         await tools.sleep(0);
         this.$toast.success('上传成功');
+      },
+      async userStatus(){
+        try {
+          let userinfo = await storage.getStore('system_userinfo');
+          let hash = window.location.hash.slice(1);
+          if( tools.isNull(userinfo) || tools.isNull(userinfo.username)){
+            vant.Toast('尚未登录，请登录后在进行审批！');
+            this.$router.push(`/login?back=${encodeURIComponent(hash)}`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
       },
       async saveAsFile(file , name){
         try {
@@ -1265,6 +1277,7 @@ export default {
 
         try {
 
+          await this.userStatus();
           this.iswechat = (document.body.clientWidth || window.screen.width) > 875 ?  false : tools.isWechat(); //查询当前是否微信端
           this.iswework = tools.isWework(); //查询是否为企业微信
           this.userinfo = await this.weworkLogin(); //查询当前登录用户
