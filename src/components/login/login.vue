@@ -86,7 +86,6 @@ export default {
             let back = tools.queryUrlString('back','history');
 
             if(!tools.isNull(response)){
-                debugger;
                 //设置system_userinfo
                 storage.setStore('system_linfo', JSON.stringify({ username: response.userinfo.userid, password: '************' }), 3600 * 24 * 30);
                 storage.setStore('system_userinfo', JSON.stringify(response.userinfo), 3600 * 24 * 30);
