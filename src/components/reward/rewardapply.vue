@@ -548,12 +548,12 @@
             </div>
 
             <!-- 奖罚申请操作结果 -->
-            <a-result id="reward-apply-result"  v-show="role == 'view' && !!item.serialid " status="success" title="申请成功" sub-title="您已成功完成一条奖罚申请！" style="background-color:#f9f9f9;" >
+            <a-result id="reward-apply-result"  v-show="!!(role == 'view' && !!item.serialid)" status="success" title="申请成功" sub-title="您已成功完成一条奖罚申请！" style="background-color:#f9f9f9;" >
               <template #extra>
                 <a-button key="console" type="primary" @click="$router.push(`/`);">
                   返回工作台
                 </a-button>
-                <a-button key="buy" @click="window.location.reload();">
+                <a-button key="buy" @click="role ='';refreshData();queryInfo();">
                   继续申请
                 </a-button>
               </template>
@@ -590,6 +590,7 @@ export default {
   data() {
     return {
       locale,
+      cpath:window.location.hash.slice(1),
       iswechat:false,
       iswework:false,
       pageName: "奖罚管理",
@@ -731,6 +732,44 @@ export default {
   methods: {
       onDelete(){
         console.log('delete');
+      },
+      async refreshData() {
+        this.item = {
+              id: '',
+              serialid:'',
+              create_time: dayjs().format('YYYY-MM-DD'),
+              create_by: '',
+              apply_date: dayjs().format('YYYY-MM-DD'),
+              title: '',
+              company: '',
+              department: '',
+              content: '',
+              remark: '',//备注
+              amount: '',
+              wflowid: '',
+              bpm_status: '',
+              reward_type: '',
+              reward_name: '',
+              reward_period: new moment(),
+              reward_release_period: new moment(),
+              reward_release_feature: '当期分配',
+              hr_admin_ids: '',
+              hr_admin_names: '',
+              hr_id: '',
+              hr_name: '',
+              project:'',
+              user_admin_name:'',
+              apply_username: '',
+              apply_realname: '',
+              files: '',
+              files_00:'',
+              files_01:'',
+              files_02:'',
+              files_03:'',
+              files_04:'',
+              files_05:'',
+              status: '',
+            };
       },
       async userStatus(){
         try {
