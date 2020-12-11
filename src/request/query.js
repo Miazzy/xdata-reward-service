@@ -859,3 +859,71 @@ export async function queryRewardItemByID_O(period = '', zone = '', type = '', n
     }
 
 }
+
+
+/**
+ * 获取奖罚月度/季度报表
+ */
+export async function queryUserInfoByUserMobileCertNO(username = '', mobile = '', certno = '') {
+
+    //提交URL
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/v3/user/checkinfo_mobile_certno/${username}/${mobile}/${certno}`;
+
+    //获取缓存中的数据
+    var cache = storage.getStore(`sys_v_reward_check_user_username_mobile_certno_data@${username}@${mobile}@${certno}`);
+
+    //返回缓存值
+    if (typeof cache != 'undefined' && cache != null && cache != '') {
+        return cache;
+    }
+
+    try {
+        var res = await superagent.get(queryURL).set('accept', 'json');
+
+        debugger;
+
+        console.log(res);
+
+        if (res.body != null && res.body.length > 0) {
+            storage.setStore(`sys_v_reward_check_user_username_mobile_certno_data@${username}@${mobile}@${certno}`, res.body, 60);
+        }
+
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+/**
+ * 获取奖罚月度/季度报表
+ */
+export async function queryUserInfoByUserName(username = '') {
+
+    //提交URL
+    var queryURL = `${constant.REQUEST_API_CONFIG.restapi}/api/v3/wework_user_code/${username}`;
+
+    //获取缓存中的数据
+    var cache = storage.getStore(`sys_v_reward_query_user_username_mobile_certno_data@${username}`);
+
+    //返回缓存值
+    if (typeof cache != 'undefined' && cache != null && cache != '') {
+        return cache;
+    }
+
+    try {
+        var res = await superagent.get(queryURL).set('accept', 'json');
+        debugger;
+        console.log(res);
+
+        if (res.body != null && res.body.length > 0) {
+            storage.setStore(`sys_v_reward_query_user_username_mobile_certno_data@${username}`, res.body, 60);
+        }
+
+        return res.body;
+    } catch (err) {
+        console.log(err);
+    }
+
+}
