@@ -546,6 +546,17 @@
 
                <a-back-top />
             </div>
+
+            <a-result v-show="role == 'view' && !!item.serialid " status="success" title="申请成功" sub-title="您已成功完成一条奖罚申请！" >
+              <template #extra>
+                <a-button key="console" type="primary" @click="$router.push(`/`);">
+                  返回工作台
+                </a-button>
+                <a-button key="buy" @click="$router.push(window.location.hash.slice(1));">
+                  继续申请
+                </a-button>
+              </template>
+            </a-result>
           </a-col>
         </keep-alive>
       </a-row>
