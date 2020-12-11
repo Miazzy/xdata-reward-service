@@ -1380,6 +1380,12 @@ export default {
        */
       async handleAgree() {
 
+        //提示确认用印操作
+        await vant.Dialog.confirm({
+          title: '温馨提示',
+          message: '您确定执行审批同意操作？',
+        });
+
         if(!this.approve_content){
           return this.$toast.fail('请输入此申请流程的审批意见！');
         }
@@ -1404,6 +1410,12 @@ export default {
        * @function 驳回流程申请
        */
       async handleDisagree(){
+
+        //提示确认用印操作
+        await vant.Dialog.confirm({
+          title: '温馨提示',
+          message: '您确定执行审批驳回操作？',
+        });
 
         if(!this.approve_content){
           return this.$toast.fail('请输入此申请流程的驳回意见！');
@@ -1897,6 +1909,13 @@ export default {
 
       // 撤销审批流程
       async handleRejectConfirm(){
+
+        //提示确认用印操作
+        await vant.Dialog.confirm({
+          title: '温馨提示',
+          message: '您确定执行撤销审批操作？',
+        });
+
         this.loading = true;
 
         if(!this.approve_content){
