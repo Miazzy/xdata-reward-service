@@ -553,7 +553,7 @@
                 <a-button key="console" type="primary" @click="$router.push(`/`);">
                   返回工作台
                 </a-button>
-                <a-button key="buy" @click="role ='';refreshData();queryInfo();">
+                <a-button key="buy" @click="refreshData();">
                   继续申请
                 </a-button>
               </template>
@@ -772,6 +772,15 @@ export default {
             };
         this.approve_executelist = [];
         this.approve_notifylist = [];
+        this.approve_userlist = [];
+        this.collection = [{ }];
+        this.notify_userlist = [];
+        this.release_userlist = [];
+        this.data = [];
+        this.role = '';
+        this.file = '';
+        this.readonly = false;
+        await this.queryInfo();
       },
       async userStatus(){
         try {
