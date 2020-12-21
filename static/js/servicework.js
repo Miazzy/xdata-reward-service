@@ -33,7 +33,7 @@ self.addEventListener('install', function(event) {
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@v8.0.0/request/request.js",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@v8.0.0/cdn/common/FileSaver.min.js",
                 "https://cdn.jsdelivr.net/gh/Miazzy/yunwisdoms@r2.3.0/request/keepconfig.js",
-                "https://cdn.jsdelivr.net/gh/Miazzy/vue-json-excel@v1.0.0/dist/vue-json-excel.umd.js",
+                "https://cdn.jsdelivr.net/gh/Miazzy/xdata-vue-excel@v1.0.1/dist/vue-json-excel.umd.js",
                 "https://cdn.jsdelivr.net/gh/Miazzy/vue-xlsx@v1.0.0/docs/dist/vue-xlsx.umd.js",
                 "https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js",
                 "https://cdn.jsdelivr.net/npm/@handsontable/vue/dist/vue-handsontable.min.js",
